@@ -8,7 +8,7 @@ This project is designed as a **Final Year Project (PFE)** and follows clean arc
 ## 📌 Features
 
 ### 🔐 Authentication & Roles
-- User authentication (Laravel Breeze/Jetstream)
+- User authentication
 - Roles: **Admin**, **Agent**, **User**
 - Role-based access control
 
@@ -16,7 +16,6 @@ This project is designed as a **Final Year Project (PFE)** and follows clean arc
 - Add/Edit/Delete properties
 - Multiple property images
 - Categorization (Apartment, House, Villa, Land…)
-- Assign properties to agents
 - Property status: **For Sale**, **For Rent**, **Sold**
 
 ### 🔎 Property Search & Filtering
@@ -37,9 +36,9 @@ This project is designed as a **Final Year Project (PFE)** and follows clean arc
 ### 📊 Admin Dashboard
 - Manage properties, categories, agents, users
 - Appointment overview
-- Statistics & charts (optional)
+- Statistics & charts 
 
-### ⭐ Additional Features (Optional)
+### ⭐ Additional Features 
 - Favorites/Wishlist
 - Property comparison
 - Interactive maps (Leaflet/Google Maps)

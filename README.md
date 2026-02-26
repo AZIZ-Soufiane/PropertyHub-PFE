@@ -1,46 +1,97 @@
-# 🏡 Real Estate Management System (Laravel)
+# 🏡 Report – Interview with Client Ryan
 
-A full-stack **Real Estate Listing & Management Platform** built with **Laravel**, featuring CRUD operations, an admin dashboard, property listings, image galleries, appointment bookings, and more.  
-This project is designed as a **Final Year Project (PFE)** and follows clean architecture and best development practices.
+**Date:** February 26, 2026  
+**Developer:** Soufiane 
+**Client:** Ryan  
+**Subject:** Project Requirements – "Real Estate Management System"
 
 ---
 
-## 📌 Features
+## 1. Introduction
 
-### 🔐 Authentication & Roles
-- User authentication
-- Roles: **Admin**, **Agent**, **User**
-- Role-based access control
+During the interview, the client Ryan outlined his requirements for a **real estate management system**. The main objective is to allow a **single admin** to post and manage properties, while users (clients) can browse, search, and interact with these listings.
 
-### 🏘 Property Management (CRUD)
-- Add/Edit/Delete properties
-- Multiple property images
-- Categorization (Apartment, House, Villa, Land…)
-- Property status: **For Sale**, **For Rent**, **Sold**
+---
 
-### 🔎 Property Search & Filtering
-- Filter by category, city, price range, bedrooms, bathrooms
-- Keyword search
-- Sorting
+## 2. Users and Roles
 
-### 🗓 Appointment Booking
-- Users can schedule visits to properties
-- Admin & agents manage appointments
-- Notifications (optional)
+The system will include two types of users:
 
-### 📁 Image & File Handling
-- Multi-image uploads
-- Image previews
-- Secure file storage (Laravel Storage)
+1. **Single Admin:**  
+   - Can create, edit, and delete properties  
+   - Manages categories and users  
+   - Oversees appointments and statistics  
 
-### 📊 Admin Dashboard
-- Manage properties, categories, agents, users
-- Appointment overview
-- Statistics & charts 
+2. **User / Client:**  
+   - Can view properties posted by the admin  
+   - Can schedule appointments to visit properties  
+   - Can add properties to favorites or compare listings  
 
-### ⭐ Additional Features 
-- Favorites/Wishlist
-- Property comparison
-- Interactive maps (Leaflet/Google Maps)
-- PDF export (property reports)
+Access control will be role-based to ensure secure operations.
+
+---
+
+## 3. Property Management
+
+According to the client’s requirements:  
+
+- Admin can add, edit, and delete properties  
+- Each property can have multiple images  
+- Properties are categorized as Apartment, House, Villa, or Land  
+- Each property has a status: **For Sale**, **For Rent**, or **Sold**
+
+---
+
+## 4. Search and Filtering
+
+Ryan wants users to be able to search and filter properties by:  
+
+- Category  
+- City  
+- Price range  
+- Number of bedrooms and bathrooms  
+- Keyword search  
+- Sorting by relevant criteria
+
+---
+
+## 5. Appointment Management
+
+- Clients can schedule property visits  
+- The **single admin** manages all appointments, including approval, tracking, and rejection  
+- Optional notifications to inform both the admin and clients
+
+---
+
+## 6. Image and File Management
+
+- Multiple image uploads with previews  
+- Secure file storage using Laravel Storage
+
+---
+
+## 7. Admin Dashboard
+
+The admin dashboard will allow the admin to:  
+
+- Manage properties, categories, and clients  
+- Track and organize appointments  
+- View statistics and charts for activity analysis
+
+---
+
+## 8. Additional Features
+
+The client also requested:  
+
+- Favorites/Wishlist for users  
+- Property comparison  
+- Interactive maps (Leaflet or Google Maps)  
+- PDF export of property reports  
 - REST API endpoints for mobile integration
+
+---
+
+## 9. Conclusion
+
+The project will be developed to meet the client’s requirements: a **simple, secure system** focused on a **single admin** managing all properties, while providing a smooth and intuitive experience for users/clients. This report will serve as a reference for the development phase.

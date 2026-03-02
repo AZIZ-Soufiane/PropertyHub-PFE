@@ -1,0 +1,25 @@
+@startuml
+left to right direction
+skinparam shadowing false
+
+actor "Buyer (Sarah)" as Client
+actor "Agent (Michael)" as Agent
+
+rectangle "Sprint 2: Interaction Tools" {
+    (Book Viewing Appointment) as UC_Book
+    (Confirm/Reject Appointment) as UC_Confirm
+    (Side-by-Side Comparison) as UC_Compare
+    (Add to Favorites) as UC_Fav
+    (Send/Receive Messages) as UC_Msg
+    (Advanced Filtering) as UC_Filter
+}
+
+Client -- UC_Book
+Client -- UC_Compare
+Client -- UC_Fav
+Client -- UC_Msg
+Client -- UC_Filter
+
+Agent -- UC_Confirm
+Agent -- UC_Msg
+@enduml

@@ -195,7 +195,7 @@ The project applies **Design Thinking** across five stages:
 ## 3b - Empathy Map Analysis
 
 <div class="img-container">
-  <img src="Empathy\Empathy_Map\Empathy_Map.png" class="img-usecase" alt="Empathy Map">
+  <img src="images/empathymap.png" class="img-usecase" alt="Empathy Map">
 </div>
 
 ---

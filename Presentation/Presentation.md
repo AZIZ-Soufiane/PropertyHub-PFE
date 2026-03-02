@@ -111,8 +111,8 @@ style: |
 ---
 
 <div class="logo-header">
-  <img src="images/ofppt-logo.png" alt="Logo Left">
-  <img src="images/logo-solicode.png" alt="Logo Right">
+  <img src="images/ofppt.png" alt="Logo Left">
+  <img src="images/solicode.png" alt="Logo Right">
 </div>
 
 # Final Year Project

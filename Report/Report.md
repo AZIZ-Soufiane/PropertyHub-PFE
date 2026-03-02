@@ -1,269 +1,269 @@
-# Rapport de Projet de Fin d'Année
+# Final Year Project Report
 
-**Sujet :** Conception et Réalisation d'une Plateforme de Gestion Immobilière Intégrée  
-**Filière :** Formation Développement Mobile – Mode Bootcamp
+**Subject :** Design and Implementation of an Integrated Real Estate Management Platform  
+**Program :** Mobile Development Training – Bootcamp Mode
 
-**Présenté par :** AZIZ Soufiane  
-**Encadrant :** M. Essarraj Fouad  
-**Année de Formation :** 2025/2026
-
----
-
-## Table des Matières
-
-1. [Introduction Générale](#1-introduction-générale)
-2. [Contexte du Projet](#2-contexte-du-projet)
-    * 2.1 [Défis Opérationnels](#21-défis-opérationnels)
-    * 2.2 [Objectifs de la Solution](#22-objectifs-de-la-solution)
-3. [Définition du Problème](#3-définition-du-problème)
-4. [Analyse d'Empathie (Système PropertyHub)](#4-analyse-dempathie-système-propertyhub)
-    * 4.1 [Profil : Ryan – Propriétaire d'Agence](#41-profil--ryan--propriétaire-dagence)
-    * 4.2 [Profil : Sarah – Acheteur / Client](#42-profil--sarah--acheteur--client)
-    * 4.3 [Profil : Michael – Agent Immobilier](#43-profil--michael--agent-immobilier)
-    * 4.4 [Synthèse de la Vision (Scalabilité)](#44-synthèse-de-la-vision-scalabilité)
-5. [Idéation — Conception du Système](#5-idéation--conception-du-système)
-    * 5.1 [La Plateforme Intégrée PropertyHub](#51-la-plateforme-intégrée-propertyhub)
-    * 5.2 [Flux de Travail « Centré sur l'Utilisateur »](#52-flux-de-travail-centré-sur-lutilisateur)
-6. [Architecture des Cas d'Utilisation (UML)](#6-architecture-des-cas-dutilisation-uml)
-    * 6.1 [Les Acteurs du Système](#61-les-acteurs-du-système)
-    * 6.2 [Détail des Cas d'Utilisation](#62-détail-des-cas-dutilisation)
-7. [Planification Agile : Sprints et Cas d'Utilisation](#7-planification-agile--sprints-et-cas-dutilisation)
-    * 7.1 [Sprint 1 : Fondations et Gestion des Propriétés](#71-sprint-1--fondations-et-gestion-des-propriétés)
-    * 7.2 [Sprint 2 : Recherche, Rendez-vous et Communication](#72-sprint-2--recherche-rendez-vous-et-communication)
-    * 7.3 [Résultat Final du Sprint 2](#73-résultat-final-du-sprint-2)
+**Presented by :** AZIZ Soufiane  
+**Advisor :** Mr. Essarraj Fouad  
+**Academic Year :** 2025/2026
 
 ---
 
-## 1. Introduction Générale
+## Table of Contents
 
-Dans le contexte actuel de la **transformation digitale** et de l'évolution du secteur immobilier, les agences immobilières sont amenées à offrir des services de qualité tout en assurant une gestion efficace de leurs opérations.
+1. [General Introduction](#1-general-introduction)
+2. [Project Context](#2-project-context)
+    * 2.1 [Operational Challenges](#21-operational-challenges)
+    * 2.2 [Solution Objectives](#22-solution-objectives)
+3. [Problem Definition](#3-problem-definition)
+4. [Empathy Analysis (PropertyHub System)](#4-empathy-analysis-propertyhub-system)
+    * 4.1 [Profile: Ryan – Agency Owner](#41-profile--ryan--agency-owner)
+    * 4.2 [Profile: Sarah – Buyer / Client](#42-profile--sarah--buyer--client)
+    * 4.3 [Profile: Michael – Real Estate Agent](#43-profile--michael--real-estate-agent)
+    * 4.4 [Vision Summary (Scalability)](#44-vision-summary-scalability)
+5. [Ideation — System Design](#5-ideation--system-design)
+    * 5.1 [The Integrated PropertyHub Platform](#51-the-integrated-propertyhub-platform)
+    * 5.2 [User-Centered Workflow](#52-user-centered-workflow)
+6. [Use Case Architecture (UML)](#6-use-case-architecture-uml)
+    * 6.1 [System Actors](#61-system-actors)
+    * 6.2 [Use Case Details](#62-use-case-details)
+7. [Agile Planning: Sprints and Use Cases](#7-agile-planning-sprints-and-use-cases)
+    * 7.1 [Development Strategy](#71-development-strategy)
+    * 7.2 [Sprint 1: Foundations and Property Management](#72-sprint-1-foundations-and-property-management)
+    * 7.3 [Sprint 2: Search, Scheduling and Communication](#73-sprint-2-search-scheduling-and-communication)
 
-**Ryan**, propriétaire d'une petite agence immobilière à Austin, Texas, gère actuellement son portefeuille de propriétés de manière fragmentée à travers des outils disparates (spreadsheets, emails, appels téléphoniques). Malgré son expertise métier, il rencontre des difficultés majeures :
+---
 
-* **Gestion dispersée :** Données éparpillées entre Excel, emails et notes manuscrites, créant une fragmentation critique.
-* **Perte d'opportunités :** Oublis de mises à jour d'availability, double-booking des rendez-vous, ventes perdues.
-* **Charge administrative :** 40% du temps quotidien consacré à des tâches administratives répétitives.
-* **Pas d'évolutivité :** Impossibilité de croître sans augmenter significativement l'équipe.
+## 1. General Introduction
+
+In the context of current **digital transformation** and the evolution of the real estate sector, real estate agencies are required to offer quality services while ensuring efficient management of their operations.
+
+**Ryan**, owner of a small real estate agency in Austin, Texas, currently manages his property portfolio in a fragmented manner through disparate tools (spreadsheets, emails, phone calls). Despite his business expertise, he faces major difficulties:
+
+* **Dispersed Management:** Data scattered across Excel, emails and handwritten notes, creating critical fragmentation.
+* **Loss of Opportunities:** Missed availability updates, double-booked appointments, lost sales.
+* **Administrative Burden:** 40% of daily time spent on repetitive administrative tasks.
+* **Lack of Scalability:** Inability to grow without significantly increasing the team.
 
 > [!CAUTION]
-> **Problématique Centrale :** La majorité de ces tâches étant réalisées manuellement, cela entraîne une perte de temps, une perte d'opportunités commerciales, une baisse de satisfaction client et une incapacité à évoluer.
+> **Core Problem:** Since the majority of these tasks are performed manually, this leads to loss of time, loss of business opportunities, decreased customer satisfaction, and inability to scale.
 
-Ce rapport a pour objectif d'analyser la situation actuelle de Ryan et de son agence, d'identifier les principales contraintes rencontrées par les trois acteurs clés du système (Ryan, ses agents immobiliers et ses clients acheteurs), et de proposer une solution digitale adaptée visant à améliorer l'organisation, la productivité, la satisfaction client et la performance globale du business.
-
----
-
-## 2. Contexte du Projet
-
-Le projet PropertyHub s'inscrit dans une volonté de **modernisation digitale** des opérations d'une petite agence immobilière. Ryan doit actuellement jongler avec une multitude de responsabilités critiques qui freinent le développement de son business.
-
-### 2.1 Défis Opérationnels
-
-La gestion manuelle actuelle repose sur trois piliers chronophages :
-
-1. **Gestion des Propriétés :** Créaction et mise à jour manuel des annonces, organisation des photos, suivi du statut (Vente/Location/Vendue).
-2. **Gestion des Rendez-vous :** Coordination par téléphone des visites, risques de double-booking, absence de confirmations automatiques.
-3. **Communication Fragmentée :** Utilisation de multiples canaux (téléphone, WhatsApp, email) sans centralisation ni historique.
-4. **Suivi Client :** Perte de préférences client, pas d'historique, absence de recommandations intelligentes.
-5. **Pas d'Analytics :** Aucune visible sur quelles propriétés attirent les clients, décisions basées sur l'intuition.
-
-### 2.2 Objectifs de la Solution
-
-Pour pallier ces manques critiques, la solution PropertyHub doit impérativement permettre :
-
-* **Une meilleure organisation** de l'inventaire et des opérations quotidiennes.
-* **Une optimisation** des processus répétitifs via l'automatisation (calendriers, notifications, filtres).
-* **Une meilleure communication** entre l'agence et les clients via une plateforme centralisée.
-* **Un suivi clair et efficace** de la progression des ventes et des rendez-vous.
-* **Une amélioration** de la performance commerciale et de l'image de marque professionnelle.
-* **Une scalabilité** permettant la croissance sans augmentation proportionnelle des ressources.
+This report aims to analyze Ryan's current situation and his agency, identify the main constraints encountered by the three key actors in the system (Ryan, his real estate agents, and his buyer clients), and propose an appropriate digital solution aimed at improving organization, productivity, customer satisfaction, and overall business performance.
 
 ---
 
-## 3. Définition du Problème
+## 2. Project Context
 
-Malgré une expertise avancée en immobilier et une bonne connaissance du marché local, **Ryan et son équipe** se heurtent à des barrières structurelles qui freinent la croissance du business. Le diagnostic révèle les points critiques suivants :
+The PropertyHub project is part of a commitment to **digital modernization** of a small real estate agency's operations. Ryan currently has to juggle multiple critical responsibilities that hinder his business development.
 
-**Pour Ryan (Propriétaire) :**
-* **Dispersion des outils :** Utilisation fragmentée de spreadsheets (Excel), emails, appels téléphoniques et notes manuscrites, empêchant une vision à 360° du business
-* **Processus Manuels :** Mise à jour manuelle des annonces, suivi des rendez-vous, communication avec clients → consomme 40% du temps
-* **Risques opérationnels :** Oublis (propriétés déjà vendues listées encore actives), double-booking, communication manquée
-* **Déficit d'Image :** Une gestion "artisanale" qui ne reflète pas le positionnement professionnel attendu dans le marché moderne
-* **Pas de business intelligence :** Aucune analytics, décisions basées sur intuition, pas de data pour optimiser la stratégie
+### 2.1 Operational Challenges
 
-**Pour Michael et les Agents :**
-* **Infos obsolètes :** Disonnance entre ce que Ryan a et ce que Michael connaît = donne info fausse au client
-* **Scheduling chaos :** Coordination par téléphone complexe, risques de double-booking
-* **Manque de ressources :** Collections d'images, descriptions pas toujours accessibles rapidement
-* **Admin burden :** Trop de temps sur rapports, tracking manuel au lieu de customer service
+Current manual management relies on three time-consuming pillars:
 
-**Pour Sarah et les Clients :**
-* **Fragmentation informationnelle :** Obligation de chercher sur plusieurs plateformes
-* **Frustration usability :** Photos manquantes, contenu de mauvaise qualité
-* **Barrière temporelle :** Impossible de programmer rendez-vous en ligne
-* **Manque d'outils décisionnels :** Pas de comparaison facile, pas de favorites/alertes
-* **Communication difficile :** Obligation de passer par appels téléphoniques
+1. **Property Management:** Manual creation and updating of listings, photo organization, status tracking (For Sale/Rental/Sold).
+2. **Appointment Management:** Phone coordination of viewings, risk of double-booking, lack of automatic confirmations.
+3. **Fragmented Communication:** Use of multiple channels (phone, WhatsApp, email) without centralization or history.
+4. **Client Follow-up:** Loss of client preferences, no history, lack of intelligent recommendations.
+5. **No Analytics:** No visibility on which properties attract clients, decisions based on intuition.
 
-**Racines des Problèmes :**
-1. Absence de système centralisé (single source of truth)
-2. Processus entièrement manuels sans automatisation
-3. Manque d'intégration entre les outils et les acteurs
-4. Absence de real-time visibility et synchronisation
-5. Expérience utilisateur défaillante (pour acheteurs et agents)
+### 2.2 Solution Objectives
+
+To address these critical gaps, the PropertyHub solution must imperatively enable:
+
+* **Better organization** of inventory and daily operations.
+* **Optimization** of repetitive processes through automation (calendars, notifications, filters).
+* **Better communication** between the agency and clients via a centralized platform.
+* **Clear and effective monitoring** of sales and appointment progress.
+* **Improvement** of commercial performance and professional brand image.
+* **Scalability** enabling growth without proportional increase in resources.
 
 ---
 
-## 4. Analyse d'Empathie (Système PropertyHub)
+## 3. Problem Definition
 
-**Date :** 26-28 Février 2026  
-**Objectif :** Identifier les besoins critiques des trois utilisateurs pour transformer une gestion artisanale en une **Plateforme Professionnelle « Scalable »**.
+Despite advanced expertise in real estate and good knowledge of the local market, **Ryan and his team** face structural barriers that hinder business growth. The diagnosis reveals the following critical points:
 
----
+**For Ryan (Owner):**
+* **Tool Dispersion:** Fragmented use of spreadsheets (Excel), emails, phone calls and handwritten notes, preventing 360° business visibility
+* **Manual Processes:** Manual update of listings, appointment follow-up, client communication → consumes 40% of time
+* **Operational Risks:** Oversights (properties already sold still listed as active), double-booking, missed communication
+* **Image Deficit:** "Artisanal" management that doesn't reflect the professional positioning expected in the modern market
+* **No Business Intelligence:** No analytics, decisions based on intuition, no data to optimize strategy
 
-### 4.1 Profil : Ryan – Propriétaire d'Agence
+**For Michael and Agents:**
+* **Obsolete Info:** Mismatch between what Ryan has and what Michael knows = gives wrong info to client
+* **Scheduling Chaos:** Complex phone coordination, high risk of double-booking
+* **Lack of Resources:** Photo collections, descriptions not always accessible quickly
+* **Admin Burden:** Too much time on reports, manual tracking instead of customer service
 
-*L'entrepreneur souhaitant passer de la gestion manuelle à un système professionnel et scalable.*
+**For Sarah and Clients:**
+* **Information Fragmentation:** Need to search across multiple platforms
+* **Usability Frustration:** Missing photos, low-quality content
+* **Time Barrier:** Impossible to schedule appointments online
+* **Lack of Decision Tools:** No easy comparison, no favorites/alerts
+* **Difficult Communication:** Must rely on phone calls
 
-**Contexte :**
-* Propriétaire d'une petite agence immobilière à Austin, Texas
-* Emploie 1-2 agents immobiliers
-* Gère actuellement 20-30 propriétés en portefeuille
-* 40% de son temps consacré aux tâches administratives
-
-**Vision :** Digitaliser la gestion pour optimiser le temps, déléguer sans friction et professionaliser l'image de son agence.
-
-**Points de Douleur (Pains) :**
-* **Fragmentation des données :** Informations éparpillées entre Excel, emails, appels téléphone = perte d'informations = ventes perdues
-* **Oublis critiques :** Propriété oubliée comme vendue, clients rappelant une propriété déjà vendue = perte de crédibilité
-* **Double-booking :** Deux visites planifiées simultanément pour la même propriété = chaos et perte de clients
-* **Goulot d'étranglement :** Incapacité de déléguer sans outil partagé = dépendance totale pour chaque décision
-* **Pas de visibilité :** Aucune analytics sur quelles propriétés attirent, aucune business intelligence
-
-**Gains Attendus :**
-* **Cockpit de gestion :** Une interface unique pour piloter toute l'agence (propriétés, RDV, team, analytics)
-* **Automatisation :** Gestion des rendez-vous sans appels téléphoniques
-* **Délégation :** Agents autonomes pour gérer les propriétés sans supervision directe
-* **Intelligence métier :** Statistiques sur les propriétés populaires, tendances de marché, performance agents
-* **Croissance scalable :** Possibilité d'ajouter des agents/propriétés sans explosion de la charge admin
+**Root Causes of Problems:**
+1. Absence of centralized system (single source of truth)
+2. Entirely manual processes without automation
+3. Lack of tool and actor integration
+4. Absence of real-time visibility and synchronization
+5. Poor user experience (for both buyers and agents)
 
 ---
 
-### 4.2 Profil : Sarah – Acheteur / Client
+## 4. Empathy Analysis (PropertyHub System)
 
-*L'utilisateur final cherchant une expérience fluide pour trouver et acheter son premier bien immobilier.*
-
-**Contexte :**
-* 32 ans, ingénieure en informatique (très tech-savvy)
-* Première acquisition immobilière
-* Recherche activement depuis 6 mois
-* Accorde beaucoup de temps à la recherche (2-3h/jour)
-
-**Vision :** Une plateforme centralisée qui consolide les annonces de multiples sites et offre une expérience intuitive et complète.
-
-**Points de Douleur (Pains) :**
-* **Fragmentation informationnelle :** Obligation de chercher sur 5-6 sites web différents, différentes prix pour la même propriété
-* **Métadonnées contradictoires :** Information manquante ou incorrecte sur une plateforme vs. une autre
-* **Photos de mauvaise qualité :** Annonces avec 3 photos pour une maison = perte de temps à visiter en personne = déception
-* **Impossible de comparer :** Pas de tool côte-à-côte = création manuelle de spreadsheets Excel
-* **Scheduling impossible :** Obligation d'appeler pendant les heures de bureau pour planifier une visite
-* **Manque de confiance :** Annonces obsolètes, propriétés déjà vendues qui restent actives = perte de confiance
-
-**Gains Attendus :**
-* **Recherche puissante :** Filtres avancés (prix, location, bedrooms, amenities, commute time)
-* **Contenu riche :** Minimum 15 photos haute résolution, vidéos, 3D tours, floor plans
-* **Comparaison intuitive :** Tool côte-à-côte pour comparer 3-5 propriétés avec tous les détails
-* **Scheduling en ligne :** Réservation de visites sans appel téléphonique, confirmations auto
-* **Messagerie directe :** Contact agent sans passer par le téléphone, historique complet
-* **Alertes intelligentes :** Notifications quand nouvelles propriétés correspondent aux critères
-* **Listings vérifiés :** Assurance que les propriétés sont actuelles (timestamp de la dernière mise à jour)
+**Date:** February 26-28, 2026  
+**Objective:** Identify critical user needs to transform artisanal management into a **Professional "Scalable" Platform**.
 
 ---
 
-### 4.3 Profil : Michael – Agent Immobilier
+### 4.1 Profile: Ryan – Agency Owner
 
-*L'acteur clé permettant au business de croître en gérant l'opérationnel et la relation client.*
+*The entrepreneur wanting to transition from manual management to a professional and scalable system.*
 
-**Contexte :**
-* 28 ans, 3 années d'expérience en immobilier
-* License Texas Real Estate License
-* 25-35 interactions client/jour (appels, SMS, emails)
-* 30-45 minutes/jour sur des tâches administratives
-* Support direct de Ryan dans la gestion quotidienne
+**Context:**
+* Owner of a small real estate agency in Austin, Texas
+* Employs 1-2 real estate agents
+* Currently manages 20-30 properties in portfolio
+* 40% of time spent on administrative tasks
 
-**Rôle :** Intermédiaire entre Ryan et les clients. Gère les visites, répond aux questions, suivi de la progression.
+**Vision:** Digitalize management to optimize time, delegate seamlessly, and professionalize agency image.
 
-**Points de Douleur (Pains) :**
-* **Infos en silos :** Date de mise à jour propriété incertaine = donne info obsolète au client = perte credibilité
-* **Double-booking débordements :** Scheduling conflicts = embarrassment = perte de vente
-* **Images inaccessibles :** Photos stockées sur l'ordi de Ryan = doit appeler/attendre pour y accéder
-* **Tâches manuelles :** 30-45 min/jour à créer résumés pour Ryan, nettoyage de données
-* **Pas de suivi client :** Perd les préférences du client, doit les redemander = semble non-professionnel
-* **Pas de visibilité performance :** Aucune tracking de ses propres metrics, feedbacks ou progression
+**Pain Points:**
+* **Data Fragmentation:** Information scattered across Excel, emails, phone calls = information loss = lost sales
+* **Critical Oversights:** Property forgotten as sold, clients asking about already-sold properties = loss of credibility
+* **Double-Booking:** Two viewings scheduled simultaneously for same property = chaos and lost clients
+* **Bottleneck:** Unable to delegate without shared tool = total dependence for every decision
+* **No Visibility:** No analytics on which properties attract clients, no business intelligence
 
-**Gains Attendus :**
-* **Accès données centralisé :** Toutes les propriétés, infos et photos accessibles instantanément
-* **Calendrier partagé sans conflits :** Visualise les disponibilités, aucun double-booking possible
-* **Historique client complet :** Garde trace des préférences, budgets, visites passées
-* **Moins d'admin :** Systèmes auto-génèrent rapports, infos consolidées sans travail manuel
-* **Autonomie opérationnelle :** Peut gérer les clients/propriétés sans demander constamment à Ryan
-* **Travail mobile :** Accède aux infos depuis le terrain (voiture, propriété) sans dépendre du bureau
-* **Suivi de sa performance :** Voit ses propres metrics (ventes, client satisfaction, conversion rate)
+**Expected Gains:**
+* **Management Cockpit:** Single interface to run entire agency (properties, appointments, team, analytics)
+* **Automation:** Appointment management without phone calls
+* **Delegation:** Autonomous agents managing properties without direct supervision
+* **Business Intelligence:** Statistics on popular properties, market trends, agent performance
+* **Scalable Growth:** Ability to add agents/properties without explosion of admin burden
 
 ---
 
-### 4.4 Synthèse de la Vision (Modèle de Scalabilité)
+### 4.2 Profile: Sarah – Buyer / Client
 
-Le système PropertyHub ne doit pas être une simple base de données ou un site d'annonces, mais un **écosystème collaboratif multi-acteurs**. La clé de la scalabilité repose sur trois piliers :
+*The end user seeking a fluid experience to find and buy her first property.*
 
-1. **Délégation :** Ryan → Michael et autres agents peuvent opérer de manière autonome
-2. **Expérience Client Premium :** Sarah et autres acheteurs ont une expérience fluide et complète
-3. **Business Intelligence :** Décisions données (pas intuition), croissance informée par les métriques
+**Context:**
+* 32 years old, software engineer (tech-savvy)
+* First real estate acquisition
+* Actively searching for 6 months
+* Spends significant time searching (2-3 hours/day)
 
-**Vision à Long Terme :** PropertyHub doit transformer une petite agence artisanale (dépendante d'une personne) en une marque professionnelle scalable capable de servir plusieurs agents et centaines de clients simultanément.
+**Vision:** A centralized platform consolidating listings from multiple sites with intuitive and complete experience.
+
+**Pain Points:**
+* **Information Fragmentation:** Must search across 5-6 different websites, different prices for same property
+* **Contradictory Metadata:** Missing or incorrect information on one platform vs. another
+* **Poor Quality Photos:** Listings with only 3 photos = wasted time visiting in person = disappointment
+* **Impossible to Compare:** No side-by-side tool = manual Excel spreadsheet creation
+* **Scheduling Impossible:** Must call during business hours to schedule viewings
+* **Lack of Trust:** Outdated listings, already-sold properties still active = loss of trust
+
+**Expected Gains:**
+* **Powerful Search:** Advanced filters (price, location, bedrooms, amenities, commute time)
+* **Rich Content:** Minimum 15 high-resolution photos, videos, 3D tours, floor plans
+* **Intuitive Comparison:** Side-by-side tool to compare 3-5 properties with all details
+* **Online Scheduling:** Booking viewings without phone call, automatic confirmations
+* **Direct Messaging:** Contact agent without phone, complete history
+* **Smart Alerts:** Notifications when new properties match criteria
+* **Verified Listings:** Assurance properties are current (last update timestamp)
 
 ---
 
-## Carte d'Empathie (PropertyHub)
+### 4.3 Profile: Michael – Real Estate Agent
+
+*The key actor enabling business growth by managing operations and client relationships.*
+
+**Context:**
+* 28 years old, 3 years real estate experience
+* Texas Real Estate License
+* 25-35 client interactions/day (calls, SMS, emails)
+* 30-45 minutes/day on administrative tasks
+* Direct support to Ryan in daily management
+
+**Role:** Intermediary between Ryan and clients. Manages viewings, answers questions, tracks progress.
+
+**Pain Points:**
+* **Information Silos:** Uncertain property update dates = give outdated info to client = loss of credibility
+* **Scheduling Overflow:** Complex phone coordination = scheduling conflicts = lost sales
+* **Inaccessible Images:** Photos stored on Ryan's computer = must call/wait to access
+* **Manual Tasks:** 30-45 min/day creating summaries for Ryan, data cleanup
+* **No Client Follow-up:** Loses client preferences, must re-ask = seems unprofessional
+* **No Performance Visibility:** Can't track own metrics, feedback, or progression
+
+**Expected Gains:**
+* **Centralized Data Access:** All properties, info and photos instantly accessible
+* **Shared Calendar without Conflicts:** See availability, zero double-booking possible
+* **Complete Client History:** Track preferences, budgets, past viewings
+* **Less Admin:** Systems auto-generate reports, consolidated info without manual work
+* **Operational Autonomy:** Can manage clients/properties without constantly asking Ryan
+* **Mobile Work:** Access info from field (car, property) without office dependence
+* **Performance Tracking:** See own metrics (sales, client satisfaction, conversion rate)
+
+---
+
+### 4.4 Vision Summary (Scalability Model)
+
+The PropertyHub system should not be a simple database or listing site, but a **multi-actor collaborative ecosystem**. The key to scalability rests on three pillars:
+
+1. **Delegation:** Ryan → Michael and other agents can operate autonomously
+2. **Premium Client Experience:** Sarah and other buyers have fluid and complete experience
+3. **Business Intelligence:** Data-driven decisions (not intuition), growth informed by metrics
+
+**Long-Term Vision:** PropertyHub must transform a small artisanal agency (dependent on one person) into a scalable professional brand capable of serving multiple agents and hundreds of clients simultaneously.
+
+---
+
+## Empathy Map (PropertyHub)
 
 ![Empathy Map PropertyHub](Images/empathymap.png)
 
 ---
 
-## 5. Idéation — Conception du Système
+## 5. Ideation — System Design
 
-### 5.1 Le Système Intégré PropertyHub
+### 5.1 The Integrated PropertyHub System
 
-La logique centrale est : **"Une seule source de vérité pour tous les acteurs."** Il ne s'agit plus de documents isolés, mais d'un écosystème où chaque propriété, rendez-vous et interaction client est centralisée dans un **Système Unifié**.
+The core logic is: **"One single source of truth for all actors."** It's no longer isolated documents, but an ecosystem where every property, appointment, and client interaction is centralized in a **Unified System**.
 
-> **Bénéfice Business :** Une sécurité totale des données et une efficacité permettant de se concentrer à **95% sur la stratégie commerciale et le développement client**.
+> **Business Benefit:** Complete data security and efficiency allowing focus on **95% strategy and client development**.
 
-**La réponse aux trois personas :**
+**Response to three personas:**
 
-**Pour Ryan :**
-* Dashboard centralisé avec une vision complète : propriétés, rendez-vous, performance team, analytics
-* Récupération de 30% du temps grâce à l'automatisation des processus
-* Business intelligence: quelles propriétés vendent vite, quels agents performent
+**For Ryan:**
+* Centralized dashboard with complete vision: properties, appointments, team performance, analytics
+* Recovery of 30% of time thanks to process automation
+* Business intelligence: which properties sell fast, which agents perform
 
-**Pour Michael :**
-* Accès immédiat à toutes les infos (propriétés, clients, calendrier)
-* Autonomie opérationnelle : peut gérer clients et propriétés sans supervision constante
-* Communication unifiée : tous les échanges avec clients dans un seul endroit
-* Travail mobile : peut servir les clients depuis le terrain
+**For Michael:**
+* Immediate access to all info (properties, clients, calendar)
+* Operational autonomy: can manage clients and properties without constant supervision
+* Unified communication: all client exchanges in one place
+* Mobile work: can serve clients from field
 
-**Pour Sarah :**
-* Une seule plateforme centralisant tout (pas besoin de 6 sites)
-* Puissante recherche et comparaison
-* Scheduling en ligne sans appels
-* Messaging direct avec l'agent
-* Listings vérifiés et à jour
+**For Sarah:**
+* Single platform consolidating everything (no need for 6 sites)
+* Powerful search and comparison
+* Online scheduling without calls
+* Direct messaging with agent
+* Verified and current listings
 
-### 5.2 Flux de Travail « Centré sur l'Utilisateur »
+### 5.2 User-Centered Workflow
 
-Le système PropertyHub fonctionne selon quatre flux principaux qui interconnectent tous les acteurs :
+The PropertyHub system operates through four main workflows that interconnect all actors:
 
-1. **Gestion des Propriétés (Admin) :** Ryan ou Michael crée les annonces avec images et détails, publiées instantanément.
-2. **Recherche et Découverte (Client) :** Sarah recherche en moins de 2 secondes, compare les propriétés et visualise tous les détails.
-3. **Scheduling de RDV (Automatisé) :** Réservation en ligne sans appels, confirmations automatiques, zéro conflits possibles.
-4. **Communication Agent ↔ Client (Centralisée) :** Messages historisés sans dispersion dans WhatsApp/emails.
+1. **Property Management (Admin):** Ryan or Michael creates listings with images and details, published instantly.
+2. **Search and Discovery (Client):** Sarah searches in under 2 seconds, compares properties and sees all details.
+3. **Appointment Scheduling (Automated):** Online booking without calls, automatic confirmations, zero conflicts possible.
+4. **Agent ↔ Client Communication (Centralized):** Historized messages without WhatsApp/email dispersion.
 
 ---
 
@@ -283,170 +283,170 @@ Le système repose sur une interaction dynamique entre trois acteurs majeurs, st
 
 Les fonctionnalités partagées pour la gestion quotidienne :
 
-* **UC1 : S'authentifier** → Accès sécurisé à l'interface (role-based)
-* **UC2 : Gérer les propriétés** → CRUD complet (créer, lire, modifier, supprimer)
-* **UC3 : Upload d'images** → Support multi-image, galeries, haute résolution
-* **UC4 : Catégoriser propriétés** → Classification (Appartement, Maison, Villa, Terrain)
-* **UC5 : Assigner status** → For Sale, For Rent, Sold, Pending
-* **UC6 : Voir client list** → Vue d'ensemble filtrable de tous les clients/leads
-* **UC7 : Scheduler rendez-vous** → Création, confirmation, gestion des visites
-* **UC8 : Consulter calendrier** → Vue partagée des slots disponibles et réservés
-* **UC9 : Valider suivi** → Historique des visites, notes, feedback client
-* **UC10 : Communication** → Messaging in-app, historique, notifications
+* **UC1: Authenticate** → Secure interface access (role-based)
+* **UC2: Manage Properties** → Complete CRUD (create, read, update, delete)
+* **UC3: Upload Images** → Multi-image support, galleries, high resolution
+* **UC4: Categorize Properties** → Classification (Apartment, House, Villa, Land)
+* **UC5: Assign Status** → For Sale, For Rent, Sold, Pending
+* **UC6: View Client List** → Filterable overview of all clients/leads
+* **UC7: Schedule Appointments** → Creation, confirmation, viewing management
+* **UC8: View Calendar** → Shared view of available and booked slots
+* **UC9: Validate Follow-up** → Viewings history, notes, client feedback
+* **UC10: Communication** → In-app messaging, history, notifications
 
-#### B. Privilèges Exclusifs de Ryan (Admin)
+#### B. Exclusive Privileges for Ryan (Admin)
 
-* **UC11 : Gérer l'équipe** → Administration des comptes agents (add, edit, remove, permissions)
-* **UC12 : Gestion Financière** → Tracking des leads, conversions, revenus
-* **UC13 : Dashboard Stratégique** → Analytics globales (propriétés populaires, performance agents, tendances marché)
-* **UC14 : Générer Rapports** → Export données, statistiques, business intelligence
+* **UC11: Manage Team** → Agent account administration (add, edit, remove, permissions)
+* **UC12: Financial Management** → Leads tracking, conversions, revenue
+* **UC13: Strategic Dashboard** → Global analytics (popular properties, agent performance, market trends)
+* **UC14: Generate Reports** → Data export, statistics, business intelligence
 
-#### C. Pour les Clients (Sarah - Acheteur)
+#### C. For Clients (Sarah - Buyer)
 
-* **UC15 : S'authentifier** → Accès à l'espace personnel sécurisé
-* **UC16 : Rechercher propriétés** → Search et avancés filtres (price, location, type, etc.)
-* **UC17 : Consulter détails** → Galerie photos, description, amenities, map, agent contact
-* **UC18 : Ajouter favoris** → Créer wishlist de propriétés intéressantes
-* **UC19 : Comparer propriétés** → Outil côte-à-côte pour comparer 3-6 propriétés
-* **UC20 : Programmer visite** → Réservation de rendez-vous en ligne (calendar picker)
-* **UC21 : Recevoir alertes** → Notifications quand nouvelles propriétés match critères
-* **UC22 : Messagerie** → Contact agent in-app pour questions
-* **UC23 : Export** → Télécharger comparison en PDF
-
----
-
-## 6.3 Cas d'Utilisation Global
-
-![Cas d'Utilisation PropertyHub](Images/globalUseCase.png)
+* **UC15: Authenticate** → Secure personal space access
+* **UC16: Search Properties** → Search and advanced filters (price, location, type, etc.)
+* **UC17: View Details** → Photo gallery, description, amenities, map, agent contact
+* **UC18: Add Favorites** → Create wishlist of interesting properties
+* **UC19: Compare Properties** → Side-by-side tool to compare 3-6 properties
+* **UC20: Schedule Viewing** → Online appointment booking (calendar picker)
+* **UC21: Receive Alerts** → Notifications when new properties match criteria
+* **UC22: Messaging** → In-app contact with agent for questions
+* **UC23: Export** → Download comparison as PDF
 
 ---
 
-## 7. Planification Agile : Sprints et Cas d'Utilisation
+## 6.3 Global Use Cases
 
-### 7.1 Stratégie de Développement
-
-L'objectif est de structurer le développement autour de la valeur métier :
-1. **MVP (Minimum Viable Product) :** Mise en place des fondations et gestion des propriétés.
-2. **Phase 2 :** Ajout de l'intelligence de recherche, scheduling et communication.
-3. **Phase 3 :** Analytics avancées, intégrations tierces et optimisations.
+![Use Cases PropertyHub](Images/globalUseCase.png)
 
 ---
 
-Le projet est développé selon une approche **itérative et incrémentale** basée sur des Sprints de 2 semaines. Chaque itération vise à livrer un ensemble de fonctionnalités testables et validable, garantissant une évolution fluide du système.
+## 7. Agile Planning: Sprints and Use Cases
 
-### 7.2 Sprint 1 : Fondations et Gestion des Propriétés
+### 7.1 Development Strategy
 
-**Objectif :** Mettre en place l'environnement de travail centralisé et permettre à Ryan/Michael de structurer leur portefeuille de propriétés. C'est la base sur laquelle reposent tous les autres modules.
+The objective is to structure development around business value:
+1. **MVP (Minimum Viable Product):** Foundations and property management implementation.
+2. **Phase 2:** Addition of search intelligence, scheduling and communication.
+3. **Phase 3:** Advanced analytics, third-party integrations and optimizations.
 
-#### A. Cas d'Utilisation du Sprint 1 (Backlog)
+---
 
-| Catégorie | ID | Cas d'Utilisation | Description |
+The project is developed using an **iterative and incremental approach** based on 2-week Sprints. Each iteration aims to deliver a set of testable and validatable features, ensuring smooth system evolution.
+
+### 7.2 Sprint 1: Foundations and Property Management
+
+**Objective:** Establish centralized work environment and enable Ryan/Michael to structure their property portfolio. This is the foundation on which all other modules rely.
+
+#### A. Sprint 1 Use Cases (Backlog)
+
+| Category | ID | Use Case | Description |
 | :--- | :--- | :--- | :--- |
-| **Authentification & Sécurité** | UC1 | S'authentifier (Admin/Agent) | Login sécurisé avec email/password, role-based access |
-| | UC2 | Gérer les permissions | Admin peut assigner roles (Admin, Agent, Client) |
-| **Gestion Propriétés - Base** | UC3 | Ajouter propriété | Saisie titre, description, prix, adresse complète |
-| | UC4 | Modifier propriété | Update des données essentielles |
-| | UC5 | Supprimer propriété | Archive ou suppression logique |
-| | UC6 | Voir liste propriétés | Vue d'ensemble avec filtres (statut, ville, prix range) |
-| | UC7 | Consulter détail | Page propriété avec tous les infos |
-| **Gestion Images** | UC8 | Upload images | Multi-file upload avec preview |
-| | UC9 | Galerie photos | Organisation des images par propriété |
-| | UC10 | Supprimer images | Gestion des fichiers |
-| **Catégorisation** | UC11 | Créer catégories | Admin crée types (Apartment, House, Villa, Land) |
-| | UC12 | Assigner catégorie | Lien propriété ↔ catégorie |
-| **Statuts & Availability** | UC13 | Assigner statut | For Sale, For Rent, Sold, Pending |
-| | UC14 | Timeline statut | Historique des changements de statut |
+| **Authentication & Security** | UC1 | Authenticate (Admin/Agent) | Secure login with email/password, role-based access |
+| | UC2 | Manage Permissions | Admin can assign roles (Admin, Agent, Client) |
+| **Property Management - Base** | UC3 | Add Property | Enter title, description, price, full address |
+| | UC4 | Modify Property | Update essential data |
+| | UC5 | Delete Property | Archive or logical deletion |
+| | UC6 | View Property List | Overview with filters (status, city, price range) |
+| | UC7 | View Detail | Property page with all info |
+| **Image Management** | UC8 | Upload Images | Multi-file upload with preview |
+| | UC9 | Photo Gallery | Organize images by property |
+| | UC10 | Delete Images | File management |
+| **Categorization** | UC11 | Create Categories | Admin creates types (Apartment, House, Villa, Land) |
+| | UC12 | Assign Category | Property ↔ Category link |
+| **Status & Availability** | UC13 | Assign Status | For Sale, For Rent, Sold, Pending |
+| | UC14 | Status Timeline | History of status changes |
 
-#### B. Résultat Attendu du Sprint 1
+#### B. Expected Sprint 1 Results
 
-À l'issue de cette première itération, le système permet à Ryan et Michael de disposer d'un **inventaire complet et centralisé de leurs propriétés** avec :
-- Toutes les infos organisées et à jour
-- Images de haute qualité accessibles à tous
-- Une base de données propre prête pour les recherches et les rendez-vous
-- Zero fragmentation : une source de vérité unique
+At the end of this first iteration, the system enables Ryan and Michael to have a **complete and centralized property inventory** with:
+- All info organized and up-to-date
+- High-quality images accessible to all
+- Clean database ready for searches and appointments
+- Zero fragmentation: single source of truth
 
-**Valeur métier :** Les propriétés sont maintenant présentées de manière professionnelle, les infos ne sont pas dispersées et Ryan a une vue complète de son portefeuille.
-
----
-
-## 6.4 Cas d'Utilisation du Sprint 1
-
-![Cas d'Utilisation Sprint 1](Images/Sprint1-UseCase.png)
+**Business Value:** Properties now presented professionally, info not scattered, Ryan has complete portfolio visibility.
 
 ---
 
-### 7.3 Sprint 2 : Recherche, Rendez-vous et Communication
+## 6.4 Sprint 1 Use Cases
 
-**Objectif :** Ajouter l'intelligence de recherche pour les clients, l'automatisation des rendez-vous et activer la communication centralisée. C'est l'étape où la plateforme devient vraiment utile pour les clients (Sarah) et où Ryan/Michael gagnent du temps significativement.
+![Sprint 1 Use Cases](Images/Sprint1-UseCase.png)
 
-#### A. Cas d'Utilisation du Sprint 2 (Backlog)
+---
 
-| Axe Stratégique | ID | Cas d'Utilisation | Description |
+### 7.3 Sprint 2: Search, Scheduling and Communication
+
+**Objective:** Add search intelligence for clients, appointment automation and activate centralized communication. This is when the platform becomes truly useful for clients (Sarah) and when Ryan/Michael significantly gain time.
+
+#### A. Sprint 2 Use Cases (Backlog)
+
+| Strategic Area | ID | Use Case | Description |
 | :--- | :--- | :--- | :--- |
-| **Recherche Client (Sarah)** | UC15 | Se connecter (Client) | Accès sécurisé à l'espace client |
-| | UC16 | Recherche simple | Search par mot-clé, ville, prix range |
-| | UC17 | Filtres avancés | By bedrooms, bathrooms, property type, amenities |
-| | UC18 | Tri résultats | By price, date, popularity, commute distance |
-| | UC19 | Voir listing detail | Page complète avec photos, description, map, agent contact |
-| | UC20 | Ajouter favoris | Créer wishlist, sauvegarde pour plus tard |
-| **Comparaison de Propriétés** | UC21 | Sélectionner pour comparison | Choose 3-6 propriétés |
-| | UC22 | View côte-à-côte | Compare tous les paramètres side by side |
-| | UC23 | Export PDF | Télécharger le comparison en PDF |
-| **Scheduling Rendez-vous** | UC24 | Programmer visite | Client sélectionne date/time dispo |
-| | UC25 | Confirmation auto | Email/SMS de confirmation automatique |
-| | UC26 | Calendar partagé | Agents voient les visites réservées |
-| | UC27 | Rappel 24h avant | Notification automatique aux deux parties |
-| | UC28 | Historique visites | Suivi des RDV passés et feedback |
-| **Communication Centralisée** | UC29 | Messagerie in-app | Client ↔ Agent chat |
-| | UC30 | Historique messages | Conservation complète des conversations |
-| | UC31 | Notifications | Alertes pour nouveaux messages |
-| | UC32 | Notifications propriétés | Alert client quand nouvelles matching ses critères |
-| **Support Agent** | UC33 | Vue client history | Michael voit all interactions du client |
-| | UC34 | Notes privées | Agent peut annoter interactions (feedback) |
-| **Analytics de Base** | UC35 | Dashboard Ryan | Propriétés populaires (views, inquiries) |
-| | UC36 | Performance agents | Nombre de visites scheduling, conversion rate |
-| | UC37 | Rapports simples | Export basique des metrics |
+| **Client Search (Sarah)** | UC15 | Client Login | Secure client space access |
+| | UC16 | Simple Search | Search by keyword, city, price range |
+| | UC17 | Advanced Filters | By bedrooms, bathrooms, property type, amenities |
+| | UC18 | Sort Results | By price, date, popularity, commute distance |
+| | UC19 | View Listing Detail | Complete page with photos, description, map, agent contact |
+| | UC20 | Add Favorites | Create wishlist, save for later |
+| **Property Comparison** | UC21 | Select for Comparison | Choose 3-6 properties |
+| | UC22 | Side-by-Side View | Compare all parameters side by side |
+| | UC23 | Export PDF | Download comparison as PDF |
+| **Appointment Scheduling** | UC24 | Schedule Viewing | Client selects available date/time |
+| | UC25 | Auto Confirmation | Email/SMS automatic confirmation |
+| | UC26 | Shared Calendar | Agents see scheduled viewings |
+| | UC27 | 24h Reminder | Automatic notification to both parties |
+| | UC28 | Viewing History | Track past appointments and feedback |
+| **Centralized Communication** | UC29 | In-App Messaging | Client ↔ Agent chat |
+| | UC30 | Message History | Complete conversation preservation |
+| | UC31 | Notifications | Alerts for new messages |
+| | UC32 | Property Notifications | Alert client when new matching properties |
+| **Agent Support** | UC33 | Client History View | Michael sees all client interactions |
+| | UC34 | Private Notes | Agent can annotate interactions (feedback) |
+| **Basic Analytics** | UC35 | Ryan Dashboard | Popular properties (views, inquiries) |
+| | UC36 | Agent Performance | Number of scheduled viewings, conversion rate |
+| | UC37 | Simple Reports | Basic metrics export |
 
-#### B. Résultat Final du Sprint 2
+#### B. Sprint 2 Final Results
 
-Le système devient un véritable **écosystème collaboratif** avec une expérience client **Premium** et une efficacité opérationnelle amplifiée :
+The system becomes a true **collaborative ecosystem** with **Premium** client experience and amplified operational efficiency:
 
-**Pour Ryan :**
-- Récupération d'au minimum 20-30% du temps (plus d'appels pour scheduling)
-- Première visibility sur quelles propriétés vendent vite
-- Performance tracking des agents
+**For Ryan:**
+- Recovery of minimum 20-30% of time (no more scheduling calls)
+- First visibility on which properties sell fast
+- Agent performance tracking
 
-**Pour Michael :**
-- Zéro double-booking risk
-- Accès immédiat à l'historique client
-- Messaging centralisé = moins d'admin
-- Travail mobile sans friction
+**For Michael:**
+- Zero double-booking risk
+- Immediate client history access
+- Centralized messaging = less admin
+- Frictionless mobile work
 
-**Pour Sarah :**
-- **Une seule plateforme** au lieu de 5-6 websites
-- Recherche et comparaison puissantes
-- Scheduling sans appel téléphonique
-- Communication directe avec agent
-- Alertes sur nouvelles propriétés
+**For Sarah:**
+- **Single platform** instead of 5-6 websites
+- Powerful search and comparison
+- Scheduling without phone calls
+- Direct communication with agent
+- Alerts on new properties
 
-**Impact Commercial :**
-- Réduction du friction pour les clients = meilleure conversion
-- Réduction des tâches admin = agents focus sur valeur ajoutée
-- First analytics = optimisation data-driven
-
----
-
-## 6.5 Cas d'Utilisation du Sprint 2
-
-![Cas d'Utilisation Sprint 2](Images/Sprint2-UseCase.png)
+**Commercial Impact:**
+- Reduced client friction = better conversion
+- Reduced admin tasks = agents focus on value-add
+- First analytics = data-driven optimization
 
 ---
 
-**Présenté par :** AZIZ Soufiane  
-**Encadrant :** M. Essarraj Fouad  
-**Date :** 2 Mars 2026  
-**Formation :** Développement Mobile – Année 2025/2026
+## 6.5 Sprint 2 Use Cases
+
+![Sprint 2 Use Cases](Images/Sprint2-UseCase.png)
 
 ---
 
-*Fin du Rapport*
+**Presented by:** AZIZ Soufiane  
+**Advisor:** Mr. Essarraj Fouad  
+**Date:** March 2, 2026  
+**Program:** Mobile Development – Academic Year 2025/2026
+
+---
+
+*End of Report*

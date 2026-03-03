@@ -25,6 +25,7 @@ rectangle PropertyHub {
 }
 
 Vis -- UC1
+Client -- UC1
 Client -- UC2
 Client -- UC3
 Client -- UC4

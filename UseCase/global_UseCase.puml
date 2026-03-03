@@ -2,41 +2,45 @@
 left to right direction
 skinparam packageStyle rectangle
 skinparam shadowing false
+skinparam actorStyle awesome
 
-actor "Visitor" as Vis
-actor "Buyer (Sarah)" as Client
-actor "Agent (Michael)" as Agent
-actor "Admin (Ryan)" as Admin
+actor "Visitor"          as Vis
+actor "Buyer"            as Client
+actor "Agent"            as Agent
+actor "Admin"            as Admin
 
-rectangle PropertyHub {
-    (Search & Filter Properties) as UC1
-    (Compare Properties) as UC2
-    (Manage Favorites) as UC3
-    (Schedule Appointment) as UC4
-    (In-App Messaging) as UC5
-    
-    (Manage Property Listings) as UC6
-    (Manage Images/Gallery) as UC7
-    (Manage Shared Calendar) as UC8
-    (View Client History) as UC9
-    
-    (Manage Users & Roles) as UC10
-    (View Analytics & Reports) as UC11
+rectangle "PropertyHub" {
+
+    (Search & Filter Properties)    as UC1
+    (Compare Properties)            as UC2
+    (Manage Favorites)              as UC3
+    (Schedule Appointment)          as UC4
+    (In-App Messaging)              as UC5
+    (Manage Property Listings)      as UC6
+    (Manage Images/Gallery)         as UC7
+    (Manage Shared Calendar)        as UC8
+    (View Client History)           as UC9
+    (Manage Users & Roles)          as UC10
+    (View Analytics & Reports)      as UC11
 }
 
-Vis -- UC1
+Vis    -- UC1
 Client -- UC1
 Client -- UC2
 Client -- UC3
 Client -- UC4
 Client -- UC5
 
-Agent -- UC6
-Agent -- UC7
-Agent -- UC8
-Agent -- UC9
-Agent -- UC5
+Agent  -- UC5
+Agent  -- UC6
+Agent  -- UC7
+Agent  -- UC8
+Agent  -- UC9
 
-Admin -- UC10
-Admin -- UC11
+Admin  -- UC10
+Admin  -- UC11
+
+' Admin inherits/extends all Agent permissions
+Admin -right-> Agent : <<extend>>
+
 @enduml

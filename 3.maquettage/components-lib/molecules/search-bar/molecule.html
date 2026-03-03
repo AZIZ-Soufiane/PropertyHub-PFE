@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PropertyHub - Search Bar Molecule</title>
+    <!-- Tailwind CSS with Forms plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <!-- Preline UI Script -->
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        },
+                        secondary: {
+                            500: '#029fca',
+                            600: '#0288af',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Glassmorphism background for the main container */
+        .glass-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+
+<body class="p-12 bg-slate-900 min-h-screen flex items-center justify-center">
+
+    <!-- Search Bar Molecule -->
+    <div class="glass-container p-2 rounded-[2rem] border border-white/20 shadow-2xl w-full max-w-4xl relative">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+
+            <!-- Location Input -->
+            <div
+                class="relative px-6 py-3 border-r border-white/10 last:border-0 hover:bg-white/5 transition rounded-l-[1.8rem]">
+                <label
+                    class="block text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1 ml-1 text-left">Location</label>
+                <input type="text"
+                    class="p-0 block w-full bg-transparent border-transparent text-sm font-semibold text-white placeholder-white/40 focus:border-transparent focus:ring-0"
+                    placeholder="Austin, TX">
+            </div>
+
+            <!-- Preline Dropdown: Property Type -->
+            <div
+                class="hs-dropdown relative px-6 py-3 border-r border-white/10 last:border-0 hover:bg-white/5 transition [--strategy:absolute] [--flip:false] md:[--placement:bottom-left]">
+                <label
+                    class="block text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1 ml-1 text-left">Property
+                    Type</label>
+
+                <button id="hs-dropdown-type" type="button"
+                    class="hs-dropdown-toggle p-0 flex items-center gap-x-2 text-sm font-semibold text-white focus:outline-none w-full text-left cursor-pointer">
+                    <span class="truncate">Modern Villa</span>
+                    <svg class="hs-dropdown-open:rotate-180 flex-shrink-0 w-3.5 h-3.5 text-white/60 transition duration-300"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div class="hs-dropdown-menu transition-[opacity,margin] duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-50 mt-4 min-w-[15rem] bg-white shadow-2xl rounded-2xl p-2 border border-slate-100"
+                    aria-labelledby="hs-dropdown-type">
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">All
+                        Properties</button>
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">Modern
+                        Villa</button>
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">Luxury
+                        Apartment</button>
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">Townhouse</button>
+                </div>
+            </div>
+
+            <!-- Preline Dropdown: Budget -->
+            <div
+                class="hs-dropdown relative px-6 py-3 border-r border-white/10 last:border-0 hover:bg-white/5 transition [--strategy:absolute] [--flip:false] md:[--placement:bottom-left]">
+                <label
+                    class="block text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1 ml-1 text-left">Max
+                    Budget</label>
+
+                <button id="hs-dropdown-budget" type="button"
+                    class="hs-dropdown-toggle p-0 flex items-center gap-x-2 text-sm font-semibold text-white focus:outline-none w-full text-left cursor-pointer">
+                    <span class="truncate">$250k - $500k</span>
+                    <svg class="hs-dropdown-open:rotate-180 flex-shrink-0 w-3.5 h-3.5 text-white/60 transition duration-300"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div class="hs-dropdown-menu transition-[opacity,margin] duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-50 mt-4 min-w-[15rem] bg-white shadow-2xl rounded-2xl p-2 border border-slate-100"
+                    aria-labelledby="hs-dropdown-budget">
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">$100k
+                        - $250k</button>
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">$250k
+                        - $500k</button>
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">$500k
+                        - $750k</button>
+                    <button type="button"
+                        class="w-full flex items-center gap-x-3.5 py-2.5 px-4 rounded-xl text-sm text-slate-800 hover:bg-slate-100 focus:outline-none transition">$750k+</button>
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="flex items-center p-1">
+                <button type="button"
+                    class="w-full bg-secondary-500 hover:bg-secondary-600 text-white font-bold py-4 rounded-[1.5rem] shadow-xl shadow-secondary-500/20 transition-all flex items-center justify-center gap-x-2">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.3-4.3" />
+                    </svg>
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ensure Preline is initialized even if the page loads late -->
+    <script>
+        window.addEventListener('load', () => {
+            if (window.HSStaticMethods) {
+                window.HSStaticMethods.autoInit();
+            }
+        });
+    </script>
+</body>
+
+</html>

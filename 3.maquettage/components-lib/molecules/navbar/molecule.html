@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        },
+                        secondary: {
+                            500: '#029fca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-bold text-primary-600 tracking-tight">PropertyHub</a>
+                </div>
+
+                <div class="hidden md:ml-6 md:flex md:space-x-8">
+                    <a href="#"
+                        class="inline-flex items-center px-1 pt-1 text-sm font-semibold text-primary-600 border-b-2 border-primary-500">Home</a>
+                    <a href="#"
+                        class="inline-flex items-center px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors">Properties</a>
+                    <a href="#"
+                        class="inline-flex items-center px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors">Compare</a>
+                    <a href="#"
+                        class="inline-flex items-center px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-colors">Dashboard</a>
+                </div>
+
+                <div class="flex items-center">
+                    <button type="button"
+                        class="px-5 py-2.5 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-sm">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</body>
+
+</html>

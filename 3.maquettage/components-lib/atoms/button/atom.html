@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        },
+                        secondary: {
+                            500: '#029fca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="p-8 flex flex-wrap gap-4 items-center bg-slate-50">
+    <!-- Primary Button -->
+    <button type="button"
+        class="px-6 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+        Primary Action
+    </button>
+
+    <!-- Secondary Button -->
+    <button type="button"
+        class="px-6 py-3 bg-white border border-slate-200 text-slate-800 font-semibold rounded-xl hover:bg-slate-50 transition-all duration-300">
+        Secondary Action
+    </button>
+
+    <!-- Ghost Button -->
+    <button type="button"
+        class="px-6 py-3 bg-transparent text-primary-600 font-semibold rounded-xl hover:bg-primary-50 transition-all duration-300">
+        Ghost Action
+    </button>
+</body>
+
+</html>

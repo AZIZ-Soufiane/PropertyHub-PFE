@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropertyHub - Find Your Perfect Home</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        },
+                        secondary: {
+                            500: '#029fca',
+                            600: '#0288af',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-pattern {
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-slate-900 font-sans">
+
+    <!-- Header (Preline Navbar) -->
+    <header
+        class="fixed top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white/80 border-b border-gray-200 text-sm py-3 sm:py-0 backdrop-blur-xl">
+        <nav class="relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
+            aria-label="Global">
+            <div class="flex items-center justify-between">
+                <a class="flex-none text-2xl font-bold text-primary-600 tracking-tight" href="#">PropertyHub</a>
+                <div class="sm:hidden">
+                    <button type="button"
+                        class="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-xl border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-primary-600 transition-all text-sm"
+                        data-hs-collapse="#navbar-collapse-with-animation"
+                        aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
+                        <svg class="hs-collapse-open:hidden w-4 h-4" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+                        <svg class="hs-collapse-open:block hidden w-4 h-4" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="navbar-collapse-with-animation"
+                class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
+                <div
+                    class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
+                    <a class="font-semibold text-primary-600 sm:py-6" href="#" aria-current="page">Home</a>
+                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#">Properties</a>
+
+                    <!-- Preline Dropdown -->
+                    <div class="hs-dropdown [--trigger:hover] sm:py-6">
+                        <button type="button"
+                            class="flex items-center w-full text-gray-500 hover:text-gray-400 font-medium">
+                            Features
+                            <svg class="ml-2 w-2.5 h-2.5 text-gray-600" width="16" height="16" viewBox="0 0 16 16"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                            </svg>
+                        </button>
+                        <div
+                            class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] sm:duration-[150ms] opacity-0 sm:w-48 hidden z-10 bg-white sm:shadow-md rounded-xl p-2 before:absolute top-full sm:border border-gray-100">
+                            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+                                href="#">Compare Tool</a>
+                            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
+                                href="#">Advanced Search</a>
+                        </div>
+                    </div>
+
+                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#">Dashboard</a>
+                    <button type="button"
+                        class="flex items-center gap-x-2 font-semibold text-white bg-primary-600 px-6 py-2.5 rounded-xl hover:bg-primary-700 transition shadow-md shadow-primary-200">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-screen flex items-center justify-center hero-pattern pt-20">
+            <div class="absolute inset-0 bg-slate-950/40"></div>
+            <div class="relative container mx-auto px-4 text-center z-10">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+                    Find Your Perfect Property <br> with <span class="text-secondary-500">Effortless Management</span>
+                </h1>
+                <p class="text-xl text-white/80 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                    Search, compare, and book in seconds. Experience real-time property verification and automated
+                    scheduling at your fingertips.
+                </p>
+
+                <!-- Preline Search Form/Input Groups -->
+                <div
+                    class="bg-white/10 backdrop-blur-2xl p-2 rounded-[2.5rem] border border-white/20 shadow-2xl max-w-4xl mx-auto group">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+                        <div class="px-6 py-3 border-r border-white/10">
+                            <label
+                                class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1 text-left">Location</label>
+                            <input type="text" placeholder="Austin, TX"
+                                class="bg-transparent text-white font-semibold text-sm outline-none w-full placeholder:text-white/30 border-none p-0 focus:ring-0">
+                        </div>
+
+                        <!-- Preline Select -->
+                        <div class="px-6 py-3 border-r border-white/10 group">
+                            <label
+                                class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1 text-left">Type</label>
+                            <div class="relative">
+                                <select
+                                    class="bg-transparent text-white font-semibold text-sm outline-none w-full appearance-none cursor-pointer border-none p-0 focus:ring-0">
+                                    <option class="text-slate-900">Modern Villa</option>
+                                    <option class="text-slate-900">Apartment</option>
+                                    <option class="text-slate-900">Townhouse</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pointer-events-none">
+                                    <svg class="w-2.5 h-2.5 text-white/50" width="16" height="16" fill="currentColor"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-6 py-3 border-r border-white/10">
+                            <label
+                                class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1 text-left">Price
+                                Range</label>
+                            <select
+                                class="bg-transparent text-white font-semibold text-sm outline-none w-full appearance-none cursor-pointer border-none p-0 focus:ring-0">
+                                <option class="text-slate-900">$250k - $500k</option>
+                                <option class="text-slate-900">$500k - $750k</option>
+                                <option class="text-slate-900">$750k+</option>
+                            </select>
+                        </div>
+
+                        <div class="p-1">
+                            <button type="button"
+                                class="w-full bg-secondary-500 hover:bg-secondary-600 text-white font-bold py-4 rounded-[2rem] transition-all flex items-center justify-center gap-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg>
+                                <span>Search</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Listings -->
+        <section class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Featured Properties</h2>
+                        <p class="mt-2 text-gray-500">Discover Austin's most exclusive real estate listings.</p>
+                    </div>
+                    <a class="inline-flex items-center gap-x-1.5 text-primary-600 font-bold hover:underline" href="#">
+                        Browse All
+                        <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-10">
+                    <!-- Preline/Tailwind Card Style -->
+                    <div
+                        class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-[2.5rem] overflow-hidden hover:shadow-2xl transition-all duration-500">
+                        <div class="relative h-72 overflow-hidden">
+                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"
+                                alt="Villa">
+                            <div class="absolute top-5 left-5">
+                                <span
+                                    class="bg-emerald-500 text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">For
+                                    Sale</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">The Glass House</h3>
+                            <div class="flex items-center gap-x-2 text-sm text-gray-500 mb-6">
+                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                West Lake Hills, Austin
+                            </div>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-2xl font-bold text-primary-600">$850,000</span>
+                                <div class="flex gap-x-4">
+                                    <div class="text-center">
+                                        <div class="text-[10px] font-bold text-gray-400 uppercase">Beds</div>
+                                        <div class="text-sm font-bold text-gray-800">4</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-[10px] font-bold text-gray-400 uppercase">Baths</div>
+                                        <div class="text-sm font-bold text-gray-800">3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 pt-0 mt-auto">
+                            <button
+                                class="w-full py-4 bg-gray-50 text-gray-700 font-bold rounded-2xl group-hover:bg-primary-600 group-hover:text-white transition-all duration-300">View
+                                Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-20 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-gray-400">
+            <div class="col-span-1 md:col-span-1">
+                <a class="text-2xl font-bold text-white mb-6 block" href="#">PropertyHub</a>
+                <p class="text-sm leading-relaxed mb-6">Professional real-time property management platform for modern
+                    agencies and buyers.</p>
+                <!-- Social links -->
+                <div class="flex gap-x-3">
+                    <a class="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center hover:bg-secondary-500 hover:text-white transition"
+                        href="#"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6 text-xs uppercase tracking-widest">Support</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a class="hover:text-white transition" href="#">Help Center</a></li>
+                    <li><a class="hover:text-white transition" href="#">Contact Us</a></li>
+                    <li><a class="hover:text-white transition" href="#">API Status</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-white font-bold mb-6 text-xs uppercase tracking-widest">Subscribe</h4>
+                <form class="flex gap-2 max-w-sm">
+                    <input type="email" placeholder="email@example.com"
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-secondary-500 text-sm">
+                    <button class="px-6 py-3 bg-secondary-500 text-white font-bold rounded-xl whitespace-nowrap">Join
+                        Now</button>
+                </form>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto border-t border-white/5 mt-16 pt-8 text-[10px] font-bold text-gray-600 tracking-widest uppercase flex justify-between">
+            <span>© 2026 PropertyHub.</span>
+            <span>Solicode PFE.</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

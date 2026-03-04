@@ -6,8 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages - PropertyHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { darkMode: 'class' }</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 200: '#bdcfea', 300: '#90addc', 400: '#5d85c8', 500: '#3b65ad', 600: '#2d4f8e', 700: '#264073', 800: '#23385f', 900: '#213151', 950: '#161e33' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -34,18 +48,18 @@
         </nav>
     </header>
 
-    <div class="max-w-[85rem] px-4 py-8 sm:px-6 lg:px-8 mx-auto flex h-[calc(100vh-80px)]">
+    <div class="max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 mx-auto flex flex-col lg:flex-row h-auto lg:h-[calc(100vh-80px)] gap-4 sm:gap-6 md:gap-8">
         <!-- Chat Contacts -->
         <div
-            class="w-1/3 bg-white border border-gray-200 rounded-l-xl dark:bg-slate-900 dark:border-gray-700 flex flex-col">
-            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 class="text-xl font-bold dark:text-white mb-4">Conversations</h2>
+            class="w-full lg:w-1/3 bg-white border border-gray-200 rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-l-2xl dark:bg-slate-900 dark:border-gray-700 flex flex-col">
+            <div class="p-3 sm:p-4 md:p-6 border-b border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold dark:text-white mb-3 sm:mb-4 md:mb-6">Conversations</h2>
                 <div class="relative">
                     <input type="text"
-                        class="py-2 px-4 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-800 dark:border-gray-700 dark:text-gray-400"
+                        class="py-2 sm:py-3 px-3 sm:px-4 ps-10 sm:ps-11 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-800 dark:border-gray-700 dark:text-gray-400"
                         placeholder="Search messages">
-                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
-                        <svg class="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24"
+                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3 sm:ps-4">
+                        <svg class="flex-shrink-0 size-3 sm:size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8" />
@@ -57,30 +71,30 @@
             <div class="overflow-y-auto flex-1 h-full">
                 <!-- Chat Item Active -->
                 <div
-                    class="flex items-center gap-x-3 p-4 bg-blue-50 border-s-4 border-blue-600 dark:bg-blue-900/20 cursor-pointer">
-                    <img class="inline-block size-10 rounded-full"
+                    class="flex items-center gap-x-2 sm:gap-x-3 md:gap-x-4 p-3 sm:p-4 md:p-6 bg-blue-50 border-s-4 border-blue-600 dark:bg-blue-900/20 cursor-pointer">
+                    <img class="inline-block size-8 sm:size-10 rounded-full"
                         src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
                         alt="Avatar">
                     <div class="grow">
-                        <h3 class="font-semibold text-sm text-gray-800 dark:text-white">Michael Johnson (Agent)</h3>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">Yes, it's available at 10 AM.</p>
+                        <h3 class="font-semibold text-xs sm:text-sm text-gray-800 dark:text-white">Michael Johnson (Agent)</h3>
+                        <p class="text-xs sm:text-sm text-gray-500 truncate dark:text-gray-400">Yes, it's available at 10 AM.</p>
                     </div>
-                    <span class="text-xs text-gray-400 whitespace-nowrap">2 min ago</span>
+                    <span class="text-[10px] sm:text-xs text-gray-400 whitespace-nowrap">2 min ago</span>
                 </div>
             </div>
         </div>
 
         <!-- Chat Area -->
         <div
-            class="w-2/3 bg-gray-50 border-y border-e border-gray-200 rounded-r-xl dark:bg-slate-800 dark:border-gray-700 flex flex-col relative h-full">
+            class="w-full lg:w-2/3 bg-gray-50 border border-gray-200 lg:border-e lg:border-s-0 rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-r-2xl dark:bg-slate-800 dark:border-gray-700 flex flex-col relative h-auto min-h-96 lg:h-full">
             <div
-                class="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 rounded-tr-xl flex justify-between items-center">
-                <div class="flex items-center gap-x-3">
-                    <img class="inline-block size-10 rounded-full"
+                class="p-3 sm:p-4 md:p-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 rounded-t-lg sm:rounded-t-xl md:rounded-t-2xl flex justify-between items-center">
+                <div class="flex items-center gap-x-2 sm:gap-x-3 md:gap-x-4">
+                    <img class="inline-block size-8 sm:size-10 rounded-full"
                         src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
                         alt="Avatar">
-                    <h2 class="font-semibold text-gray-800 dark:text-white">Michael Johnson <span
-                            class="text-sm font-normal text-gray-500 block">Agent for: Sunset Villa</span></h2>
+                    <h2 class="font-semibold text-sm sm:text-base md:text-lg text-gray-800 dark:text-white">Michael Johnson <span
+                            class="text-xs sm:text-sm font-normal text-gray-500 block">Agent for: Sunset Villa</span></h2>
                 </div>
             </div>
 

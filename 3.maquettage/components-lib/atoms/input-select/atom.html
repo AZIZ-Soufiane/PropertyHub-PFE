@@ -28,25 +28,141 @@
     </style>
 </head>
 
-<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
-    <div class="w-full max-w-sm space-y-6">
-        <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Default Select</p>
-            <select
-                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none bg-white"
-                style="--tw-ring-color:#3b65ad33;">
-                <option>All Types</option>
-                <option>Modern Villa</option>
-                <option>Penthouse</option>
-                <option>Beach House</option>
-            </select>
+<body class="bg-gradient-to-br from-slate-50 via-white to-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-8 sm:py-10 md:py-16">
+    <div class="w-full max-w-2xl space-y-10 sm:space-y-12 md:space-y-14">
+        
+        <!-- Section Header -->
+        <div class="mb-8 sm:mb-10 md:mb-12">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-2 sm:mb-3">Advanced Select</h1>
+            <p class="text-sm sm:text-base text-slate-600 font-medium">Preline's sophisticated select component with enhanced features</p>
         </div>
-        <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Disabled</p>
-            <select disabled
-                class="py-3 px-4 block w-full border border-slate-100 bg-slate-50 text-slate-400 rounded-xl text-sm cursor-not-allowed">
-                <option>Disabled</option>
-            </select>
+
+        <!-- 1. Property Type Select -->
+        <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-baseline gap-2">
+                <label for="select-property" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Property Type</label>
+                <span class="text-xs text-slate-400 font-semibold">Essential</span>
+            </div>
+            <div class="hs-form-field">
+                <select id="select-property" class="hs-select block w-full rounded-lg border border-slate-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-slate-300" data-hs-select-options="{
+                    &quot;hasIcon&quot;: false,
+                    &quot;placeholder&quot;: &quot;Select property type...&quot;,
+                    &quot;searchEnabled&quot;: true,
+                    &quot;searchPlaceholder&quot;: &quot;Search...&quot;
+                }">
+                    <option value="">Choose...</option>
+                    <option value="villa">Modern Villa</option>
+                    <option value="penthouse">Penthouse Suite</option>
+                    <option value="beach">Beach House</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="apartment">Luxury Apartment</option>
+                    <option value="estate">Private Estate</option>
+                </select>
+            </div>
+            <p class="text-xs text-slate-500">Choose the type of property you're interested in</p>
+        </div>
+
+        <!-- 2. Budget Range Select -->
+        <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-baseline gap-2">
+                <label for="select-budget" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Budget Range</label>
+                <span class="text-xs text-primary-600 font-semibold">Secondary</span>
+            </div>
+            <div class="hs-form-field">
+                <select id="select-budget" class="hs-select block w-full rounded-lg border-2 border-secondary-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-secondary-500 focus:outline-none focus:ring-2 focus:ring-secondary-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-secondary-300" data-hs-select-options="{
+                    &quot;hasIcon&quot;: false,
+                    &quot;placeholder&quot;: &quot;Select budget range...&quot;,
+                    &quot;searchEnabled&quot;: true,
+                    &quot;searchPlaceholder&quot;: &quot;Search budgets...&quot;
+                }">
+                    <option value="">Choose...</option>
+                    <option value="100k">$100k - $250k</option>
+                    <option value="250k">$250k - $500k</option>
+                    <option value="500k">$500k - $1M</option>
+                    <option value="1m">$1M - $5M</option>
+                    <option value="5m">$5M - $10M</option>
+                    <option value="10m">$10M+</option>
+                </select>
+            </div>
+            <p class="text-xs text-slate-500">Define your investment range</p>
+        </div>
+
+        <!-- 3. Location Select with Search -->
+        <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-baseline gap-2">
+                <label for="select-location" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Location</label>
+                <span class="text-xs text-slate-400 font-semibold">Search Enabled</span>
+            </div>
+            <div class="hs-form-field">
+                <select id="select-location" class="hs-select block w-full rounded-lg border border-slate-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-slate-300" data-hs-select-options="{
+                    &quot;hasIcon&quot;: false,
+                    &quot;placeholder&quot;: &quot;Select a location...&quot;,
+                    &quot;searchEnabled&quot;: true,
+                    &quot;searchPlaceholder&quot;: &quot;Search locations...&quot;,
+                    &quot;isMultiple&quot;: false
+                }">
+                    <option value="">Choose...</option>
+                    <option value="malibu">Malibu, California</option>
+                    <option value="miami">Miami, Florida</option>
+                    <option value="newyork">New York, New York</option>
+                    <option value="aspen">Aspen, Colorado</option>
+                    <option value="hamptons">The Hamptons, New York</option>
+                    <option value="beverly">Beverly Hills, California</option>
+                    <option value="miami-beach">Miami Beach, Florida</option>
+                    <option value="laguna">Laguna Beach, California</option>
+                </select>
+            </div>
+            <p class="text-xs text-slate-500">Browse properties by region</p>
+        </div>
+
+        <!-- 4. Property Status (Large Variant) -->
+        <div class="space-y-3 sm:space-y-4 pt-4 sm:pt-6 border-t border-slate-200">
+            <div class="flex items-baseline gap-2">
+                <label for="select-status" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Property Status</label>
+                <span class="text-xs text-primary-500 font-semibold">Primary</span>
+            </div>
+            <div class="hs-form-field">
+                <select id="select-status" class="hs-select block w-full rounded-lg border-2 border-primary-200 bg-white px-5 sm:px-6 py-4 sm:py-4.5 text-sm sm:text-base font-bold text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-primary-300" data-hs-select-options="{
+                    &quot;hasIcon&quot;: false,
+                    &quot;placeholder&quot;: &quot;Select property status...&quot;,
+                    &quot;searchEnabled&quot;: true
+                }">
+                    <option value="">Choose status...</option>
+                    <option value="forsale">For Sale</option>
+                    <option value="forsale-auction">For Sale by Auction</option>
+                    <option value="leasing">Available for Leasing</option>
+                    <option value="sold">Recently Sold</option>
+                    <option value="pending">Pending Sale</option>
+                </select>
+            </div>
+            <p class="text-xs text-slate-500">Large select with bold typography</p>
+        </div>
+
+        <!-- 5. Multi-Select Example -->
+        <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-baseline gap-2">
+                <label for="select-amenities" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Amenities</label>
+                <span class="text-xs text-emerald-600 font-semibold">Multiple</span>
+            </div>
+            <div class="hs-form-field">
+                <select id="select-amenities" class="hs-select block w-full rounded-lg border border-emerald-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-emerald-300" multiple data-hs-select-options="{
+                    &quot;hasIcon&quot;: false,
+                    &quot;placeholder&quot;: &quot;Select amenities...&quot;,
+                    &quot;searchEnabled&quot;: true,
+                    &quot;searchPlaceholder&quot;: &quot;Search amenities...&quot;,
+                    &quot;isMultiple&quot;: true
+                }">
+                    <option value="pool">Swimming Pool</option>
+                    <option value="gym">Home Gym</option>
+                    <option value="theater">Home Theater</option>
+                    <option value="sauna">Sauna & Spa</option>
+                    <option value="wine">Wine Cellar</option>
+                    <option value="garden">Manicured Gardens</option>
+                    <option value="garage">Multi-Car Garage</option>
+                    <option value="security">Smart Security System</option>
+                </select>
+            </div>
+            <p class="text-xs text-slate-500">Select one or multiple amenities (Preline multi-select)</p>
         </div>
     </div>
 </body>

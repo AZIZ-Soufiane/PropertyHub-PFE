@@ -78,26 +78,26 @@
     <main>
         <!-- Hero Section -->
         <section class="relative min-h-screen flex items-center justify-center hero-pattern">
-            <div class="relative max-w-5xl mx-auto px-4 text-center z-10">
+            <div class="relative max-w-5xl mx-auto px-4 sm:px-6 md:px-8 text-center z-10">
                 <span
-                    class="inline-block py-1.5 px-4 bg-blue-600/10 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6 border border-white/10 backdrop-blur-md">Premium
+                    class="inline-block py-1 sm:py-1.5 px-3 sm:px-4 bg-blue-600/10 text-white text-[8px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full mb-4 sm:mb-6 border border-white/10 backdrop-blur-md">Premium
                     Real Estate</span>
-                <h1 class="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter leading-[0.9]">
-                    Find Your <br> <span class="text-blue-400">Dream Haven.</span>
+                <h1 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-4 sm:mb-8 tracking-tighter leading-[0.9]">
+                    Find Your <br class="hidden sm:inline" /> <span class="text-blue-400">Dream Haven.</span>
                 </h1>
-                <p class="text-lg md:text-xl text-white/70 mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
+                <p class="text-sm sm:text-base md:text-lg lg:text-xl text-white/70 mb-6 sm:mb-12 max-w-2xl mx-auto font-medium leading-relaxed px-2">
                     A sophisticated platform to search, compare, and manage verified premium listings across the globe.
                 </p>
 
                 <!-- Floating Search Bar -->
                 <div style="background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15)"
-                    class="p-2 rounded-[2rem] max-w-4xl mx-auto shadow-2xl">
+                    class="p-1.5 sm:p-2 rounded-xl sm:rounded-2xl md:rounded-[2rem] max-w-4xl mx-auto shadow-2xl mx-2 sm:mx-4">
                     <div class="flex flex-col sm:flex-row">
-                        <div class="flex-1 px-6 py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">
+                        <div class="flex-1 px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">
                             <label
-                                class="block text-[10px] font-black text-white/50 uppercase tracking-widest mb-1">Location</label>
+                                class="block text-[8px] sm:text-[10px] font-black text-white/50 uppercase tracking-widest mb-0.5 sm:mb-1">Location</label>
                             <input type="text" placeholder="e.g. Malibu, CA"
-                                class="bg-transparent text-white font-semibold text-sm outline-none w-full placeholder:text-white/30 border-none p-0 focus:ring-0">
+                                class="bg-transparent text-white font-semibold text-xs sm:text-sm outline-none w-full placeholder:text-white/30 border-none p-0 focus:ring-0">
                         </div>
                         <div class="flex-1 px-6 py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">
                             <label
@@ -138,19 +138,19 @@
         </section>
 
         <!-- Featured Listings Refined -->
-        <section class="py-32 bg-white">
+        <section class="py-12 sm:py-20 md:py-32 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 md:mb-20 gap-4 sm:gap-6">
                     <div>
-                        <span class="text-blue-600 font-black text-[10px] uppercase tracking-widest mb-2 block">Our
+                        <span class="text-blue-600 font-black text-[8px] sm:text-[10px] uppercase tracking-widest mb-2 block">Our
                             Collection</span>
-                        <h2 class="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter">Exclusive Listings
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter">Exclusive Listings
                         </h2>
                     </div>
                     <a href="properties.html"
-                        class="inline-flex items-center gap-2 group text-sm font-black text-gray-900 p-4 border border-gray-100 rounded-2xl hover:bg-gray-50 transition-all">
-                        View All Collections
-                        <svg class="size-4 group-hover:translate-x-1 transition-transform" fill="none"
+                        class="inline-flex items-center gap-2 group text-xs sm:text-sm font-black text-gray-900 p-3 sm:p-4 border border-gray-100 rounded-xl sm:rounded-2xl hover:bg-gray-50 transition-all">
+                        View All
+                        <svg class="size-3 sm:size-4 group-hover:translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -158,45 +158,45 @@
                     </a>
                 </div>
 
-                <div class="grid lg:grid-cols-3 gap-12">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
                     <!-- Property Card -->
                     <div
-                        class="group flex flex-col bg-white border border-gray-50 shadow-sm rounded-[3rem] overflow-hidden hover:shadow-2xl transition-all duration-700">
-                        <div class="h-80 overflow-hidden relative">
+                        class="group flex flex-col bg-white border border-gray-50 shadow-sm rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-700">
+                        <div class="h-40 sm:h-60 md:h-80 overflow-hidden relative">
                             <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                 src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"
                                 alt="Villa">
-                            <div class="absolute top-6 left-6">
+                            <div class="absolute top-3 sm:top-6 left-3 sm:left-6">
                                 <span
-                                    class="bg-white/90 backdrop-blur-md text-gray-900 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-sm">West
+                                    class="bg-white/90 backdrop-blur-md text-gray-900 text-[8px] sm:text-[10px] font-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-full uppercase tracking-widest shadow-sm">West
                                     Lake</span>
                             </div>
                         </div>
-                        <div class="p-10">
+                        <div class="p-4 sm:p-6 md:p-10">
                             <h3
-                                class="text-3xl font-black text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                class="text-lg sm:text-2xl md:text-3xl font-black text-gray-900 mb-1 sm:mb-2 group-hover:text-blue-600 transition-colors">
                                 The Glass House</h3>
-                            <div class="flex items-center gap-2 text-sm text-gray-400 font-bold mb-8">
-                                <svg class="size-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-400 font-bold mb-4 sm:mb-8">
+                                <svg class="size-3 sm:size-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 </svg>
                                 Austin, Texas
                             </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-3xl font-black text-blue-600">$850,000</span>
-                                <div class="flex gap-x-6">
-                                    <div class="text-sm font-bold"><span
-                                            class="block text-gray-400 text-[10px] uppercase font-black tracking-widest">Beds</span>4
+                            <div class="flex items-center justify-between gap-2 mb-4 sm:mb-6">
+                                <span class="text-xl sm:text-2xl md:text-3xl font-black text-blue-600">$850,000</span>
+                                <div class="flex gap-3 sm:gap-6">
+                                    <div class="text-xs sm:text-sm font-bold"><span
+                                            class="block text-gray-400 text-[7px] sm:text-[10px] uppercase font-black tracking-widest">Beds</span>4
                                     </div>
-                                    <div class="text-sm font-bold"><span
-                                            class="block text-gray-400 text-[10px] uppercase font-black tracking-widest">Baths</span>3
+                                    <div class="text-xs sm:text-sm font-bold"><span
+                                            class="block text-gray-400 text-[7px] sm:text-[10px] uppercase font-black tracking-widest">Baths</span>3
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-10">
+                            <div class="mt-6 sm:mt-8 md:mt-10">
                                 <a href="property-details.html"
-                                    class="w-full py-5 block text-center bg-gray-50 text-gray-900 font-black rounded-3xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">Explore
+                                    class="w-full py-3 sm:py-4 md:py-5 block text-center text-sm sm:text-base bg-gray-50 text-gray-900 font-black rounded-xl sm:rounded-2xl md:rounded-3xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">Explore
                                     Property</a>
                             </div>
                         </div>
@@ -206,34 +206,34 @@
         </section>
     </main>
 
-    <footer class="bg-slate-950 py-32 px-4 rounded-t-[5rem]">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-20">
+    <footer class="bg-slate-950 py-12 sm:py-20 md:py-32 px-4 rounded-t-3xl sm:rounded-t-[3rem] md:rounded-t-[5rem]">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 md:gap-20">
             <div class="md:col-span-1">
-                <a class="text-3xl font-black text-white mb-8 block tracking-tighter" href="#">Property<span
+                <a class="text-2xl sm:text-3xl font-black text-white mb-4 sm:mb-8 block tracking-tighter" href="#">Property<span
                         class="text-blue-500">Hub.</span></a>
-                <p class="text-gray-500 font-medium leading-[1.8]">Elevating the real estate experience through
+                <p class="text-gray-500 font-medium leading-[1.8] text-sm">Elevating the real estate experience through
                     intelligent management and stunning presentation.</p>
             </div>
             <div>
-                <h4 class="text-gray-400 font-black mb-8 text-[10px] uppercase tracking-[0.2em]">Quick Access</h4>
-                <ul class="space-y-4 text-white font-bold text-sm">
+                <h4 class="text-gray-400 font-black mb-4 sm:mb-8 text-[8px] sm:text-[10px] uppercase tracking-[0.2em]">Quick Access</h4>
+                <ul class="space-y-3 sm:space-y-4 text-white font-bold text-xs sm:text-sm">
                     <li><a class="hover:text-blue-500 transition-colors" href="properties.html">Listing</a></li>
                     <li><a class="hover:text-blue-500 transition-colors" href="compare.html">Comparison</a></li>
                     <li><a class="hover:text-blue-500 transition-colors" href="login.html">Authentication</a></li>
                 </ul>
             </div>
-            <div class="md:col-span-2">
-                <h4 class="text-gray-400 font-black mb-8 text-[10px] uppercase tracking-[0.2em]">Newsletter</h4>
+            <div class="sm:col-span-1 md:col-span-2">
+                <h4 class="text-gray-400 font-black mb-4 sm:mb-8 text-[8px] sm:text-[10px] uppercase tracking-[0.2em]">Newsletter</h4>
                 <form class="flex flex-col sm:flex-row gap-2">
                     <input type="email" placeholder="Email contact"
-                        class="grow bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-blue-500 text-white font-bold transition-all">
+                        class="grow bg-white/5 border border-white/10 rounded-lg sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 outline-none focus:border-blue-500 text-white font-bold transition-all text-sm">
                     <button
-                        class="px-8 py-4 bg-white text-black font-black rounded-2xl hover:bg-gray-100 transition-all">Join</button>
+                        class="px-6 sm:px-8 py-3 sm:py-4 bg-white text-black font-black text-sm rounded-lg sm:rounded-2xl hover:bg-gray-100 transition-all whitespace-nowrap">Join</button>
                 </form>
             </div>
         </div>
         <div
-            class="max-w-7xl mx-auto border-t border-white/5 mt-24 pt-10 flex flex-col md:flex-row justify-between gap-6 text-[10px] font-black text-gray-700 tracking-[0.3em] uppercase">
+            class="max-w-7xl mx-auto border-t border-white/5 mt-12 sm:mt-20 md:mt-24 pt-6 sm:pt-10 flex flex-col sm:flex-row justify-between gap-4 sm:gap-6 text-[7px] sm:text-[10px] font-black text-gray-700 tracking-[0.2em] sm:tracking-[0.3em] uppercase">
             <span>© 2026 PropertyHub Luxury Estate.</span>
             <span>Crafted by Solicode.</span>
         </div>

@@ -28,43 +28,52 @@
     </style>
 </head>
 
-<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
-    <div class="w-full max-w-sm space-y-8 bg-white border border-slate-100 rounded-3xl p-10 shadow-sm">
-        <h2 class="text-xl font-black text-slate-800">Contact Form</h2>
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-6 sm:py-8 md:py-12">
+    <div class="w-full max-w-sm space-y-4 sm:space-y-5 md:space-y-6 bg-white border border-slate-100 rounded-2xl p-6 sm:p-7 md:p-10 shadow-sm hover:shadow-md transition-shadow">
+        <div>
+            <h2 class="text-2xl font-bold text-slate-900">Contact Form</h2>
+            <p class="text-sm text-slate-500 mt-1">Get in touch with our team</p>
+        </div>
 
         <!-- Text Field -->
-        <div class="space-y-1.5">
-            <label for="name" class="block text-sm font-bold text-slate-800">Full Name</label>
+        <div class="space-y-2">
+            <label for="name" class="block text-sm font-semibold text-slate-700">Full Name</label>
             <input type="text" id="name" placeholder="Michael Johnson"
-                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
-                style="--tw-ring-color:#3b65ad33;">
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none">
         </div>
 
         <!-- Email Field -->
-        <div class="space-y-1.5">
-            <label for="email" class="block text-sm font-bold text-slate-800">Email Address</label>
+        <div class="space-y-2">
+            <label for="email" class="block text-sm font-semibold text-slate-700">Email Address</label>
             <input type="email" id="email" placeholder="you@propertyhub.com"
-                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
-                style="--tw-ring-color:#3b65ad33;">
-            <p class="text-xs text-slate-400 font-medium">We'll never share your email with anyone else.</p>
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none">
+            <p class="text-xs text-slate-500">We'll never share your email with anyone else.</p>
         </div>
 
         <!-- Select Field -->
-        <div class="space-y-1.5">
-            <label for="role" class="block text-sm font-bold text-slate-800">Role</label>
+        <div class="space-y-2">
+            <label for="role" class="block text-sm font-semibold text-slate-700">Role</label>
             <select id="role"
-                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm bg-white transition focus:border-primary-600 focus:ring-2 outline-none"
-                style="--tw-ring-color:#3b65ad33;">
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm bg-white focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none">
                 <option>Buyer</option>
                 <option>Agent</option>
                 <option>Admin</option>
             </select>
         </div>
 
-        <!-- Submit -->
-        <button type="button" class="w-full py-3.5 text-white rounded-xl font-bold text-sm transition-all shadow-sm"
-            style="background:#3b65ad;">
-            Submit
+        <!-- Message Field -->
+        <div class="space-y-2">
+            <label for="message" class="block text-sm font-semibold text-slate-700">Message</label>
+            <textarea id="message" rows="4" placeholder="Tell us about your inquiry..."
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 resize-none disabled:opacity-50 disabled:pointer-events-none"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" class="w-full py-3 px-6 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-xl border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none transition-all duration-200 shadow-sm hover:shadow-md">
+            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Send Message
         </button>
     </div>
 </body>

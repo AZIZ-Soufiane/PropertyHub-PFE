@@ -28,24 +28,45 @@
     </style>
 </head>
 
-<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
-    <div class="w-full max-w-sm space-y-6">
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-6 sm:py-8 md:py-12">
+    <div class="w-full max-w-sm space-y-6 sm:space-y-7 md:space-y-8">
+        <!-- Default Input -->
         <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Default</p>
-            <input type="text"
-                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
-                style="--tw-ring-color:#3b65ad33;" placeholder="Placeholder...">
+            <label for=\"input-default\" class=\"block text-sm font-semibold text-slate-700 mb-2\">Default Input</label>
+            <input type=\"text\" id=\"input-default\"
+                class=\"py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none\"
+                placeholder=\"Placeholder...\">
         </div>
+
+        <!-- Input with Value -->
         <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">With value</p>
-            <input type="text" value="123 Main Street, Malibu"
-                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
-                style="--tw-ring-color:#3b65ad33;">
+            <label for=\"input-value\" class=\"block text-sm font-semibold text-slate-700 mb-2\">Input with Value</label>
+            <input type=\"text\" id=\"input-value\" value=\"123 Main Street, Malibu\"
+                class=\"py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none\">
         </div>
+
+        <!-- Input with Helper Text -->
         <div>
-            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Disabled</p>
-            <input type="text" disabled value="Disabled input"
-                class="py-3 px-4 block w-full border border-slate-100 bg-slate-50 text-slate-400 rounded-xl text-sm cursor-not-allowed">
+            <label for=\"input-helper\" class=\"block text-sm font-semibold text-slate-700 mb-2\">With Helper Text</label>
+            <input type=\"text\" id=\"input-helper\"
+                class=\"py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none\"
+                placeholder=\"Enter your address\">
+            <p class=\"mt-2 text-xs text-slate-500\">Your property address will be used for verification</p>
+        </div>
+
+        <!-- Disabled Input -->
+        <div>
+            <label for=\"input-disabled\" class=\"block text-sm font-semibold text-slate-700 mb-2\">Disabled Input</label>
+            <input type=\"text\" id=\"input-disabled\" disabled value=\"Disabled input\"
+                class=\"py-3 px-4 block w-full border border-slate-100 bg-slate-50 text-slate-400 rounded-xl text-sm cursor-not-allowed disabled:opacity-50 disabled:pointer-events-none\">
+        </div>
+
+        <!-- Input with Focus Highlight -->
+        <div>
+            <label for=\"input-focus\" class=\"block text-sm font-semibold text-slate-700 mb-2\">Focus State Demo</label>
+            <input type=\"text\" id=\"input-focus\"
+                class=\"py-3 px-4 block w-full border-2 border-slate-200 rounded-xl text-sm focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200\"
+                placeholder=\"Click to see focus state\">
         </div>
     </div>
 </body>

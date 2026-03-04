@@ -6,8 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Property Details - PropertyHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { darkMode: 'class' }</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 200: '#bdcfea', 300: '#90addc', 400: '#5d85c8', 500: '#3b65ad', 600: '#2d4f8e', 700: '#264073', 800: '#23385f', 900: '#213151', 950: '#161e33' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -35,13 +49,13 @@
         </nav>
     </header>
 
-    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 mx-auto">
         <!-- Title and actions -->
-        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-8 sm:mb-12 gap-4 sm:gap-6">
             <div>
-                <h1 class="text-3xl font-bold dark:text-white">Sunset Villa</h1>
-                <p class="text-gray-500 flex items-center gap-1 dark:text-gray-400 mt-1">
-                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold dark:text-white">Sunset Villa</h1>
+                <p class="text-sm sm:text-base text-gray-500 flex items-center gap-1 dark:text-gray-400 mt-2 sm:mt-3">
+                    <svg class="size-4 sm:size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -50,37 +64,37 @@
                     Malibu, CA
                 </p>
             </div>
-            <div class="mt-4 sm:mt-0 flex flex-wrap gap-2 text-xl font-bold dark:text-white">
+            <div class="text-xl sm:text-2xl md:text-3xl font-bold dark:text-white">
                 $1,250,000
             </div>
         </div>
 
         <!-- Details Grid -->
-        <div class="grid lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
             <!-- Left col - Info-->
-            <div class="lg:col-span-2 space-y-6">
+            <div class="lg:col-span-2 space-y-6 sm:space-y-8 md:space-y-10">
                 <!-- Image Gallery (Simplified) -->
                 <div>
-                    <img class="w-full h-96 object-cover rounded-xl"
+                    <img class="w-full h-56 sm:h-80 md:h-96 object-cover rounded-xl sm:rounded-2xl md:rounded-3xl"
                         src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&w=1200&q=80"
                         alt="Main Property Image">
                 </div>
 
                 <!-- Specs -->
-                <div class="bg-white border shadow-sm rounded-xl p-6 dark:bg-slate-800 dark:border-gray-700 mt-6">
-                    <h2 class="text-xl font-semibold mb-4 dark:text-white">Overview</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                        <div><strong class="block text-gray-500 dark:text-gray-400 text-sm">Bedrooms</strong><span
-                                class="font-semibold text-lg dark:text-white">4</span></div>
-                        <div><strong class="block text-gray-500 dark:text-gray-400 text-sm">Bathrooms</strong><span
-                                class="font-semibold text-lg dark:text-white">3</span></div>
-                        <div><strong class="block text-gray-500 dark:text-gray-400 text-sm">Area</strong><span
-                                class="font-semibold text-lg dark:text-white">3,200 sqft</span></div>
-                        <div><strong class="block text-gray-500 dark:text-gray-400 text-sm">Type</strong><span
-                                class="font-semibold text-lg dark:text-white">Villa</span></div>
+                <div class="bg-white border shadow-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 dark:bg-slate-800 dark:border-gray-700 mt-6 sm:mt-8 md:mt-10">
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-semibold mb-6 sm:mb-8 dark:text-white">Overview</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-10">
+                        <div><strong class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Bedrooms</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">4</span></div>
+                        <div><strong class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Bathrooms</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">3</span></div>
+                        <div><strong class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Area</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">3,200 sqft</span></div>
+                        <div><strong class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Type</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">Villa</span></div>
                     </div>
-                    <h3 class="font-semibold mb-2 dark:text-white">Description</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <h3 class="font-semibold mb-3 sm:mb-4 dark:text-white text-base sm:text-lg">Description</h3>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                         A stunningly beautiful sunset villa located in the heart of Malibu. Offering panoramic ocean
                         views, this modern design showcases the pinnacle of luxury living. Featuring a spacious open
                         concept layout, an infinity pool, and state of the art appliances.
@@ -89,46 +103,46 @@
             </div>
 
             <!-- Right col - Actions -->
-            <div class="space-y-6">
+            <div class="space-y-6 sm:space-y-8">
                 <!-- Booking Card -->
-                <div class="bg-white border shadow-sm rounded-xl p-6 dark:bg-slate-800 dark:border-gray-700">
-                    <h2 class="text-xl font-semibold mb-4 dark:text-white">Schedule a Viewing</h2>
-                    <form>
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium mb-2 dark:text-white">Select Date</label>
+                <div class="bg-white border shadow-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 dark:bg-slate-800 dark:border-gray-700">
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-semibold mb-6 sm:mb-8 dark:text-white">Schedule a Viewing</h2>
+                    <form class="space-y-4 sm:space-y-5 md:space-y-6">
+                        <div>
+                            <label class="block text-xs sm:text-sm font-medium mb-2 sm:mb-3 dark:text-white">Select Date</label>
                             <input type="date"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
                         </div>
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium mb-2 dark:text-white">Select Time</label>
+                        <div>
+                            <label class="block text-xs sm:text-sm font-medium mb-2 sm:mb-3 dark:text-white">Select Time</label>
                             <select
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
                                 <option>10:00 AM</option>
                                 <option>11:00 AM</option>
                                 <option>2:00 PM</option>
                             </select>
                         </div>
                         <button type="button"
-                            class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700">
+                            class="w-full py-2 sm:py-3 px-4 inline-flex justify-center items-center gap-x-2 text-xs sm:text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700">
                             Request Appointment
                         </button>
                     </form>
                 </div>
 
                 <!-- Agent Contact -->
-                <div class="bg-white border shadow-sm rounded-xl p-6 dark:bg-slate-800 dark:border-gray-700">
-                    <div class="flex items-center gap-x-4 mb-4">
-                        <img class="inline-block size-12 rounded-full ring-2 ring-white dark:ring-gray-800"
+                <div class="bg-white border shadow-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 dark:bg-slate-800 dark:border-gray-700">
+                    <div class="flex items-center gap-x-3 sm:gap-x-4 mb-4 sm:mb-6">
+                        <img class="inline-block size-10 sm:size-12 rounded-full ring-2 ring-white dark:ring-gray-800"
                             src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
                             alt="Agent Image">
                         <div>
-                            <h3 class="font-semibold dark:text-white">Michael Johnson</h3>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Listing Agent</p>
+                            <h3 class="font-semibold dark:text-white text-sm sm:text-base">Michael Johnson</h3>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Listing Agent</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
                         <button type="button"
-                            class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800">
+                            class="w-full py-2 sm:py-3 px-3 sm:px-4 inline-flex justify-center items-center gap-x-2 text-xs sm:text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800">
                             Message
                         </button>
                     </div>

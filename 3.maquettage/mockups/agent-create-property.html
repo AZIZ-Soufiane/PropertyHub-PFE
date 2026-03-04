@@ -6,8 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Property Listing - PropertyHub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { darkMode: 'class' }</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 200: '#bdcfea', 300: '#90addc', 400: '#5d85c8', 500: '#3b65ad', 600: '#2d4f8e', 700: '#264073', 800: '#23385f', 900: '#213151', 950: '#161e33' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -19,69 +33,69 @@
 
     <div class="w-full">
         <header
-            class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 dark:bg-gray-800 dark:border-gray-700">
-            <nav class="flex basis-full items-center w-full mx-auto px-4 sm:px-6" aria-label="Global">
-                <div class="me-5 lg:me-0 text-xl font-semibold dark:text-white">Create New Listing</div>
+            class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-xs sm:text-sm py-2.5 sm:py-3 md:py-4 dark:bg-gray-800 dark:border-gray-700">
+            <nav class="flex basis-full items-center w-full mx-auto px-3 sm:px-4 md:px-6" aria-label="Global">
+                <div class="me-4 sm:me-5 lg:me-0 text-base sm:text-lg md:text-xl font-semibold dark:text-white">Create New Listing</div>
                 <div class="w-full flex items-center justify-end sm:justify-between sm:gap-x-3 sm:order-3">
                     <div class="hidden sm:block"></div>
-                    <a class="text-blue-600 font-medium" href="agent-dashboard.html">Cancel</a>
+                    <a class="text-blue-600 font-medium text-xs sm:text-sm" href="agent-dashboard.html">Cancel</a>
                 </div>
             </nav>
         </header>
 
-        <div class="max-w-4xl px-4 py-8 sm:px-6 lg:px-8 mx-auto">
-            <div class="bg-white border rounded-xl shadow-sm dark:bg-slate-900 dark:border-gray-700">
-                <form class="p-6 md:p-8 space-y-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+        <div class="max-w-4xl px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12 mx-auto">
+            <div class="bg-white border rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm dark:bg-slate-900 dark:border-gray-700">
+                <form class="p-4 sm:p-6 md:p-8 lg:p-10 space-y-5 sm:space-y-6 md:space-y-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
                         <!-- Property Title -->
                         <div class="sm:col-span-2">
-                            <label for="title" class="block mb-2 text-sm font-medium dark:text-white">Property
+                            <label for="title" class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Property
                                 Title</label>
                             <input type="text" id="title"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm border focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="e.g. Beautiful Sunset Villa in Malibu">
                         </div>
 
                         <!-- Price -->
                         <div>
-                            <label for="price" class="block mb-2 text-sm font-medium dark:text-white">Price ($)</label>
+                            <label for="price" class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Price ($)</label>
                             <input type="number" id="price"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm border focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="1250000">
                         </div>
 
                         <!-- Location -->
                         <div>
-                            <label for="location" class="block mb-2 text-sm font-medium dark:text-white">Location /
+                            <label for="location" class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Location /
                                 Address</label>
                             <input type="text" id="location"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm border focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="e.g. Malibu, CA">
                         </div>
 
                         <!-- Details -->
                         <div>
-                            <label class="block mb-2 text-sm font-medium dark:text-white">Bedrooms</label>
+                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Bedrooms</label>
                             <input type="number"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm border dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="4">
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium dark:text-white">Bathrooms</label>
+                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Bathrooms</label>
                             <input type="number"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm border dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="3">
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium dark:text-white">Total Area (sqft)</label>
+                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Total Area (sqft)</label>
                             <input type="number"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm border dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="3200">
                         </div>
                         <div>
-                            <label class="block mb-2 text-sm font-medium dark:text-white">Year Built</label>
+                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Year Built</label>
                             <input type="number"
-                                class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm border dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="2018">
                         </div>
 

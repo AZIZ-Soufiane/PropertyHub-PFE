@@ -6,8 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Switch – Atom</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -15,30 +28,30 @@
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex items-start justify-center p-12">
-    <div class="w-full max-w-xs space-y-6">
+<body class="bg-gray-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-6 sm:py-8 md:py-12">
+    <div class="w-full max-w-xs space-y-6 sm:space-y-8">
         <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Off</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Off</p>
             <div class="flex items-center gap-x-3">
                 <input type="checkbox" id="sw-off"
-                    class="relative w-[3.25rem] h-7 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-600 checked:bg-none checked:text-blue-600 checked:border-blue-600 before:inline-block before:size-6 before:bg-white checked:before:bg-blue-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200">
-                <label for="sw-off" class="text-sm font-semibold text-gray-700">Notifications</label>
+                    class="relative w-[3.25rem] h-7 p-px bg-slate-200 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary-600 checked:bg-primary-600 checked:text-primary-600 checked:border-primary-600 before:inline-block before:size-6 before:bg-white checked:before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow-sm before:transform before:ring-0 before:transition before:ease-in-out before:duration-200">
+                <label for="sw-off" class="text-sm font-semibold text-slate-700">Notifications</label>
             </div>
         </div>
         <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">On</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">On</p>
             <div class="flex items-center gap-x-3">
                 <input type="checkbox" id="sw-on" checked
-                    class="relative w-[3.25rem] h-7 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-600 checked:bg-none checked:text-blue-600 checked:border-blue-600 before:inline-block before:size-6 before:bg-white checked:before:bg-blue-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200">
-                <label for="sw-on" class="text-sm font-semibold text-gray-700">Dark Mode</label>
+                    class="relative w-[3.25rem] h-7 p-px bg-slate-200 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-primary-600 checked:bg-primary-600 checked:text-primary-600 checked:border-primary-600 before:inline-block before:size-6 before:bg-white checked:before:bg-white before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow-sm before:transform before:ring-0 before:transition before:ease-in-out before:duration-200">
+                <label for="sw-on" class="text-sm font-semibold text-slate-700">Dark Mode</label>
             </div>
         </div>
         <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Disabled</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Disabled</p>
             <div class="flex items-center gap-x-3">
                 <input type="checkbox" id="sw-disabled" disabled
-                    class="relative w-[3.25rem] h-7 p-px bg-gray-100 border-transparent text-transparent rounded-full cursor-not-allowed opacity-50 transition-colors ease-in-out duration-200 before:inline-block before:size-6 before:bg-white before:rounded-full before:shadow before:transform before:transition before:ease-in-out before:duration-200">
-                <label for="sw-disabled" class="text-sm font-semibold text-gray-400">Disabled</label>
+                    class="relative w-[3.25rem] h-7 p-px bg-slate-200 border-transparent text-transparent rounded-full cursor-not-allowed opacity-50 transition-colors ease-in-out duration-200 before:inline-block before:size-6 before:bg-white before:rounded-full before:shadow-sm before:transform before:transition before:ease-in-out before:duration-200">
+                <label for="sw-disabled" class="text-sm font-semibold text-slate-400">Disabled</label>
             </div>
         </div>
     </div>

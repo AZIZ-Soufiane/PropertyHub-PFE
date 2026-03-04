@@ -28,29 +28,21 @@
     </style>
 </head>
 
-<body class="bg-slate-950 text-slate-400 py-16">
+<body class="bg-slate-950 text-slate-400 py-8 sm:py-12 md:py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 pb-12 border-b border-slate-800">
+            <!-- Brand -->
             <div>
-                <h2 class="text-2xl font-bold text-white mb-6">PropertyHub</h2>
-                <p class="text-sm leading-relaxed">Professional, real-time real estate management platform designed to
-                    connect agency owners, agents, and buyers seamlessly.</p>
-            </div>
-            <div>
-                <h3 class="text-white font-bold mb-6">Stay Updated</h3>
-                <div class="relative">
-                    <input type="email" placeholder="email@address.com"
-                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors"
-                        style="--tw-ring-color:#029fca;">
-                    <button type="button"
-                        class="absolute right-1 top-1 bottom-1 px-4 text-white font-bold rounded-lg transition-colors"
-                        style="background:#029fca;">Join</button>
+                <h2 class="text-2xl font-bold text-white mb-4">PropertyHub</h2>
+                <p class="text-sm leading-relaxed text-slate-400 mb-6">Professional, real-time real estate management platform designed to connect agency owners, agents, and buyers.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-800 hover:bg-primary-600 text-slate-400 hover:text-white transition">
+                        <svg class="size-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"/></svg>
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="mt-16 pt-8 border-t border-white/5 text-[10px] font-bold tracking-widest uppercase text-center">
-            © 2026 PropertyHub. All rights reserved.
-        </div>
+
+            <!-- Product -->\n            <div>\n                <h3 class="text-white font-bold mb-4">Product</h3>\n                <nav class="space-y-2">\n                    <a href="#" class="text-slate-400 hover:text-white text-sm transition">Features</a>\n                    <a href="#" class="text-slate-400 hover:text-white text-sm transition">Pricing</a>\n                    <a href="#" class="text-slate-400 hover:text-white text-sm transition">Security</a>\n                </nav>\n            </div>\n\n            <!-- Company -->\n            <div>\n                <h3 class="text-white font-bold mb-4">Company</h3>\n                <nav class="space-y-2">\n                    <a href="#" class="text-slate-400 hover:text-white text-sm transition">About</a>\n                    <a href="#" class="text-slate-400 hover:text-white text-sm transition">Blog</a>\n                    <a href="#" class="text-slate-400 hover:text-white text-sm transition">Contact</a>\n                </nav>\n            </div>\n\n            <!-- Newsletter -->\n            <div>\n                <h3 class="text-white font-bold mb-4">Newsletter</h3>\n                <input type="email" placeholder="your@email.com"\n                    class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white placeholder-slate-500 focus:border-primary-600 focus:ring-primary-600/20 focus:ring-2 outline-none transition-all mb-2">\n                <button type="submit" class="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-lg transition-colors">\n                    Subscribe\n                </button>\n            </div>\n        </div>\n\n        <!-- Bottom -->\n        <div class="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold tracking-wide uppercase text-slate-500">\n            <p>© 2026 PropertyHub.</p>\n            <div class="flex gap-6">\n                <a href="#" class="hover:text-primary-600 transition">Privacy</a>\n                <a href="#" class="hover:text-primary-600 transition">Terms</a>\n            </div>\n        </div>
     </div>
 </body>
 

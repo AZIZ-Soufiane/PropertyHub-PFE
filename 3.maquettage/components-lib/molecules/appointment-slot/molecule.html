@@ -28,56 +28,63 @@
     </style>
 </head>
 
-<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
-    <div class="w-full max-w-md space-y-4">
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-6 sm:py-8 md:py-12">
+    <div class="w-full max-w-md mx-auto space-y-4 sm:space-y-5 md:space-y-6">
 
         <!-- Pending slot -->
-        <div
-            class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:border-primary-300 transition-all">
+        <div class="flex flex-col bg-white border border-amber-200 shadow-sm rounded-xl p-6 hover:shadow-md hover:border-amber-300 transition-all">
             <div class="flex justify-between items-start mb-4">
-                <div class="space-y-0.5">
-                    <h3 class="font-bold text-slate-800 text-lg">Sat, Oct 24</h3>
+                <div class="space-y-1">
+                    <h3 class="font-bold text-slate-900 text-lg">Saturday, Oct 24</h3>
                     <p class="text-sm text-slate-500 font-medium">10:00 AM – 11:00 AM</p>
                 </div>
-                <span class="inline-flex items-center py-1 px-3 rounded-full text-xs font-bold"
-                    style="background:#dbe4f4; color:#2d4f8e;">Pending</span>
+                <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                    <span class="size-1.5 bg-amber-600 rounded-full"></span>
+                    Pending
+                </span>
             </div>
-            <div class="mb-5 p-4 bg-slate-50 rounded-2xl">
-                <p class="text-sm font-bold text-slate-800 mb-1">Sunset Villa, Malibu</p>
-                <p class="text-xs text-slate-400 font-medium flex items-center gap-2">
-                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
+            <div class="mb-5 p-4 bg-slate-50 rounded-lg border border-slate-100">
+                <p class="text-sm font-bold text-slate-900 mb-2">Sunset Villa, Malibu</p>
+                <p class="text-xs text-slate-500 font-medium flex items-center gap-2">
+                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.657-.672-3.157-1.764-4.233m2.764 4.233a48.997 48.997 0 0 0 5.83-.362m0 0a48.998 48.998 0 0 0-7.314-3.319m0 0A24.89 24.89 0 0 1 15 19.128M4.462 20.341A9.88 9.88 0 0 0 7.5 19.5M15 19.128l-7.038 1.213M4.462 20.341A9.865 9.865 0 0 1 12 20.25c4.1 0 7.831-2.355 9.825-5.838" />
                     </svg>
                     Sarah Jenkins
                 </p>
             </div>
-            <div class="flex gap-x-2">
-                <button
-                    class="w-full py-2.5 text-sm font-bold rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
-                    type="button">Accept</button>
-                <button
-                    class="w-full py-2.5 text-sm font-bold rounded-xl border border-slate-200 text-rose-600 hover:bg-rose-50 transition-colors"
-                    type="button">Decline</button>
+            <div class="flex gap-2">
+                <button class="flex-1 py-2.5 px-4 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 transition-colors">
+                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 11.192L19.02 2.25" />
+                    </svg>
+                    Accept
+                </button>
+                <button class="flex-1 py-2.5 px-4 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-slate-200 bg-white text-rose-600 hover:bg-rose-50 disabled:opacity-50 transition-colors">
+                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                    Decline
+                </button>
             </div>
         </div>
 
         <!-- Confirmed slot -->
-        <div class="flex flex-col bg-white border border-emerald-200 shadow-sm rounded-2xl p-5">
+        <div class="flex flex-col bg-white border border-emerald-200 shadow-sm rounded-xl p-6 hover:shadow-md transition-all">
             <div class="flex justify-between items-start mb-4">
-                <div class="space-y-0.5">
-                    <h3 class="font-bold text-slate-800 text-lg">Sun, Oct 25</h3>
+                <div class="space-y-1">
+                    <h3 class="font-bold text-slate-900 text-lg">Sunday, Oct 25</h3>
                     <p class="text-sm text-slate-500 font-medium">2:00 PM – 3:00 PM</p>
                 </div>
-                <span
-                    class="inline-flex items-center py-1 px-3 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">Confirmed</span>
+                <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    <span class="size-1.5 bg-emerald-600 rounded-full"></span>
+                    Confirmed
+                </span>
             </div>
-            <div class="p-4 bg-slate-50 rounded-2xl">
-                <p class="text-sm font-bold text-slate-800 mb-1">Ocean View Penthouse</p>
-                <p class="text-xs text-slate-400 font-medium flex items-center gap-2">
-                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
+            <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                <p class="text-sm font-bold text-slate-900 mb-2">Ocean View Penthouse</p>
+                <p class="text-xs text-slate-500 font-medium flex items-center gap-2">
+                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.657-.672-3.157-1.764-4.233m2.764 4.233a48.997 48.997 0 0 0 5.83-.362m0 0a48.998 48.998 0 0 0-7.314-3.319m0 0A24.89 24.89 0 0 1 15 19.128M4.462 20.341A9.88 9.88 0 0 0 7.5 19.5M15 19.128l-7.038 1.213M4.462 20.341A9.865 9.865 0 0 1 12 20.25c4.1 0 7.831-2.355 9.825-5.838" />
                     </svg>
                     Thomas Brown
                 </p>

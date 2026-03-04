@@ -2,11 +2,12 @@
 left to right direction
 skinparam shadowing false
 
-actor "Staff (Admin/Agent)" as Staff
+actor "Admin" as Admin
+actor "Agent" as Agent
 actor "Visitor" as Vis
 
-rectangle "Sprint 1: Foundations" {
-    (Login / Logout) as UC_Auth
+rectangle "Sprint 1: Core Property Management" {
+    (Login / Authentication) as UC_Auth
     (Create Property Listing) as UC_Create
     (Edit/Delete Property) as UC_Edit
     (Upload Property Photos) as UC_Photos
@@ -14,11 +15,24 @@ rectangle "Sprint 1: Foundations" {
     (View Property Details) as UC_Details
 }
 
-Staff -- UC_Auth
-Staff -- UC_Create
-Staff -- UC_Edit
-Staff -- UC_Photos
-
+' Visitor Actions
 Vis -- UC_Browse
 Vis -- UC_Details
+
+' Staff Actions (Agent & Admin)
+Agent -- UC_Auth
+Agent -- UC_Create
+Agent -- UC_Edit
+Agent -- UC_Photos
+
+Admin -- UC_Auth
+Admin -- UC_Create
+
+' Security Requirements
+UC_Create ..> UC_Auth : <<include>>
+UC_Edit   ..> UC_Auth : <<include>>
+UC_Photos ..> UC_Auth : <<include>>
+
+Admin -right-> Agent : <<extend>>
+
 @enduml

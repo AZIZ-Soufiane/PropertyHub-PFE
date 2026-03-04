@@ -249,7 +249,7 @@ The project applies **Design Thinking** across five stages:
 ## 5b - Use Cases: Sprint 1 (Foundations)
 
 <div class="img-container">
-  <img src="images/sprint1-UseCase.png" class="img-usecase" alt="Sprint 1 Use Cases">
+  <img src="images/Sprint1-UseCase.png" class="img-usecase" alt="Sprint 1 Use Cases">
 </div>
 
 ---
@@ -257,7 +257,7 @@ The project applies **Design Thinking** across five stages:
 ## 5c - Use Cases: Sprint 2 (Advanced Features)
 
 <div class="img-container">
-  <img src="images/sprint2-UseCase.png" class="img-usecase" alt="Sprint 2 Use Cases">
+  <img src="images/Sprint2-UseCase.png" class="img-usecase" alt="Sprint 2 Use Cases">
 </div>
 
 ---

@@ -265,7 +265,7 @@ The project applies **Design Thinking** across five stages:
 ## 6a - Application Design: Class Diagram
 
 <div class="img-container">
-  <img src="images/class-diagram.png" class="img-usecase" alt="Class Diagram">
+  <img src="images/Class-Diagram.png" class="img-usecase" alt="Class Diagram">
 </div>
 
 ---

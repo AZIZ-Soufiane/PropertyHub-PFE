@@ -6,7 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message Bubble – Molecule</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -14,15 +28,15 @@
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-8">
-    <div class="w-full max-w-lg bg-white border border-gray-100 rounded-3xl shadow-sm overflow-hidden">
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-8">
+    <div class="w-full max-w-lg bg-white border border-slate-100 rounded-3xl shadow-sm overflow-hidden">
         <!-- Chat header -->
-        <div class="flex items-center gap-3 p-5 border-b border-gray-100">
+        <div class="flex items-center gap-3 p-5 border-b border-slate-100">
             <img class="size-10 rounded-full"
                 src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
-                alt="Michael">
+                alt="Michael" width="40" height="40">
             <div>
-                <h3 class="font-bold text-gray-800 text-sm">Michael Johnson</h3>
+                <h3 class="font-bold text-slate-800 text-sm">Michael Johnson</h3>
                 <p class="text-[10px] text-emerald-500 font-bold uppercase tracking-widest">Online</p>
             </div>
         </div>
@@ -33,49 +47,49 @@
             <li class="flex gap-x-3 items-end">
                 <img class="size-8 rounded-full flex-shrink-0"
                     src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&w=300&q=80"
-                    alt="Sarah">
+                    alt="Sarah" width="32" height="32">
                 <div>
-                    <div class="bg-gray-100 rounded-2xl rounded-bl-none px-4 py-3 max-w-[280px]">
-                        <p class="text-sm text-gray-800 leading-relaxed">Hi Michael! I'm really interested in the Sunset
-                            Villa 🏡 Can we schedule a viewing this weekend?</p>
+                    <div class="bg-slate-100 rounded-2xl rounded-bl-none px-4 py-3 max-w-[280px]">
+                        <p class="text-sm text-slate-800 leading-relaxed">Hi Michael! I'm really interested in the
+                            Sunset Villa 🏡 Can we schedule a viewing this weekend?</p>
                     </div>
-                    <p class="text-[10px] text-gray-400 mt-1 ml-1">09:41 AM</p>
+                    <p class="text-[10px] text-slate-400 mt-1 ml-1">09:41 AM</p>
                 </div>
             </li>
 
             <!-- Agent reply (right) -->
             <li class="flex gap-x-3 items-end justify-end">
                 <div>
-                    <div class="bg-blue-600 rounded-2xl rounded-br-none px-4 py-3 max-w-[280px]">
+                    <div class="rounded-2xl rounded-br-none px-4 py-3 max-w-[280px]" style="background:#3b65ad;">
                         <p class="text-sm text-white leading-relaxed">Hello Sarah! Absolutely, the villa is truly
                             impressive. We have a slot available at 10 AM Saturday. Does that work for you? 😊</p>
                     </div>
-                    <p class="text-[10px] text-gray-400 mt-1 text-right mr-1">09:45 AM</p>
+                    <p class="text-[10px] text-slate-400 mt-1 text-right mr-1">09:45 AM</p>
                 </div>
                 <img class="size-8 rounded-full flex-shrink-0"
                     src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
-                    alt="Michael">
+                    alt="Michael" width="32" height="32">
             </li>
 
             <!-- User follow-up -->
             <li class="flex gap-x-3 items-end">
                 <img class="size-8 rounded-full flex-shrink-0"
                     src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&w=300&q=80"
-                    alt="Sarah">
+                    alt="Sarah" width="32" height="32">
                 <div>
-                    <div class="bg-gray-100 rounded-2xl rounded-bl-none px-4 py-3 max-w-[280px]">
-                        <p class="text-sm text-gray-800 leading-relaxed">That works perfectly, thank you!</p>
+                    <div class="bg-slate-100 rounded-2xl rounded-bl-none px-4 py-3 max-w-[280px]">
+                        <p class="text-sm text-slate-800 leading-relaxed">That works perfectly, thank you!</p>
                     </div>
-                    <p class="text-[10px] text-gray-400 mt-1 ml-1">09:46 AM</p>
+                    <p class="text-[10px] text-slate-400 mt-1 ml-1">09:46 AM</p>
                 </div>
             </li>
         </ul>
 
         <!-- Input area -->
-        <div class="flex items-center gap-3 px-5 py-4 border-t border-gray-100">
+        <div class="flex items-center gap-3 px-5 py-4 border-t border-slate-100">
             <input type="text" placeholder="Type a message..."
-                class="flex-1 bg-gray-50 border-0 rounded-2xl px-4 py-3 text-sm outline-none focus:ring-0">
-            <button class="p-3 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition-all">
+                class="flex-1 bg-slate-50 border-0 rounded-2xl px-4 py-3 text-sm outline-none focus:ring-0">
+            <button type="button" class="p-3 text-white rounded-2xl transition-all" style="background:#3b65ad;">
                 <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <line x1="22" y1="2" x2="11" y2="13" />
                     <polygon points="22 2 15 22 11 13 2 9 22 2" />

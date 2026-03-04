@@ -3,7 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer – Molecule</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
 <body class="bg-slate-950 text-slate-400 py-16">
@@ -18,9 +40,11 @@
                 <h3 class="text-white font-bold mb-6">Stay Updated</h3>
                 <div class="relative">
                     <input type="email" placeholder="email@address.com"
-                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-secondary-500 transition-colors">
-                    <button
-                        class="absolute right-1 top-1 bottom-1 px-4 bg-secondary-500 text-white font-bold rounded-lg transition-colors">Join</button>
+                        class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors"
+                        style="--tw-ring-color:#029fca;">
+                    <button type="button"
+                        class="absolute right-1 top-1 bottom-1 px-4 text-white font-bold rounded-lg transition-colors"
+                        style="background:#029fca;">Join</button>
                 </div>
             </div>
         </div>

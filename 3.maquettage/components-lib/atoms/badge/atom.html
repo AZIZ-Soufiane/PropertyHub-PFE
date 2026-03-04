@@ -3,7 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badge – Atom</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
 <body class="p-8 flex flex-wrap gap-4 bg-slate-50">
@@ -11,6 +33,12 @@
     <span
         class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">
         For Sale
+    </span>
+
+    <!-- Variant: For Rent -->
+    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border"
+        style="background:#dbe4f4; color:#2d4f8e; border-color:#bdcfea;">
+        For Rent
     </span>
 
     <!-- Variant: Pending -->

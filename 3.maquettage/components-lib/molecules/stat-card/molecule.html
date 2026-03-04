@@ -6,7 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stat Card – Molecule</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -14,23 +28,24 @@
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex items-start justify-center p-12">
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-3xl">
         <!-- Users -->
-        <div class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition">
+        <div
+            class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition">
             <div class="flex items-center gap-x-4 mb-3">
-                <div class="size-11 flex justify-center items-center bg-blue-50 text-blue-600 rounded-xl">
-                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
+                <div class="size-11 flex justify-center items-center rounded-xl"
+                    style="background:#eff3fa; color:#3b65ad;">
+                    <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                         <circle cx="9" cy="7" r="4" />
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
                 </div>
-                <p class="text-xs font-extrabold uppercase tracking-widest text-gray-400">Users</p>
+                <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Users</p>
             </div>
-            <h3 class="text-3xl font-black text-gray-800">72,540</h3>
+            <h3 class="text-3xl font-black text-slate-800">72,540</h3>
             <span class="flex items-center gap-x-1 text-emerald-600 font-bold text-sm mt-2">
                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
@@ -40,7 +55,8 @@
             </span>
         </div>
         <!-- Properties -->
-        <div class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition">
+        <div
+            class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition">
             <div class="flex items-center gap-x-4 mb-3">
                 <div class="size-11 flex justify-center items-center bg-amber-50 text-amber-600 rounded-xl">
                     <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -48,9 +64,9 @@
                         <polyline points="9 22 9 12 15 12 15 22" />
                     </svg>
                 </div>
-                <p class="text-xs font-extrabold uppercase tracking-widest text-gray-400">Properties</p>
+                <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Properties</p>
             </div>
-            <h3 class="text-3xl font-black text-gray-800">1,340</h3>
+            <h3 class="text-3xl font-black text-slate-800">1,340</h3>
             <span class="flex items-center gap-x-1 text-emerald-600 font-bold text-sm mt-2">
                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
@@ -60,16 +76,17 @@
             </span>
         </div>
         <!-- Revenue -->
-        <div class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition">
+        <div
+            class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition">
             <div class="flex items-center gap-x-4 mb-3">
                 <div class="size-11 flex justify-center items-center bg-purple-50 text-purple-600 rounded-xl">
                     <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
                 </div>
-                <p class="text-xs font-extrabold uppercase tracking-widest text-gray-400">Revenue</p>
+                <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Revenue</p>
             </div>
-            <h3 class="text-3xl font-black text-gray-800">$542K</h3>
+            <h3 class="text-3xl font-black text-slate-800">$542K</h3>
             <span class="flex items-center gap-x-1 text-rose-500 font-bold text-sm mt-2">
                 <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <polyline points="22 17 13.5 8.5 8.5 13.5 2 7" />

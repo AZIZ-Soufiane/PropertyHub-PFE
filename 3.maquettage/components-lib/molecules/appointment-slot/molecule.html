@@ -6,7 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Slot – Molecule</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -14,23 +28,23 @@
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex items-start justify-center p-12">
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
     <div class="w-full max-w-md space-y-4">
 
         <!-- Pending slot -->
         <div
-            class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:border-blue-300 transition-all">
+            class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:border-primary-300 transition-all">
             <div class="flex justify-between items-start mb-4">
                 <div class="space-y-0.5">
-                    <h3 class="font-bold text-gray-800 text-lg">Sat, Oct 24</h3>
-                    <p class="text-sm text-gray-500 font-medium">10:00 AM – 11:00 AM</p>
+                    <h3 class="font-bold text-slate-800 text-lg">Sat, Oct 24</h3>
+                    <p class="text-sm text-slate-500 font-medium">10:00 AM – 11:00 AM</p>
                 </div>
-                <span
-                    class="inline-flex items-center py-1 px-3 rounded-full text-xs font-bold bg-blue-100 text-blue-800">Pending</span>
+                <span class="inline-flex items-center py-1 px-3 rounded-full text-xs font-bold"
+                    style="background:#dbe4f4; color:#2d4f8e;">Pending</span>
             </div>
-            <div class="mb-5 p-4 bg-gray-50 rounded-2xl">
-                <p class="text-sm font-bold text-gray-800 mb-1">Sunset Villa, Malibu</p>
-                <p class="text-xs text-gray-400 font-medium flex items-center gap-2">
+            <div class="mb-5 p-4 bg-slate-50 rounded-2xl">
+                <p class="text-sm font-bold text-slate-800 mb-1">Sunset Villa, Malibu</p>
+                <p class="text-xs text-slate-400 font-medium flex items-center gap-2">
                     <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
@@ -40,9 +54,11 @@
             </div>
             <div class="flex gap-x-2">
                 <button
-                    class="w-full py-2.5 text-sm font-bold rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-colors">Accept</button>
+                    class="w-full py-2.5 text-sm font-bold rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
+                    type="button">Accept</button>
                 <button
-                    class="w-full py-2.5 text-sm font-bold rounded-xl border border-gray-200 text-rose-600 hover:bg-rose-50 transition-colors">Decline</button>
+                    class="w-full py-2.5 text-sm font-bold rounded-xl border border-slate-200 text-rose-600 hover:bg-rose-50 transition-colors"
+                    type="button">Decline</button>
             </div>
         </div>
 
@@ -50,15 +66,15 @@
         <div class="flex flex-col bg-white border border-emerald-200 shadow-sm rounded-2xl p-5">
             <div class="flex justify-between items-start mb-4">
                 <div class="space-y-0.5">
-                    <h3 class="font-bold text-gray-800 text-lg">Sun, Oct 25</h3>
-                    <p class="text-sm text-gray-500 font-medium">2:00 PM – 3:00 PM</p>
+                    <h3 class="font-bold text-slate-800 text-lg">Sun, Oct 25</h3>
+                    <p class="text-sm text-slate-500 font-medium">2:00 PM – 3:00 PM</p>
                 </div>
                 <span
                     class="inline-flex items-center py-1 px-3 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">Confirmed</span>
             </div>
-            <div class="p-4 bg-gray-50 rounded-2xl">
-                <p class="text-sm font-bold text-gray-800 mb-1">Ocean View Penthouse</p>
-                <p class="text-xs text-gray-400 font-medium flex items-center gap-2">
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-sm font-bold text-slate-800 mb-1">Ocean View Penthouse</p>
+                <p class="text-xs text-slate-400 font-medium flex items-center gap-2">
                     <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />

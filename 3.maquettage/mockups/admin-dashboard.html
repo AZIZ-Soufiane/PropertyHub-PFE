@@ -5,10 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - PropertyHub</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config = { darkMode: 'class' }</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        },
+                        secondary: {
+                            500: '#029fca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Preline UI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -16,24 +51,28 @@
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 flex min-h-screen">
+<body class="bg-slate-50 text-slate-800 flex min-h-screen">
 
     <!-- ═══════════════════════════════════════════
-         SIDEBAR — matches admin-sidebar molecule
+         SIDEBAR
     ════════════════════════════════════════════════ -->
-    <aside class="hidden lg:flex w-64 flex-shrink-0 bg-white border-r border-gray-200 flex-col pt-7 pb-10 min-h-screen">
+    <aside
+        class="hidden lg:flex w-64 flex-shrink-0 bg-white border-r border-slate-200 flex-col pt-7 pb-10 min-h-screen">
+
         <!-- Logo -->
         <div class="px-6 mb-8">
-            <a class="text-2xl font-black text-blue-600 tracking-tighter" href="#" aria-label="Brand">PropertyHub</a>
-            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">Admin Portal</p>
+            <a class="text-2xl font-black tracking-tighter" href="#" aria-label="PropertyHub"
+                style="color:#3b65ad;">PropertyHub</a>
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Admin Portal</p>
         </div>
 
         <!-- Nav -->
-        <nav class="px-6 flex-1">
+        <nav class="px-6 flex-1" aria-label="Sidebar navigation">
             <ul class="space-y-1.5">
+                <!-- Dashboard (active) -->
                 <li>
-                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 bg-blue-50 text-sm text-blue-600 font-bold rounded-xl"
-                        href="#">
+                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm font-bold rounded-xl transition-all"
+                        style="background:#eff3fa; color:#3b65ad;" href="#">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <rect width="18" height="18" x="3" y="3" rx="2" />
                             <line x1="3" x2="21" y1="9" y2="9" />
@@ -42,8 +81,9 @@
                         Dashboard
                     </a>
                 </li>
+                <!-- Users & Roles -->
                 <li>
-                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-gray-700 font-medium rounded-xl hover:bg-gray-100 transition-all"
+                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-slate-600 font-medium rounded-xl hover:bg-slate-100 transition-all"
                         href="#">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -51,11 +91,12 @@
                             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
-                        Users & Roles
+                        Users &amp; Roles
                     </a>
                 </li>
+                <!-- Properties -->
                 <li>
-                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-gray-700 font-medium rounded-xl hover:bg-gray-100 transition-all"
+                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-slate-600 font-medium rounded-xl hover:bg-slate-100 transition-all"
                         href="#">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -64,8 +105,9 @@
                         Properties
                     </a>
                 </li>
+                <!-- System Logs -->
                 <li>
-                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-gray-700 font-medium rounded-xl hover:bg-gray-100 transition-all"
+                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-slate-600 font-medium rounded-xl hover:bg-slate-100 transition-all"
                         href="#">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
@@ -73,29 +115,31 @@
                         System Logs
                     </a>
                 </li>
+                <!-- Messages -->
                 <li>
-                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-gray-700 font-medium rounded-xl hover:bg-gray-100 transition-all"
+                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-slate-600 font-medium rounded-xl hover:bg-slate-100 transition-all"
                         href="messages.html">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                         </svg>
                         Messages
                         <span
-                            class="ms-auto size-5 inline-flex justify-center items-center rounded-full text-[10px] font-bold bg-blue-600 text-white">3</span>
+                            class="ms-auto size-5 inline-flex justify-center items-center rounded-full text-[10px] font-bold text-white"
+                            style="background:#3b65ad;">3</span>
                     </a>
                 </li>
             </ul>
         </nav>
 
         <!-- Bottom profile -->
-        <div class="px-6 mt-auto pt-6 border-t border-gray-100">
+        <div class="px-6 mt-auto pt-6 border-t border-slate-100">
             <div class="flex items-center gap-3">
                 <img class="size-9 rounded-full"
                     src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
-                    alt="Admin">
+                    alt="Admin" width="36" height="36">
                 <div>
-                    <p class="text-sm font-bold text-gray-800">Admin User</p>
-                    <p class="text-[10px] text-gray-400 font-semibold">admin@propertyhub.com</p>
+                    <p class="text-sm font-bold text-slate-800">Admin User</p>
+                    <p class="text-[10px] text-slate-400 font-semibold">admin@propertyhub.com</p>
                 </div>
             </div>
         </div>
@@ -108,38 +152,161 @@
 
         <!-- Top header bar -->
         <header
-            class="sticky top-0 z-40 bg-white border-b border-gray-200 py-4 px-6 flex items-center justify-between shadow-sm">
+            class="sticky top-0 z-40 bg-white border-b border-slate-200 py-4 px-6 flex items-center justify-between shadow-sm">
             <div>
-                <h1 class="text-xl font-black text-gray-800">Admin Dashboard</h1>
-                <p class="text-xs text-gray-400 font-semibold">Welcome back, Administrator</p>
+                <h1 class="text-xl font-black text-slate-800">Admin Dashboard</h1>
+                <p class="text-xs text-slate-400 font-semibold">Welcome back, Administrator</p>
             </div>
             <div class="flex items-center gap-4">
-                <button
-                    class="relative p-2.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-all">
-                    <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                    </svg>
-                    <span class="absolute top-1.5 right-1.5 size-2 bg-blue-600 rounded-full"></span>
-                </button>
-                <img class="size-9 rounded-full ring-2 ring-gray-100"
-                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
-                    alt="Admin">
+                <!-- Preline Advanced Dropdown — Notifications -->
+                <div class="hs-dropdown relative inline-flex">
+                    <button id="dropdown-notifications" type="button"
+                        class="hs-dropdown-toggle relative p-2.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                        <span class="absolute top-1.5 right-1.5 size-2 rounded-full" style="background:#3b65ad;"></span>
+                    </button>
+                    <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-80 bg-white shadow-xl rounded-2xl border border-slate-100 mt-2 z-50 overflow-hidden"
+                        aria-labelledby="dropdown-notifications">
+                        <!-- Header -->
+                        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
+                            <p class="text-sm font-black text-slate-800">Notifications</p>
+                            <span
+                                class="inline-flex items-center py-0.5 px-2 rounded-full text-[10px] font-bold text-white"
+                                style="background:#3b65ad;">3 New</span>
+                        </div>
+                        <!-- Items -->
+                        <div class="divide-y divide-slate-50">
+                            <a href="#" class="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                <span class="mt-0.5 size-8 flex-shrink-0 flex items-center justify-center rounded-full"
+                                    style="background:#eff3fa;">
+                                    <svg class="size-4" fill="none" stroke="#3b65ad" viewBox="0 0 24 24"
+                                        stroke-width="2">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                    </svg>
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800">New user registered</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 truncate">Ahmed Karimi signed up as a Buyer
+                                    </p>
+                                    <p class="text-[10px] text-slate-300 font-semibold mt-1">2 min ago</p>
+                                </div>
+                                <span class="mt-1.5 size-2 rounded-full flex-shrink-0"
+                                    style="background:#3b65ad;"></span>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                <span
+                                    class="mt-0.5 size-8 flex-shrink-0 flex items-center justify-center rounded-full bg-amber-50">
+                                    <svg class="size-4 text-amber-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" stroke-width="2">
+                                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    </svg>
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800">Property pending review</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 truncate">Villa Nador — awaiting approval
+                                    </p>
+                                    <p class="text-[10px] text-slate-300 font-semibold mt-1">15 min ago</p>
+                                </div>
+                                <span class="mt-1.5 size-2 rounded-full flex-shrink-0"
+                                    style="background:#3b65ad;"></span>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                <span
+                                    class="mt-0.5 size-8 flex-shrink-0 flex items-center justify-center rounded-full bg-emerald-50">
+                                    <svg class="size-4 text-emerald-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" stroke-width="2">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                    </svg>
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800">New message received</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 truncate">Sarah Jenkins sent you a message
+                                    </p>
+                                    <p class="text-[10px] text-slate-300 font-semibold mt-1">1 hr ago</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Footer -->
+                        <div class="px-4 py-3 border-t border-slate-100">
+                            <a href="#" class="block text-center text-xs font-bold transition-colors"
+                                style="color:#3b65ad;">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preline Advanced Dropdown — Admin avatar -->
+                <div class="hs-dropdown relative inline-flex">
+                    <button id="admin-avatar-dropdown" type="button"
+                        class="hs-dropdown-toggle flex items-center gap-2 focus:outline-none">
+                        <img class="size-9 rounded-full ring-2 ring-slate-100"
+                            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
+                            alt="Admin" width="36" height="36">
+                        <svg class="size-3.5 text-slate-400 hs-dropdown-open:rotate-180 transition-transform"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-56 bg-white shadow-xl rounded-2xl border border-slate-100 mt-2 z-50 overflow-hidden"
+                        aria-labelledby="admin-avatar-dropdown">
+                        <!-- User info header -->
+                        <div class="px-4 py-3 border-b border-slate-100">
+                            <p class="text-sm font-black text-slate-800">Admin User</p>
+                            <p class="text-xs text-slate-400 mt-0.5">admin@propertyhub.com</p>
+                        </div>
+                        <!-- Menu items -->
+                        <div class="p-1">
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-slate-700 hover:bg-slate-100 font-medium transition-colors"
+                                href="#">
+                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                My Profile
+                            </a>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-slate-700 hover:bg-slate-100 font-medium transition-colors"
+                                href="#">
+                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2">
+                                    <path
+                                        d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                                Settings
+                            </a>
+                            <div class="my-1 border-t border-slate-100"></div>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-rose-500 hover:bg-rose-50 font-medium transition-colors"
+                                href="#">
+                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                    <polyline points="16 17 21 12 16 7" />
+                                    <line x1="21" x2="9" y1="12" y2="12" />
+                                </svg>
+                                Sign out
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </header>
 
         <!-- Page body -->
         <main class="flex-1 p-6 sm:p-8 space-y-8">
 
-            <!-- ── STAT CARDS — matches stat-card molecule ── -->
+            <!-- ── STAT CARDS ── -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-                <!-- Users -->
+                <!-- Total Users -->
                 <div
-                    class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
+                    class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
                     <div class="flex items-center gap-x-4 mb-3">
-                        <div
-                            class="size-11 flex justify-center items-center bg-blue-50 text-blue-600 rounded-xl flex-shrink-0">
+                        <div class="size-11 flex justify-center items-center rounded-xl flex-shrink-0"
+                            style="background:#eff3fa; color:#3b65ad;">
                             <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                                 <circle cx="9" cy="7" r="4" />
@@ -147,9 +314,9 @@
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             </svg>
                         </div>
-                        <p class="text-xs font-extrabold uppercase tracking-widest text-gray-400">Total Users</p>
+                        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Total Users</p>
                     </div>
-                    <h3 class="text-3xl font-black text-gray-800">1,245</h3>
+                    <h3 class="text-3xl font-black text-slate-800">1,245</h3>
                     <span class="flex items-center gap-x-1 text-emerald-600 font-bold text-sm mt-2">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
@@ -161,7 +328,7 @@
 
                 <!-- Properties -->
                 <div
-                    class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
+                    class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
                     <div class="flex items-center gap-x-4 mb-3">
                         <div
                             class="size-11 flex justify-center items-center bg-amber-50 text-amber-600 rounded-xl flex-shrink-0">
@@ -170,9 +337,9 @@
                                 <polyline points="9 22 9 12 15 12 15 22" />
                             </svg>
                         </div>
-                        <p class="text-xs font-extrabold uppercase tracking-widest text-gray-400">Properties</p>
+                        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Properties</p>
                     </div>
-                    <h3 class="text-3xl font-black text-gray-800">324</h3>
+                    <h3 class="text-3xl font-black text-slate-800">324</h3>
                     <span class="flex items-center gap-x-1 text-emerald-600 font-bold text-sm mt-2">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
@@ -184,7 +351,7 @@
 
                 <!-- Appointments -->
                 <div
-                    class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
+                    class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
                     <div class="flex items-center gap-x-4 mb-3">
                         <div
                             class="size-11 flex justify-center items-center bg-purple-50 text-purple-600 rounded-xl flex-shrink-0">
@@ -195,17 +362,17 @@
                                 <line x1="3" x2="21" y1="10" y2="10" />
                             </svg>
                         </div>
-                        <p class="text-xs font-extrabold uppercase tracking-widest text-gray-400">Appointments</p>
+                        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Appointments</p>
                     </div>
-                    <h3 class="text-3xl font-black text-gray-800">4,520</h3>
-                    <span class="flex items-center gap-x-1 text-blue-500 font-bold text-sm mt-2">
+                    <h3 class="text-3xl font-black text-slate-800">4,520</h3>
+                    <span class="flex items-center gap-x-1 font-bold text-sm mt-2" style="color:#029fca;">
                         — Steady performance
                     </span>
                 </div>
 
                 <!-- Revenue -->
                 <div
-                    class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
+                    class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition-all">
                     <div class="flex items-center gap-x-4 mb-3">
                         <div
                             class="size-11 flex justify-center items-center bg-emerald-50 text-emerald-600 rounded-xl flex-shrink-0">
@@ -213,9 +380,9 @@
                                 <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                             </svg>
                         </div>
-                        <p class="text-xs font-extrabold uppercase tracking-widest text-gray-400">Revenue</p>
+                        <p class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Revenue</p>
                     </div>
-                    <h3 class="text-3xl font-black text-gray-800">$542K</h3>
+                    <h3 class="text-3xl font-black text-slate-800">$542K</h3>
                     <span class="flex items-center gap-x-1 text-rose-500 font-bold text-sm mt-2">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <polyline points="22 17 13.5 8.5 8.5 13.5 2 7" />
@@ -228,58 +395,61 @@
             </div>
 
             <!-- ── USER MANAGEMENT TABLE ── -->
-            <div class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-3xl overflow-hidden">
-                <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
+            <div class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden">
+                <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center">
                     <div>
-                        <h2 class="text-lg font-black text-gray-800">User Management</h2>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">All registered accounts</p>
+                        <h2 class="text-lg font-black text-slate-800">User Management</h2>
+                        <p class="text-xs text-slate-400 font-semibold mt-0.5">All registered accounts</p>
                     </div>
-                    <button
-                        class="py-2.5 px-5 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-sm shadow-blue-500/20">
+                    <!-- Preline Modal trigger -->
+                    <button type="button" id="btn-add-member" data-hs-overlay="#modal-add-member"
+                        class="py-2.5 px-5 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl text-white transition-all shadow-sm"
+                        style="background:#3b65ad;">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                             <path d="M12 4v16m8-8H4" />
                         </svg>
                         Add Member
                     </button>
                 </div>
+
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-100">
-                        <thead class="bg-gray-50/60">
+                    <table class="min-w-full divide-y divide-slate-100">
+                        <thead class="bg-slate-50/60">
                             <tr>
                                 <th
-                                    class="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                    class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                     Profile</th>
                                 <th
-                                    class="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                    class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                     Role</th>
                                 <th
-                                    class="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                    class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                     Status</th>
                                 <th
-                                    class="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                    class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                     Joined</th>
                                 <th
-                                    class="px-6 py-4 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                                    class="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
                                     Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-50">
+                        <tbody class="divide-y divide-slate-50">
                             <!-- Row 1 -->
-                            <tr class="hover:bg-gray-50 transition-colors">
+                            <tr class="hover:bg-slate-50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center gap-3">
                                         <img class="size-10 rounded-full"
                                             src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&w=300&q=80"
-                                            alt="Sarah">
+                                            alt="Sarah Jenkins" width="40" height="40">
                                         <div>
-                                            <p class="text-sm font-bold text-gray-800">Sarah Jenkins</p>
-                                            <p class="text-xs text-gray-400 font-medium">sarah@example.com</p>
+                                            <p class="text-sm font-bold text-slate-800">Sarah Jenkins</p>
+                                            <p class="text-xs text-slate-400 font-medium">sarah@example.com</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        class="py-1 px-3 rounded-full text-[10px] font-bold bg-gray-100 text-gray-700 uppercase tracking-wide">Buyer</span>
+                                        class="py-1 px-3 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 uppercase tracking-wide">Buyer</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
@@ -287,31 +457,78 @@
                                         <span class="size-1.5 rounded-full bg-emerald-500"></span>Active
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400 font-semibold">Jan 14, 2025
-                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs text-slate-400 font-semibold">Jan 14,
+                                    2025</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    <div class="flex items-center justify-end gap-3">
-                                        <button class="text-blue-600 font-bold text-xs hover:underline">Edit</button>
-                                        <button class="text-rose-500 font-bold text-xs hover:underline">Suspend</button>
+                                    <div class="hs-dropdown relative inline-flex justify-end">
+                                        <button id="row-actions-1" type="button"
+                                            class="hs-dropdown-toggle size-8 inline-flex justify-center items-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
+                                            <svg class="size-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="5" r="1.5" />
+                                                <circle cx="12" cy="12" r="1.5" />
+                                                <circle cx="12" cy="19" r="1.5" />
+                                            </svg>
+                                        </button>
+                                        <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-44 bg-white shadow-xl rounded-xl border border-slate-100 p-1 z-50"
+                                            aria-labelledby="row-actions-1">
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <path
+                                                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                </svg>
+                                                Edit user
+                                            </a>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                                View profile
+                                            </a>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                                    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                                                </svg>
+                                                Change role
+                                            </a>
+                                            <div class="my-1 border-t border-slate-100"></div>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-rose-500 hover:bg-rose-50 transition-colors">
+                                                <svg class="size-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <line x1="4.93" x2="19.07" y1="4.93" y2="19.07" />
+                                                </svg>
+                                                Suspend account
+                                            </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                             <!-- Row 2 -->
-                            <tr class="hover:bg-gray-50 transition-colors">
+                            <tr class="hover:bg-slate-50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center gap-3">
                                         <img class="size-10 rounded-full"
                                             src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
-                                            alt="Michael">
+                                            alt="Michael Johnson" width="40" height="40">
                                         <div>
-                                            <p class="text-sm font-bold text-gray-800">Michael Johnson</p>
-                                            <p class="text-xs text-gray-400 font-medium">michael@propertyhub.com</p>
+                                            <p class="text-sm font-bold text-slate-800">Michael Johnson</p>
+                                            <p class="text-xs text-slate-400 font-medium">michael@propertyhub.com</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="py-1 px-3 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700 uppercase tracking-wide">Agent</span>
+                                    <span class="py-1 px-3 rounded-full text-[10px] font-bold uppercase tracking-wide"
+                                        style="background:#dbe4f4; color:#2d4f8e;">Agent</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
@@ -319,30 +536,77 @@
                                         <span class="size-1.5 rounded-full bg-emerald-500"></span>Active
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400 font-semibold">Mar 02, 2025
-                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs text-slate-400 font-semibold">Mar 02,
+                                    2025</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    <div class="flex items-center justify-end gap-3">
-                                        <button class="text-blue-600 font-bold text-xs hover:underline">Edit</button>
-                                        <button class="text-rose-500 font-bold text-xs hover:underline">Suspend</button>
+                                    <div class="hs-dropdown relative inline-flex justify-end">
+                                        <button id="row-actions-2" type="button"
+                                            class="hs-dropdown-toggle size-8 inline-flex justify-center items-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
+                                            <svg class="size-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="5" r="1.5" />
+                                                <circle cx="12" cy="12" r="1.5" />
+                                                <circle cx="12" cy="19" r="1.5" />
+                                            </svg>
+                                        </button>
+                                        <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-44 bg-white shadow-xl rounded-xl border border-slate-100 p-1 z-50"
+                                            aria-labelledby="row-actions-2">
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <path
+                                                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                </svg>
+                                                Edit user
+                                            </a>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                                View profile
+                                            </a>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                                    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                                                </svg>
+                                                Change role
+                                            </a>
+                                            <div class="my-1 border-t border-slate-100"></div>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-rose-500 hover:bg-rose-50 transition-colors">
+                                                <svg class="size-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <line x1="4.93" x2="19.07" y1="4.93" y2="19.07" />
+                                                </svg>
+                                                Suspend account
+                                            </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                             <!-- Row 3 -->
-                            <tr class="hover:bg-gray-50 transition-colors">
+                            <tr class="hover:bg-slate-50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center gap-3">
                                         <span
                                             class="size-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-black text-sm">AK</span>
                                         <div>
-                                            <p class="text-sm font-bold text-gray-800">Ahmed Karimi</p>
-                                            <p class="text-xs text-gray-400 font-medium">ahmed@example.com</p>
+                                            <p class="text-sm font-bold text-slate-800">Ahmed Karimi</p>
+                                            <p class="text-xs text-slate-400 font-medium">ahmed@example.com</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        class="py-1 px-3 rounded-full text-[10px] font-bold bg-gray-100 text-gray-700 uppercase tracking-wide">Buyer</span>
+                                        class="py-1 px-3 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 uppercase tracking-wide">Buyer</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
@@ -350,31 +614,143 @@
                                         <span class="size-1.5 rounded-full bg-amber-500"></span>Pending
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-400 font-semibold">Mar 04, 2025
-                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs text-slate-400 font-semibold">Mar 04,
+                                    2025</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right">
-                                    <div class="flex items-center justify-end gap-3">
-                                        <button class="text-blue-600 font-bold text-xs hover:underline">Edit</button>
-                                        <button class="text-rose-500 font-bold text-xs hover:underline">Suspend</button>
+                                    <div class="hs-dropdown relative inline-flex justify-end">
+                                        <button id="row-actions-3" type="button"
+                                            class="hs-dropdown-toggle size-8 inline-flex justify-center items-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
+                                            <svg class="size-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="5" r="1.5" />
+                                                <circle cx="12" cy="12" r="1.5" />
+                                                <circle cx="12" cy="19" r="1.5" />
+                                            </svg>
+                                        </button>
+                                        <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-44 bg-white shadow-xl rounded-xl border border-slate-100 p-1 z-50"
+                                            aria-labelledby="row-actions-3">
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <path
+                                                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                                </svg>
+                                                Edit user
+                                            </a>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                                View profile
+                                            </a>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+                                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                                    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                                                </svg>
+                                                Change role
+                                            </a>
+                                            <div class="my-1 border-t border-slate-100"></div>
+                                            <a href="#"
+                                                class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm font-medium text-rose-500 hover:bg-rose-50 transition-colors">
+                                                <svg class="size-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24" stroke-width="2">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <line x1="4.93" x2="19.07" y1="4.93" y2="19.07" />
+                                                </svg>
+                                                Suspend account
+                                            </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
                 <!-- Pagination -->
-                <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
-                    <p class="text-xs text-gray-400 font-semibold">Showing 3 of 1,245 users</p>
-                    <div class="flex gap-2">
-                        <button
-                            class="px-3 py-1.5 text-xs font-bold border border-gray-200 rounded-lg hover:bg-gray-50 transition-all">Previous</button>
-                        <button
-                            class="px-3 py-1.5 text-xs font-bold bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">Next</button>
-                    </div>
+                <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
+                    <p class="text-xs text-slate-400 font-semibold">Showing 3 of 1,245 users</p>
+                    <nav class="flex gap-2" aria-label="Pagination">
+                        <button type="button"
+                            class="px-3 py-1.5 text-xs font-bold border border-slate-200 rounded-lg hover:bg-slate-50 transition-all">
+                            Previous
+                        </button>
+                        <button type="button" class="px-3 py-1.5 text-xs font-bold text-white rounded-lg transition-all"
+                            style="background:#3b65ad;">
+                            Next
+                        </button>
+                    </nav>
                 </div>
             </div>
 
         </main>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         PRELINE MODAL — Add Member
+    ════════════════════════════════════════════════ -->
+    <div id="modal-add-member"
+        class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+        <div
+            class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+            <div class="flex flex-col bg-white border border-slate-200 shadow-xl rounded-2xl pointer-events-auto">
+                <!-- Header -->
+                <div class="flex justify-between items-center py-4 px-6 border-b border-slate-100">
+                    <h3 class="font-black text-slate-800">Add New Member</h3>
+                    <button type="button"
+                        class="size-8 inline-flex justify-center items-center rounded-xl text-slate-400 hover:bg-slate-100 transition-all"
+                        data-hs-overlay="#modal-add-member">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M18 6 6 18M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Body -->
+                <div class="p-6 space-y-4">
+                    <div>
+                        <label for="member-name"
+                            class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Full
+                            Name</label>
+                        <input id="member-name" type="text" placeholder="e.g. Jane Doe"
+                            class="py-2.5 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label for="member-email"
+                            class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Email</label>
+                        <input id="member-email" type="email" placeholder="jane@example.com"
+                            class="py-2.5 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label for="member-role"
+                            class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Role</label>
+                        <select id="member-role"
+                            class="py-2.5 px-4 block w-full border border-slate-200 rounded-xl text-sm text-slate-700 focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                            <option value="buyer">Buyer</option>
+                            <option value="agent">Agent</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Footer -->
+                <div class="flex justify-end items-center gap-3 py-4 px-6 border-t border-slate-100">
+                    <button type="button" data-hs-overlay="#modal-add-member"
+                        class="py-2.5 px-5 text-sm font-bold border border-slate-200 rounded-xl text-slate-700 hover:bg-slate-50 transition-all">
+                        Cancel
+                    </button>
+                    <button type="button" class="py-2.5 px-5 text-sm font-bold text-white rounded-xl transition-all"
+                        style="background:#3b65ad;">
+                        Add Member
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

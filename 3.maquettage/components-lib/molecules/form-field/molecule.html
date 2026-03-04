@@ -6,7 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Field – Molecule</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e', 700: '#264073' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -14,30 +28,33 @@
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex items-start justify-center p-12">
-    <div class="w-full max-w-sm space-y-8 bg-white border border-gray-100 rounded-3xl p-10 shadow-sm">
-        <h2 class="text-xl font-black text-gray-800">Contact Form</h2>
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
+    <div class="w-full max-w-sm space-y-8 bg-white border border-slate-100 rounded-3xl p-10 shadow-sm">
+        <h2 class="text-xl font-black text-slate-800">Contact Form</h2>
 
         <!-- Text Field -->
         <div class="space-y-1.5">
-            <label for="name" class="block text-sm font-bold text-gray-800">Full Name</label>
+            <label for="name" class="block text-sm font-bold text-slate-800">Full Name</label>
             <input type="text" id="name" placeholder="Michael Johnson"
-                class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none">
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
+                style="--tw-ring-color:#3b65ad33;">
         </div>
 
         <!-- Email Field -->
         <div class="space-y-1.5">
-            <label for="email" class="block text-sm font-bold text-gray-800">Email Address</label>
+            <label for="email" class="block text-sm font-bold text-slate-800">Email Address</label>
             <input type="email" id="email" placeholder="you@propertyhub.com"
-                class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none">
-            <p class="text-xs text-gray-400 font-medium">We'll never share your email with anyone else.</p>
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
+                style="--tw-ring-color:#3b65ad33;">
+            <p class="text-xs text-slate-400 font-medium">We'll never share your email with anyone else.</p>
         </div>
 
         <!-- Select Field -->
         <div class="space-y-1.5">
-            <label for="role" class="block text-sm font-bold text-gray-800">Role</label>
+            <label for="role" class="block text-sm font-bold text-slate-800">Role</label>
             <select id="role"
-                class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm bg-white transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none">
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm bg-white transition focus:border-primary-600 focus:ring-2 outline-none"
+                style="--tw-ring-color:#3b65ad33;">
                 <option>Buyer</option>
                 <option>Agent</option>
                 <option>Admin</option>
@@ -45,8 +62,8 @@
         </div>
 
         <!-- Submit -->
-        <button
-            class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20">
+        <button type="button" class="w-full py-3.5 text-white rounded-xl font-bold text-sm transition-all shadow-sm"
+            style="background:#3b65ad;">
             Submit
         </button>
     </div>

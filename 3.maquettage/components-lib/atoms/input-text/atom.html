@@ -6,7 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Text – Atom</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -14,23 +28,24 @@
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex items-start justify-center p-12">
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-12">
     <div class="w-full max-w-sm space-y-6">
         <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Default</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Default</p>
             <input type="text"
-                class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none"
-                placeholder="Placeholder...">
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
+                style="--tw-ring-color:#3b65ad33;" placeholder="Placeholder...">
         </div>
         <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">With value</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">With value</p>
             <input type="text" value="123 Main Street, Malibu"
-                class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none">
+                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm transition focus:border-primary-600 focus:ring-2 outline-none"
+                style="--tw-ring-color:#3b65ad33;">
         </div>
         <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Disabled</p>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Disabled</p>
             <input type="text" disabled value="Disabled input"
-                class="py-3 px-4 block w-full border border-gray-100 bg-gray-50 text-gray-400 rounded-xl text-sm cursor-not-allowed">
+                class="py-3 px-4 block w-full border border-slate-100 bg-slate-50 text-slate-400 rounded-xl text-sm cursor-not-allowed">
         </div>
     </div>
 </body>

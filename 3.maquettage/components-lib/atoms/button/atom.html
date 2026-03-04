@@ -3,33 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button – Atom</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            50: '#eff3fa',
-                            100: '#dbe4f4',
-                            200: '#bdcfea',
-                            300: '#90addc',
-                            400: '#5d85c8',
-                            500: '#3b65ad',
-                            600: '#2d4f8e',
-                            700: '#264073',
-                            800: '#23385f',
-                            900: '#213151',
-                            950: '#161e33',
-                        },
-                        secondary: {
-                            500: '#029fca',
-                        }
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 200: '#bdcfea', 300: '#90addc', 400: '#5d85c8', 500: '#3b65ad', 600: '#2d4f8e', 700: '#264073', 800: '#23385f', 900: '#213151', 950: '#161e33' },
+                        secondary: { 500: '#029fca' }
                     }
                 }
             }
         }
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
 <body class="p-8 flex flex-wrap gap-4 items-center bg-slate-50">
@@ -49,6 +45,18 @@
     <button type="button"
         class="px-6 py-3 bg-transparent text-primary-600 font-semibold rounded-xl hover:bg-primary-50 transition-all duration-300">
         Ghost Action
+    </button>
+
+    <!-- Danger Button -->
+    <button type="button"
+        class="px-6 py-3 bg-rose-500 text-white font-semibold rounded-xl hover:bg-rose-600 transition-all duration-300">
+        Danger Action
+    </button>
+
+    <!-- Disabled -->
+    <button type="button" disabled
+        class="px-6 py-3 bg-slate-100 text-slate-400 font-semibold rounded-xl cursor-not-allowed">
+        Disabled
     </button>
 </body>
 

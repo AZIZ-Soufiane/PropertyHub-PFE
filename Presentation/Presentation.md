@@ -262,18 +262,10 @@ The project applies **Design Thinking** across five stages:
 
 ---
 
-## 6a - Application Design: Wireframes
+## 6a - Application Design: Class Diagram
 
 <div class="img-container">
-  <img src="" class="img-usecase" alt="Application Wireframes">
-</div>
-
----
-
-## 6b - Data Model (Entity-Relationship Diagram)
-
-<div class="img-container">
-  <img src="" class="img-usecase" alt="Data Model Diagram">
+  <img src="images/class-diagram.png" class="img-usecase" alt="Class Diagram">
 </div>
 
 ---

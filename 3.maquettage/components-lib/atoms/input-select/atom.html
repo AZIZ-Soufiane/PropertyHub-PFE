@@ -28,28 +28,36 @@
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-slate-50 via-white to-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-8 sm:py-10 md:py-16">
+<body
+    class="bg-gradient-to-br from-slate-50 via-white to-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-8 sm:py-10 md:py-16">
     <div class="w-full max-w-2xl space-y-10 sm:space-y-12 md:space-y-14">
-        
+
         <!-- Section Header -->
         <div class="mb-8 sm:mb-10 md:mb-12">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-2 sm:mb-3">Advanced Select</h1>
-            <p class="text-sm sm:text-base text-slate-600 font-medium">Preline's sophisticated select component with enhanced features</p>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-2 sm:mb-3">Advanced
+                Select</h1>
+            <p class="text-sm sm:text-base text-slate-600 font-medium">Preline's sophisticated select component with
+                enhanced features</p>
         </div>
 
         <!-- 1. Property Type Select -->
         <div class="space-y-3 sm:space-y-4">
             <div class="flex items-baseline gap-2">
-                <label for="select-property" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Property Type</label>
+                <label for="select-property"
+                    class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Property
+                    Type</label>
                 <span class="text-xs text-slate-400 font-semibold">Essential</span>
             </div>
             <div class="hs-form-field">
-                <select id="select-property" class="hs-select block w-full rounded-lg border border-slate-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-slate-300" data-hs-select-options="{
-                    &quot;hasIcon&quot;: false,
-                    &quot;placeholder&quot;: &quot;Select property type...&quot;,
-                    &quot;searchEnabled&quot;: true,
-                    &quot;searchPlaceholder&quot;: &quot;Search...&quot;
-                }">
+                <select id="select-property" class="hidden" data-hs-select='{
+                    "placeholder": "Select property type...",
+                    "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                    "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-gray-200 text-gray-800 rounded-lg text-start text-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-gray-700",
+                    "optionClasses": "hs-selected:bg-gray-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                    "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                }'>
                     <option value="">Choose...</option>
                     <option value="villa">Modern Villa</option>
                     <option value="penthouse">Penthouse Suite</option>
@@ -65,16 +73,21 @@
         <!-- 2. Budget Range Select -->
         <div class="space-y-3 sm:space-y-4">
             <div class="flex items-baseline gap-2">
-                <label for="select-budget" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Budget Range</label>
+                <label for="select-budget"
+                    class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Budget
+                    Range</label>
                 <span class="text-xs text-primary-600 font-semibold">Secondary</span>
             </div>
             <div class="hs-form-field">
-                <select id="select-budget" class="hs-select block w-full rounded-lg border-2 border-secondary-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-secondary-500 focus:outline-none focus:ring-2 focus:ring-secondary-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-secondary-300" data-hs-select-options="{
-                    &quot;hasIcon&quot;: false,
-                    &quot;placeholder&quot;: &quot;Select budget range...&quot;,
-                    &quot;searchEnabled&quot;: true,
-                    &quot;searchPlaceholder&quot;: &quot;Search budgets...&quot;
-                }">
+                <select id="select-budget" class="hidden" data-hs-select='{
+                    "placeholder": "Select budget range...",
+                    "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                    "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-gray-200 text-gray-800 rounded-lg text-start text-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-gray-700",
+                    "optionClasses": "hs-selected:bg-gray-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                    "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                }'>
                     <option value="">Choose...</option>
                     <option value="100k">$100k - $250k</option>
                     <option value="250k">$250k - $500k</option>
@@ -90,17 +103,20 @@
         <!-- 3. Location Select with Search -->
         <div class="space-y-3 sm:space-y-4">
             <div class="flex items-baseline gap-2">
-                <label for="select-location" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Location</label>
+                <label for="select-location"
+                    class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Location</label>
                 <span class="text-xs text-slate-400 font-semibold">Search Enabled</span>
             </div>
             <div class="hs-form-field">
-                <select id="select-location" class="hs-select block w-full rounded-lg border border-slate-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-slate-300" data-hs-select-options="{
-                    &quot;hasIcon&quot;: false,
-                    &quot;placeholder&quot;: &quot;Select a location...&quot;,
-                    &quot;searchEnabled&quot;: true,
-                    &quot;searchPlaceholder&quot;: &quot;Search locations...&quot;,
-                    &quot;isMultiple&quot;: false
-                }">
+                <select id="select-location" class="hidden" data-hs-select='{
+                    "placeholder": "Select a location...",
+                    "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                    "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-gray-200 text-gray-800 rounded-lg text-start text-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-gray-700",
+                    "optionClasses": "hs-selected:bg-gray-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                    "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                }'>
                     <option value="">Choose...</option>
                     <option value="malibu">Malibu, California</option>
                     <option value="miami">Miami, Florida</option>
@@ -118,15 +134,21 @@
         <!-- 4. Property Status (Large Variant) -->
         <div class="space-y-3 sm:space-y-4 pt-4 sm:pt-6 border-t border-slate-200">
             <div class="flex items-baseline gap-2">
-                <label for="select-status" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Property Status</label>
+                <label for="select-status"
+                    class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Property
+                    Status</label>
                 <span class="text-xs text-primary-500 font-semibold">Primary</span>
             </div>
             <div class="hs-form-field">
-                <select id="select-status" class="hs-select block w-full rounded-lg border-2 border-primary-200 bg-white px-5 sm:px-6 py-4 sm:py-4.5 text-sm sm:text-base font-bold text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-primary-300" data-hs-select-options="{
-                    &quot;hasIcon&quot;: false,
-                    &quot;placeholder&quot;: &quot;Select property status...&quot;,
-                    &quot;searchEnabled&quot;: true
-                }">
+                <select id="select-status" class="hidden" data-hs-select='{
+                    "placeholder": "Select property status...",
+                    "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                    "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-4 ps-6 pe-12 flex text-nowrap w-full cursor-pointer bg-white border-2 border-primary-100 text-slate-800 rounded-xl text-start text-base font-bold hover:bg-slate-50 focus:outline-none focus:bg-slate-50 dark:bg-slate-900 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-slate-700",
+                    "optionClasses": "hs-selected:bg-slate-100 dark:hs-selected:bg-slate-800 py-2.5 px-4 w-full text-sm text-slate-800 cursor-pointer hover:bg-slate-100 rounded-lg focus:outline-none focus:bg-slate-100 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                    "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-4 text-primary-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                    "extraMarkup": "<div class=\"absolute top-1/2 end-4 -translate-y-1/2\"><svg class=\"shrink-0 size-4 text-slate-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                }'>
                     <option value="">Choose status...</option>
                     <option value="forsale">For Sale</option>
                     <option value="forsale-auction">For Sale by Auction</option>
@@ -141,11 +163,14 @@
         <!-- 5. Multi-Select Example -->
         <div class="space-y-3 sm:space-y-4">
             <div class="flex items-baseline gap-2">
-                <label for="select-amenities" class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Amenities</label>
+                <label for="select-amenities"
+                    class="block text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-wider">Amenities</label>
                 <span class="text-xs text-emerald-600 font-semibold">Multiple</span>
             </div>
             <div class="hs-form-field">
-                <select id="select-amenities" class="hs-select block w-full rounded-lg border border-emerald-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-emerald-300" multiple data-hs-select-options="{
+                <select id="select-amenities"
+                    class="hs-select block w-full rounded-lg border border-emerald-200 bg-white px-4 sm:px-5 py-3 sm:py-3.5 text-sm sm:text-base text-slate-900 font-medium shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer hover:border-emerald-300"
+                    multiple data-hs-select-options="{
                     &quot;hasIcon&quot;: false,
                     &quot;placeholder&quot;: &quot;Select amenities...&quot;,
                     &quot;searchEnabled&quot;: true,

@@ -29,7 +29,8 @@
 </head>
 
 <body class="bg-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-6 sm:py-8 md:py-12">
-    <div class="w-full max-w-sm space-y-4 sm:space-y-5 md:space-y-6 bg-white border border-slate-100 rounded-2xl p-6 sm:p-7 md:p-10 shadow-sm hover:shadow-md transition-shadow">
+    <div
+        class="w-full max-w-sm space-y-4 sm:space-y-5 md:space-y-6 bg-white border border-slate-100 rounded-2xl p-6 sm:p-7 md:p-10 shadow-sm hover:shadow-md transition-shadow">
         <div>
             <h2 class="text-2xl font-bold text-slate-900">Contact Form</h2>
             <p class="text-sm text-slate-500 mt-1">Get in touch with our team</p>
@@ -53,8 +54,15 @@
         <!-- Select Field -->
         <div class="space-y-2">
             <label for="role" class="block text-sm font-semibold text-slate-700">Role</label>
-            <select id="role"
-                class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm bg-white focus:border-primary-600 focus:ring-primary-600/20 focus:ring-4 outline-none transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none">
+            <select id="role" data-hs-select='{
+                "placeholder": "Select role...",
+                "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-slate-200 text-slate-800 rounded-xl text-start text-sm hover:bg-slate-50 focus:outline-none focus:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:text-gray-200",
+                "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-slate-800",
+                "optionClasses": "hs-selected:bg-slate-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-slate-800 cursor-pointer hover:bg-slate-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-primary-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-slate-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+            }' class="hidden">
                 <option>Buyer</option>
                 <option>Agent</option>
                 <option>Admin</option>
@@ -69,9 +77,11 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="button" class="w-full py-3 px-6 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-xl border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none transition-all duration-200 shadow-sm hover:shadow-md">
+        <button type="button"
+            class="w-full py-3 px-6 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-xl border border-transparent bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:pointer-events-none transition-all duration-200 shadow-sm hover:shadow-md">
             <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             Send Message
         </button>

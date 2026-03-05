@@ -33,23 +33,40 @@
 
     <div class="w-full">
         <header
-            class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-xs sm:text-sm py-2.5 sm:py-3 md:py-4 dark:bg-gray-800 dark:border-gray-700">
-            <nav class="flex basis-full items-center w-full mx-auto px-3 sm:px-4 md:px-6" aria-label="Global">
-                <div class="me-4 sm:me-5 lg:me-0 text-base sm:text-lg md:text-xl font-semibold dark:text-white">Create New Listing</div>
-                <div class="w-full flex items-center justify-end sm:justify-between sm:gap-x-3 sm:order-3">
-                    <div class="hidden sm:block"></div>
-                    <a class="text-blue-600 font-medium text-xs sm:text-sm" href="agent-dashboard.html">Cancel</a>
+            class="sticky top-0 z-40 bg-white border-b border-gray-200 py-4 px-6 flex items-center justify-between shadow-sm">
+            <div class="flex items-center gap-x-4">
+                <div class="lg:hidden">
+                    <button type="button"
+                        class="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
+                        data-hs-overlay="#application-sidebar">
+                        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
-            </nav>
+                <div>
+                    <h1 class="text-xl font-black text-gray-800">Create New Listing</h1>
+                    <p class="text-xs text-gray-400 font-semibold">Post a new property to the marketplace</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-x-3">
+                <a class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 transition-all shadow-sm"
+                    href="agent-dashboard.html">
+                    Cancel
+                </a>
+            </div>
         </header>
 
         <div class="max-w-4xl px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12 mx-auto">
-            <div class="bg-white border rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm dark:bg-slate-900 dark:border-gray-700">
+            <div
+                class="bg-white border rounded-lg sm:rounded-xl md:rounded-2xl shadow-sm dark:bg-slate-900 dark:border-gray-700">
                 <form class="p-4 sm:p-6 md:p-8 lg:p-10 space-y-5 sm:space-y-6 md:space-y-8">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
                         <!-- Property Title -->
                         <div class="sm:col-span-2">
-                            <label for="title" class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Property
+                            <label for="title"
+                                class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Property
                                 Title</label>
                             <input type="text" id="title"
                                 class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
@@ -58,7 +75,9 @@
 
                         <!-- Price -->
                         <div>
-                            <label for="price" class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Price ($)</label>
+                            <label for="price"
+                                class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Price
+                                ($)</label>
                             <input type="number" id="price"
                                 class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="1250000">
@@ -66,7 +85,8 @@
 
                         <!-- Location -->
                         <div>
-                            <label for="location" class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Location /
+                            <label for="location"
+                                class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Location /
                                 Address</label>
                             <input type="text" id="location"
                                 class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
@@ -75,25 +95,29 @@
 
                         <!-- Details -->
                         <div>
-                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Bedrooms</label>
+                            <label
+                                class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Bedrooms</label>
                             <input type="number"
                                 class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="4">
                         </div>
                         <div>
-                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Bathrooms</label>
+                            <label
+                                class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Bathrooms</label>
                             <input type="number"
                                 class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="3">
                         </div>
                         <div>
-                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Total Area (sqft)</label>
+                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Total
+                                Area (sqft)</label>
                             <input type="number"
                                 class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="3200">
                         </div>
                         <div>
-                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Year Built</label>
+                            <label class="block mb-1.5 sm:mb-2 text-xs sm:text-sm font-medium dark:text-white">Year
+                                Built</label>
                             <input type="number"
                                 class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                                 placeholder="2018">

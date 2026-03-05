@@ -1,0 +1,122 @@
+classDiagram
+
+%% ==================================================
+%% USER MANAGEMENT
+%% ==================================================
+
+class User {
+    <<abstract>>
+    +String userId
+    +String email
+    +String password
+    +login()
+    +logout()
+    +receivePushNotification()
+}
+
+class Visitor {
+    +searchProperties()
+}
+
+class Buyer {
+    +List~Property~ favorites
+    +manageFavorites()
+    +scheduleAppointment()
+}
+
+class Agent {
+    +String licenseNumber
+    +manageListings()
+    +viewClientHistory()
+}
+
+class Admin {
+    +manageRoles()
+    +generateReports()
+}
+
+%% ==================================================
+%% PROPERTY DOMAIN
+%% ==================================================
+
+class Property {
+    +String propertyId
+    +Double price
+    +String location
+    +String status
+    +getDetails()
+}
+
+class Gallery {
+    +List~String~ imageUrls
+    +addMedia()
+    +removeMedia()
+}
+
+%% ==================================================
+%% INTERACTION SYSTEM
+%% ==================================================
+
+class Appointment {
+    +DateTime dateTime
+    +String status
+    +confirm()
+    +cancel()
+}
+
+class Calendar {
+    +List~Appointment~ events
+    +sync()
+}
+
+class Message {
+    +String messageId
+    +String content
+    +DateTime timestamp
+    +send()
+}
+
+class Report {
+    +String reportId
+    +String dataSummary
+    +exportPDF()
+}
+
+%% ==================================================
+%% INHERITANCE
+%% ==================================================
+
+User <|-- Visitor
+User <|-- Buyer
+User <|-- Agent
+Agent <|-- Admin
+
+%% ==================================================
+%% PROPERTY RELATIONSHIPS
+%% ==================================================
+
+Agent "1" --> "*" Property : manages
+Property "1" *-- "1" Gallery : contains
+Buyer "*" --> "*" Property : favorites
+
+%% ==================================================
+%% APPOINTMENT SYSTEM
+%% ==================================================
+
+Buyer "1" --> "*" Appointment : requests
+Agent "1" --> "*" Appointment : conducts
+Agent "1" --> "1" Calendar : owns
+Calendar "1" --> "*" Appointment : stores
+
+%% ==================================================
+%% COMMUNICATION
+%% ==================================================
+
+Buyer "1" --> "*" Message : sends
+Agent "1" --> "*" Message : sends
+
+%% ==================================================
+%% ADMINISTRATION
+%% ==================================================
+
+Admin "1" --> "*" Report : views

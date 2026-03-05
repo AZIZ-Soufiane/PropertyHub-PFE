@@ -35,6 +35,22 @@ class Admin {
     +generateReports()
 }
 
+class Role {
+    +Long id
+    +String name
+    +String guard_name
+    +DateTime created_at
+    +DateTime updated_at
+}
+
+class Permission {
+    +Long id
+    +String name
+    +String guard_name
+    +DateTime created_at
+    +DateTime updated_at
+}
+
 %% ==================================================
 %% PROPERTY DOMAIN
 %% ==================================================
@@ -120,3 +136,11 @@ Agent "1" --> "*" Message : sends
 %% ==================================================
 
 Admin "1" --> "*" Report : views
+
+%% ==================================================
+%% AUTHORIZATION (SPATIE)
+%% ==================================================
+
+User "*" --> "*" Role : has
+Role "*" --> "*" Permission : contains
+User "*" --> "*" Permission : has direct

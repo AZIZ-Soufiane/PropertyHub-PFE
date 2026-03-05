@@ -141,10 +141,10 @@ style: |
 ## 1 - Project Context
 
 > **Challenge:** Ryan, a real estate agency owner, manages properties through scattered spreadsheets and emails, resulting in lost sales, double-booking, and lost productivity.
-
 <div class="img-container">
-  <img src="images/design-thinking-process.jpg" class="img-methodo" alt="Design Thinking">
+  <img src="images/Realestate.jpg" class="img-methodo" alt="Design Thinking">
 </div>
+
 
 ---
 
@@ -152,16 +152,8 @@ style: |
 
 The project applies **Design Thinking** across five stages:
 
-<div class="dt-card">
-  <strong>🔍 Empathy</strong> - Conducted interviews with 3 personas (property buyers, agency owners, real estate agents) to understand pain points and motivations.
-</div>
-
-<div class="dt-card">
-  <strong>📋 Definition</strong> - Synthesized findings to identify core problems: data fragmentation, inefficient property search, poor client-agent communication.
-</div>
-
-<div class="dt-card">
-  <strong>💡 Ideation</strong> - Brainstormed solutions resulting in an integrated platform with centralized property database, advanced search, and messaging system.
+<div class="img-container">
+  <img src="images/design-thinking-process.jpg" class="img-methodo" alt="Design Thinking">
 </div>
 
 ---
@@ -270,35 +262,33 @@ The project applies **Design Thinking** across five stages:
 
 ---
 
-## Technical Stack
+
+## Tech Stack
 
 <div class="dt-card">
-  <strong>💾 Backend & Database</strong><br/>
+  <strong>💾 Back-end & Architecture</strong><br/>
   <div class="tech-container">
-    <span class="badge-simple">Laravel 12</span>
     <span class="badge-simple">PHP 8.2+</span>
+    <span class="badge-simple">Laravel 12 (MVC)</span>
     <span class="badge-simple">MySQL 8.0</span>
-    <span class="badge-simple">REST API</span>
+    <span class="badge-simple">Native PHP (APK Mobile Port)</span>
+    <span class="badge-simple">Spatie (Roles & Permissions)</span>
   </div>
 </div>
 
 <div class="dt-card">
-  <strong>🎨 Frontend & UI</strong><br/>
+  <strong>🎨 Front-end & UI</strong><br/>
   <div class="tech-container">
     <span class="badge-simple">Tailwind CSS</span>
-    <span class="badge-simple">Blade Templates</span>
-    <span class="badge-simple">Alpine.js</span>
-    <span class="badge-simple">AJAX</span>
+    <span class="badge-simple">Preline (Mobile-First)</span>
+    <span class="badge-simple">Alpine.js (Dynamic Interactions / Timer)</span>
   </div>
 </div>
 
 <div class="dt-card">
-  <strong>🛠 Tools & DevOps</strong><br/>
+  <strong>🛠 Tooling & Build</strong><br/>
   <div class="tech-container">
-    <span class="badge-simple">Vite (Build Tool)</span>
-    <span class="badge-simple">Git/GitHub</span>
-    <span class="badge-simple">VS Code</span>
-    <span class="badge-simple">PHPUnit Testing</span>
+    <span class="badge-simple">Vite (Build Tooling)</span>
   </div>
 </div>
 

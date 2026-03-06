@@ -9,4 +9,3 @@
 | input-text | components-lib/atoms/input-text/atom.html | default | All |
 | input-select | components-lib/atoms/input-select/atom.html | default | Properties |
 | avatar | components-lib/atoms/avatar/atom.html | default | Dashboard, Messages |
-| switch | components-lib/atoms/switch/atom.html | default | Preferences |

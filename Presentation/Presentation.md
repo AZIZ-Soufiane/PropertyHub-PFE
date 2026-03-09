@@ -149,7 +149,7 @@ style: |
 ## 2. Methodology: Scrum (Agile)
 
 <div class="img-container">
-  <img src="images/scrum.webp" class="img-methodo" alt="Scrum">
+  <img src="images/scrum.jpg" class="img-methodo" alt="Scrum">
 </div>
 
 ---

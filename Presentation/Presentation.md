@@ -121,6 +121,7 @@ style: |
 
 <div class="sommaire-grid">
   <div class="sommaire-item"><div class="sommaire-num">1</div><div class="sommaire-text">Project Context</div></div>
+  <div class="sommaire-item"><div class="sommaire-num">1.1</div><div class="sommaire-text">Define Problem</div></div>
   <div class="sommaire-item"><div class="sommaire-num">2</div><div class="sommaire-text">Methodology</div></div>
   <div class="sommaire-item"><div class="sommaire-num">3</div><div class="sommaire-text">Functional Branch</div></div>
   <div class="sommaire-item"><div class="sommaire-num">4</div><div class="sommaire-text">Technical Branch</div></div>
@@ -130,10 +131,22 @@ style: |
 
 ---
 
+
 ## 1. Project Context
 
 <div class="img-container">
   <img src="images/Realestate.jpg" class="img-methodo" alt="Project Context">
+</div>
+
+---
+
+## 1.1. Define Problem
+
+<div class="dt-card">
+  <h3 style="margin-top:0;">Problem Definition</h3>
+  <p>
+    The real estate sector faces challenges in efficiently connecting agencies, agents, and buyers, often resulting in fragmented communication, manual processes, and lack of real-time data. PropertyHub aims to solve these issues by providing an integrated, digital platform for seamless property management, transparent transactions, and enhanced user experience for all stakeholders.
+  </p>
 </div>
 
 ---

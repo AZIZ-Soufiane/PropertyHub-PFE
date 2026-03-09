@@ -5,7 +5,6 @@ _class: lead
 _paginate: false
 paginate: true
 backgroundColor: #ffffff
-footer: "Page $page$ of $total$"
 style: |
   section {
     font-size: 22px;

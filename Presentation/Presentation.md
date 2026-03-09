@@ -5,6 +5,7 @@ _class: lead
 _paginate: false
 paginate: true
 backgroundColor: #ffffff
+footer: "Page $page$ of $total$"
 style: |
   section {
     font-size: 22px;
@@ -12,7 +13,7 @@ style: |
     line-height: 1.6;
     padding: 60px 80px;
   }
-  footer { width: 100%; text-align: right; font-size: 14px; color: #888; }
+  footer { width: 100%; text-align: right; font-size: 14px; color: #888; padding-right: 20px; }
   .logo-header {
     display: flex;
     justify-content: space-between;
@@ -94,18 +95,11 @@ style: |
   .badge-simple {
     padding: 8px 18px;
     border-radius: 6px;
-    font-weight: 600;
+    font-weight: bold;
     background-color: #545353ff;
     color: #ffffff !important;
     font-size: 0.85em;
     border: 1px solid #222;
-  }
-  .maquette-grid {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    height: 400px;
   }
 
 ---
@@ -118,9 +112,9 @@ style: |
 # Final Year Project
 ### PropertyHub - Integrated Real Estate Management System
 
-**Created by :** <span class="highlight">AZIZ Soufiane</span>  
-**Supervised by :** <span class="highlight">M. ESSARRAJ Fouad</span>  
-**Program :** Web and Mobile Development
+**Created by:** <span class="highlight">AZIZ Soufiane</span>  
+**Supervised by:** <span class="highlight">M. ESSARRAJ Fouad</span>  
+**Program:** Web and Mobile Development
 
 ---
 
@@ -128,29 +122,24 @@ style: |
 
 <div class="sommaire-grid">
   <div class="sommaire-item"><div class="sommaire-num">1</div><div class="sommaire-text">Project Context</div></div>
-  <div class="sommaire-item"><div class="sommaire-num">2</div><div class="sommaire-text">Working Methodology</div></div>
+  <div class="sommaire-item"><div class="sommaire-num">2</div><div class="sommaire-text">Methodology</div></div>
   <div class="sommaire-item"><div class="sommaire-num">3</div><div class="sommaire-text">Functional Branch</div></div>
   <div class="sommaire-item"><div class="sommaire-num">4</div><div class="sommaire-text">Technical Branch</div></div>
   <div class="sommaire-item"><div class="sommaire-num">5</div><div class="sommaire-text">Design</div></div>
-  <div class="sommaire-item"><div class="sommaire-num">6</div><div class="sommaire-text">Demonstration</div></div>
-  <div class="sommaire-item"><div class="sommaire-num">7</div><div class="sommaire-text">Conclusion</div></div>
+  <div class="sommaire-item"><div class="sommaire-num">6</div><div class="sommaire-text">Conclusion</div></div>
 </div>
 
 ---
 
-## 1 - Project Context
+## 1. Project Context
 
-> **Challenge:** Ryan, a real estate agency owner, manages properties through scattered spreadsheets and emails, resulting in lost sales, double-booking, and lost productivity.
 <div class="img-container">
-  <img src="images/Realestate.jpg" class="img-methodo" alt="Design Thinking">
+  <img src="images/Realestate.jpg" class="img-methodo" alt="Project Context">
 </div>
-
 
 ---
 
-## 2a - Design Thinking Methodology
-
-The project applies **Design Thinking** across five stages:
+## 2. Methodology: Design Thinking
 
 <div class="img-container">
   <img src="images/design-thinking-process.jpg" class="img-methodo" alt="Design Thinking">
@@ -158,33 +147,15 @@ The project applies **Design Thinking** across five stages:
 
 ---
 
-## 2b - Agile/Scrum Methodology
-
-**PropertyHub** development follows **Scrum framework** with 2-week sprints:
+## 2. Methodology: Scrum (Agile)
 
 <div class="img-container">
-  <img src="images/scrum.webp"class="img-methodo" alt="Scrum Methodology">
+  <img src="images/scrum.webp" class="img-methodo" alt="Scrum">
 </div>
 
 ---
 
-## 3a - User Research: Personas & Empathy
-
-### Ryan - Digital Opportunity
-
-> Agency owner seeking streamlined operations and better client engagement
-
-<div class="dt-card">
-  <strong>😟 What Ryan feels:</strong> Overwhelmed by manual processes, scattered client information, and difficulty scaling the business.
-</div>
-
-<div class="dt-card">
-  <strong>💡 Opportunity:</strong> Centralized platform to manage all properties, clients, and agents with built-in messaging and analytics.
-</div>
-
----
-
-## 3b - Empathy Map Analysis
+## 3. Functional Branch: Empathy
 
 <div class="img-container">
   <img src="images/empathymap.png" class="img-usecase" alt="Empathy Map">
@@ -192,69 +163,106 @@ The project applies **Design Thinking** across five stages:
 
 ---
 
-## 4a - Problems Identified
+## Functional Branch: Use Cases
 
-> **3 Core User Groups, 15+ Pain Points Resolved**
-
-<div class="dt-card">
-  <strong>🧑‍💼 Ryan (Agency Owner):</strong> Scattered client data, manual reporting, scaling challenges
-</div>
-
-<div class="dt-card">
-  <strong>👩‍💼 Sarah (Property Buyer):</strong> Multiple platform searches, slow agent response, incomplete property info
-</div>
-
-<div class="dt-card">
-  <strong>👨‍💻 Michael (Real Estate Agent):</strong> Inefficient lead management, outdated tools, limited client insights
+### Global Use Case - Client Part
+<div class="img-container">
+  <img src="images/globalUseCaseBuyerPart.png" class="img-usecase" alt="Global Use Case Client">
 </div>
 
 ---
 
-## 4b - Solutions Designed
-
-<div class="dt-card">
-  <strong>✅ Centralized Property Database</strong> - All listings in one system with real-time updates
-</div>
-
-<div class="dt-card">
-  <strong>✅ Advanced Search & Filters</strong> - Quick property discovery by location, price, amenities
-</div>
-
-<div class="dt-card">
-  <strong>✅ Integrated Messaging System</strong> - Direct communication between buyers, agents, and staff
-</div>
-
-<div class="dt-card">
-  <strong>✅ Role-Based Dashboard</strong> - Customized views for owners, agents, and buyers
+### Global Use Case - Agent (Staff) Part
+<div class="img-container">
+  <img src="images/globalUseCaseStaffPart.png" class="img-usecase" alt="Global Use Case Agent">
 </div>
 
 ---
 
-## 5a - Use Cases: Global Overview
+### Global Use Case - Admin Part
+<div class="img-container">
+  <img src="images/globalUseCaseAdminPart.png" class="img-usecase" alt="Global Use Case Admin">
+</div>
+
+---
+
+## Functional Branch: Use Cases
+
+### Sprint 1: Foundations
+<div class="img-container">
+  <img src="images/Sprint1-UseCase.png" class="img-usecase" alt="Sprint 1 Use Case">
+</div>
+
+---
+
+### Sprint 2: Advanced Features
+<div class="img-container">
+  <img src="images/Sprint2-UseCase.png" class="img-usecase" alt="Sprint 2 Use Case">
+</div>
+
+---
+
+## Functional Branch: Mockups (UI/UX) Web
+
+### Homepage
+<div class="img-container">
+  <img src="images/homepage.png" class="img-methodo" alt="Homepage Mockup">
+</div>
+
+---
+
+### Admin Dashboard
+<div class="img-container">
+  <img src="images/admindashboard.png" class="img-methodo" alt="Admin Dashboard Mockup">
+</div>
+
+---
+
+## Functional Branch: Mockups (UI/UX) Mobile
 
 <div class="img-container">
-  <img src="images/globalUseCase.png" class="img-usecase" alt="Global Use Cases">
+  <img src="images/mobile.png" class="img-methodo" alt="Mobile Mockup">
 </div>
 
 ---
 
-## 5b - Use Cases: Sprint 1 (Foundations)
+## 4. Technical Branch: Tech Stack
 
-<div class="img-container">
-  <img src="images/Sprint1-UseCase.png" class="img-usecase" alt="Sprint 1 Use Cases">
+<div class="sommaire-grid">
+  
+  <div class="dt-card" style="margin-top:0; border-top-color: #029fcaff;">
+    <h4 style="text-align: center; border-bottom: 2px solid #029fcaff; padding-bottom: 8px;">Back-end & Architecture</h4>
+    <div style="text-align: center; margin: 30px 0;">
+        <p style="font-size: 1.1em; font-weight: bold; color: #444;">
+            PHP 8.2+ <span style="color: #029fcaff;">•</span> Laravel 12 <span style="color: #029fcaff;">•</span> MySQL 8.0
+        </p>
+    </div>
+    <ul style="list-style: none; padding: 15px 0 0 0; font-size: 0.9em; border-top: 1px solid #eee;">
+      <li><strong>Architecture:</strong> MVC</li>
+      <li><strong>Auth:</strong> Spatie Roles & Permissions</li>
+      <li><strong>ORM:</strong> Eloquent</li>
+    </ul>
+  </div>
+
+  <div class="dt-card" style="margin-top:0; border-top-color: #029fcaff;">
+    <h4 style="text-align: center; border-bottom: 2px solid #029fcaff; padding-bottom: 8px;">Front-end & Tools</h4> 
+    <div style="text-align: center; margin: 30px 0;">
+        <p style="font-size: 1.1em; font-weight: bold; color: #444;">
+            Tailwind CSS <span style="color: #029fcaff;">•</span> Alpine.js <span style="color: #029fcaff;">•</span> Vite
+        </p>
+    </div>
+    <ul style="list-style: none; padding: 15px 0 0 0; font-size: 0.9em; border-top: 1px solid #eee;">
+      <li><strong>UI:</strong> Preline UI</li>
+      <li><strong>Responsive:</strong> Mobile-First</li>
+      <li><strong>Bundler:</strong> Vite</li>
+    </ul>
+  </div>
+
 </div>
 
 ---
 
-## 5c - Use Cases: Sprint 2 (Advanced Features)
-
-<div class="img-container">
-  <img src="images/Sprint2-UseCase.png" class="img-usecase" alt="Sprint 2 Use Cases">
-</div>
-
----
-
-## 6a - Application Design: Class Diagram
+## 5. Design: Class Diagram
 
 <div class="img-container">
   <img src="images/Class-Diagram.png" class="img-usecase" alt="Class Diagram">
@@ -262,64 +270,10 @@ The project applies **Design Thinking** across five stages:
 
 ---
 
+## 6. Conclusion
 
-## Tech Stack
-
-<div class="dt-card">
-  <strong>💾 Back-end & Architecture</strong><br/>
-  <div class="tech-container">
-    <span class="badge-simple">PHP 8.2+</span>
-    <span class="badge-simple">Laravel 12 (MVC)</span>
-    <span class="badge-simple">MySQL 8.0</span>
-    <span class="badge-simple">Native PHP (APK Mobile Port)</span>
-    <span class="badge-simple">Spatie (Roles & Permissions)</span>
-  </div>
-</div>
-
-<div class="dt-card">
-  <strong>🎨 Front-end & UI</strong><br/>
-  <div class="tech-container">
-    <span class="badge-simple">Tailwind CSS</span>
-    <span class="badge-simple">Preline (Mobile-First)</span>
-    <span class="badge-simple">Alpine.js (Dynamic Interactions / Timer)</span>
-  </div>
-</div>
-
-<div class="dt-card">
-  <strong>🛠 Tooling & Build</strong><br/>
-  <div class="tech-container">
-    <span class="badge-simple">Vite (Build Tooling)</span>
-  </div>
-</div>
+### Thank you for your attention!
+**Questions?**
 
 ---
-
-## Key Features Summary
-
-<div class="dt-card">
-  ✅ **User Management** - Create accounts with roles (buyer, agent, owner)  
-  ✅ **Property Management** - Add, edit, delete properties with full descriptions  
-  ✅ **Advanced Search** - Filter by location, price, amenities, and property type  
-  ✅ **Direct Messaging** - Real-time communication between platform users  
-  ✅ **Property Favorites** - Save and organize favorite listings  
-  ✅ **Admin Analytics** - Dashboard with insights on listings, users, and activity  
-  ✅ **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
-</div>
-
----
-
-## Conclusion
-
-**PropertyHub** addresses critical pain points in the real estate industry by creating a **unified, user-centric platform** that empowers all stakeholders:
-
-- 🎯 **For Ryan:** Operational efficiency and business scalability
-- 👩 **For Sarah:** Faster property discovery and better communication
-- 👨 **For Michael:** Modern tools for effective client management
-
-**Technical Excellence:** Built with modern frameworks and best practices ensures maintainability, scalability, and security.
-
-**Impact:** A comprehensive solution that transforms how real estate professionals and buyers interact with property information.
-
----
-footer: PropertyHub | Final Year Project | OFPPT Sidi Slimane
-
+footer: PropertyHub | Final Year Project | Solicode

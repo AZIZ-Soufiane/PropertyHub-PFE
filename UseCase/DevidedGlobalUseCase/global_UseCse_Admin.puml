@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam shadowing false
+
+actor "Agent" as Agent
+actor "Admin" as Admin
+
+Agent <|-- Admin
+
+rectangle "Administration" {
+
+    usecase "Login / Authentication" as Login
+    usecase "Manage Users & Roles" as ManageUsers
+    usecase "View Analytics & Reports" as Analytics
+
+    ManageUsers ..> Login : <<include>>
+    Analytics ..> Login : <<include>>
+}
+
+Admin -- ManageUsers
+Admin -- Analytics
+
+@enduml

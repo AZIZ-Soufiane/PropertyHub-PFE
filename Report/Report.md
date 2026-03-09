@@ -31,6 +31,8 @@
     * 7.1 [Development Strategy](#71-development-strategy)
     * 7.2 [Sprint 1: Foundations and Property Management](#72-sprint-1-foundations-and-property-management)
     * 7.3 [Sprint 2: Search, Scheduling and Communication](#73-sprint-2-search-scheduling-and-communication)
+8. [Functional Mockups (UI/UX)](#8-functional-mockups-uiux)
+9. [Architecture Design: Class Diagram](#9-architecture-design-class-diagram)
 
 ---
 
@@ -442,9 +444,50 @@ The system becomes a true **collaborative ecosystem** with **Premium** client ex
 
 ---
 
+## 8. Functional Mockups (UI/UX)
+
+### Web Mockup - Homepage
+
+![Homepage Mockup](Images/homepage.png)
+
+---
+
+### Web Mockup - Admin Dashboard
+
+![Admin Dashboard Mockup](Images/admindashboard.png)
+
+---
+
+### Mobile Mockup
+
+![Mobile Mockup](Images/mobile.png)
+
+---
+
+## 9. Architecture Design: Class Diagram
+
+The following class diagram represents the data model and relationships between all entities in the PropertyHub system:
+
+![Class Diagram](Images/Class-Diagram.png)
+
+---
+
+## Conclusion
+
+The PropertyHub system represents a comprehensive solution to transform manual real estate operations into an efficient, scalable platform. By addressing the pain points of all three user personas (Ryan, Michael, and Sarah), the system enables:
+
+- **Operational Efficiency:** Centralized management reducing administrative burden by 30-40%
+- **Scalability:** Support for team growth without proportional increase in complexity
+- **Enhanced User Experience:** Professional, intuitive interface for all user types
+- **Data-Driven Operations:** Business intelligence and analytics for informed decision-making
+
+Through iterative agile development delivered in two sprints, PropertyHub evolves from foundational property management to a full-featured collaborative ecosystem.
+
+---
+
 **Presented by:** AZIZ Soufiane  
 **Advisor:** Mr. Essarraj Fouad  
-**Date:** March 2, 2026  
+**Date:** March 9, 2026  
 **Program:** Mobile Development – Academic Year 2025/2026
 
 ---

@@ -4,72 +4,96 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam actorStyle awesome
 
-actor "Visitor"          as Vis
-actor "Buyer"            as Client
-actor "Agent"            as Agent
-actor "Admin"            as Admin
-actor "Mobile User"      as Mob
+'================ ACTORS =================
+actor "Visitor" as Visitor
+actor "Buyer" as Buyer
+actor "Agent" as Agent
+actor "Admin" as Admin
+actor "Mobile Application" as MobileApp <<System>>
+
+' Actor hierarchy
+Agent <|-- Admin
 
 rectangle "PropertyHub System" {
 
-    (Login / Authentication)        as UC0
-    (Search & Filter Properties)    as UC1
-    (Compare Properties)            as UC2
-    (Manage Favorites)              as UC3
-    (Schedule Appointment)          as UC4
-    (In-App Messaging)              as UC5
-    (Manage Property Listings)      as UC6
-    (Manage Images/Gallery)         as UC7
-    (Manage Shared Calendar)        as UC8
-    (View Client History)           as UC9
-    (Manage Users & Roles)          as UC10
-    (View Analytics & Reports)      as UC11
-    (Receive Push Notifications)    as UC12
+  '=========== AUTH ===========
+  package "Authentication & Security" {
+      (Login / Authentication) as Login
+  }
+
+  '=========== PUBLIC FEATURES ===========
+  package "Public Property Access" {
+      (Search & Filter Properties) as Search
+      (Compare Properties) as Compare
+  }
+
+  '=========== BUYER FEATURES ===========
+  package "Buyer Services" {
+      (Manage Favorites) as Favorites
+      (Schedule Appointment) as Appointment
+      (In-App Messaging) as Messaging
+  }
+
+  '=========== AGENT FEATURES ===========
+  package "Agent Workspace" {
+      (Manage Property Listings) as Listings
+      (Manage Images / Gallery) as Gallery
+      (Manage Shared Calendar) as Calendar
+      (View Client History) as ClientHistory
+  }
+
+  '=========== ADMIN FEATURES ===========
+  package "Administration" {
+      (Manage Users & Roles) as Users
+      (View Analytics & Reports) as Analytics
+  }
+
+  '=========== API ACCESS ===========
+  package "Public API (Mobile Access)" {
+      (View Properties via API) as APIView
+  }
 }
 
-' Basic Access
-Vis    -- UC1
-Vis    -- UC2
+'================ RELATIONSHIPS =================
 
-' Secured Buyer Actions
-Client -- UC0
-Client -- UC1
-Client -- UC3
-Client -- UC4
-Client -- UC5
+' Visitor
+Visitor --> Search
+Visitor --> Compare
 
-' Secured Agent Actions
-Agent  -- UC0
-Agent  -- UC5
-Agent  -- UC6
-Agent  -- UC7
-Agent  -- UC8
-Agent  -- UC9
+' Buyer
+Buyer --> Login
+Buyer --> Search
+Buyer --> Favorites
+Buyer --> Appointment
+Buyer --> Messaging
 
-' Secured Admin Actions
-Admin  -- UC0
-Admin  -- UC10
-Admin  -- UC11
+' Agent
+Agent --> Login
+Agent --> Messaging
+Agent --> Listings
+Agent --> Gallery
+Agent --> Calendar
+Agent --> ClientHistory
 
-' Mobile Specific
-Mob    -- UC12
-Client <|-- Mob
-Agent  <|-- Mob
+' Admin
+Admin --> Users
+Admin --> Analytics
 
-' Includes (Security Requirement)
-UC3  ..> UC0 : <<include>>
-UC4  ..> UC0 : <<include>>
-UC5  ..> UC0 : <<include>>
-UC6  ..> UC0 : <<include>>
-UC7  ..> UC0 : <<include>>
-UC8  ..> UC0 : <<include>>
-UC9  ..> UC0 : <<include>>
-UC10 ..> UC0 : <<include>>
-UC11 ..> UC0 : <<include>>
-UC12 ..> UC0 : <<include>>
+' Mobile API consumer
+MobileApp --> APIView : Consumes API
 
-' Admin inherits Agent permissions
-Admin -right-> Agent : <<extend>>
+'================ SECURITY =================
+Favorites ..> Login : <<include>>
+Appointment ..> Login : <<include>>
+Messaging ..> Login : <<include>>
+Listings ..> Login : <<include>>
+Gallery ..> Login : <<include>>
+Calendar ..> Login : <<include>>
+ClientHistory ..> Login : <<include>>
+Users ..> Login : <<include>>
+Analytics ..> Login : <<include>>
 
+' API reuses search logic
+APIView ..> Search : <<include>>
 
 @enduml

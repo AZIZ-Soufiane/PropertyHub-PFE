@@ -1,0 +1,7 @@
+name,email,password,role,license_number
+Admin User,admin@propertyhub.com,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,admin,
+John Agent,john.agent@propertyhub.com,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,agent,LIC-1001
+Sarah Agent,sarah.agent@propertyhub.com,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,agent,LIC-1002
+Alice Buyer,alice.buyer@example.com,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,buyer,
+Bob Buyer,bob.buyer@example.com,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,buyer,
+Charlie Buyer,charlie.buyer@example.com,$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi,buyer,

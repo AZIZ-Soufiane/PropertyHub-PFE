@@ -13,6 +13,7 @@ return new class extends Migration
     Schema::create('calendars', function (Blueprint $table) {
         $table->id();
         $table->foreignId('agent_id')->constrained('users')->onDelete('cascade');
+        $table->json('available_days');
         $table->timestamps();
     });
 }

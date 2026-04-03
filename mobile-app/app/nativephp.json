@@ -1,0 +1,11 @@
+{
+    "php": {
+        "version": "8.4",
+        "icu": false
+    },
+    "app": {
+        "name": "Books Explorer",
+        "id": "com.mycompany.booksexplorer",
+        "icon": "public/icon.png"
+    }
+}

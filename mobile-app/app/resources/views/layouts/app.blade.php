@@ -19,28 +19,57 @@
         <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
             <nav class="max-w-full px-4 py-3 flex items-center justify-between">
                 <!-- Logo -->
-                <a href="{{ route('properties.index') }}" class="flex items-center gap-2 no-underline">
+                <a href="{{ route('properties.index') }}" class="flex items-center gap-2 no-underline flex-1">
                     <div class="w-8 h-8 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0">
                         <span class="text-white font-black text-sm">PH</span>
                     </div>
-                    <span class="text-base font-black text-primary-600 tracking-tight">PropertyHub</span>
+                    <span class="text-base font-black text-primary-600 tracking-tight hidden sm:inline">PropertyHub</span>
                 </a>
 
-                <!-- Navigation Links -->
-                <div class="flex items-center gap-3">
+                <!-- Desktop Navigation (Hidden on Mobile) -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="{{ route('properties.index') }}" 
+                       class="no-underline text-sm font-medium transition-smooth px-3 py-2 {{ request()->routeIs('properties.index') ? 'text-primary-600 bg-primary-50 rounded-lg' : 'text-slate-600 hover:text-primary-600' }}">
+                        Home
+                    </a>
                     <a href="{{ route('properties.index') }}" 
                        class="no-underline text-sm font-medium transition-smooth px-3 py-2 {{ request()->routeIs('properties.*') ? 'text-primary-600 bg-primary-50 rounded-lg' : 'text-slate-600 hover:text-primary-600' }}">
-                        Browse
+                        Properties
                     </a>
-                    
+                </div>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-2">
+                    <!-- Messages Icon -->
                     <button class="relative p-2 hover:bg-slate-100 rounded-lg transition-smooth">
                         <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
                         <span class="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">3</span>
                     </button>
+
+                    <!-- Mobile Hamburger Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 hover:bg-slate-100 rounded-lg transition-smooth" type="button">
+                        <svg id="hamburger-icon" class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
             </nav>
+
+            <!-- Mobile Menu Drawer -->
+            <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 bg-white animate-in fade-in duration-200">
+                <div class="px-4 py-4 space-y-2">
+                    <a href="{{ route('properties.index') }}" 
+                       class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg transition-colors {{ request()->routeIs('properties.index') && !request()->routeIs('properties.*', false) ? 'text-primary-600 bg-primary-50' : 'text-slate-700 hover:bg-slate-100' }}">
+                        Home
+                    </a>
+                    <a href="{{ route('properties.index') }}" 
+                       class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg transition-colors {{ request()->routeIs('properties.*') ? 'text-primary-600 bg-primary-50' : 'text-slate-700 hover:bg-slate-100' }}">
+                        Properties
+                    </a>
+                </div>
+            </div>
         </header>
 
         <!-- Main Content -->
@@ -97,7 +126,44 @@
     </div>
 
     @stack('scripts')
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const menuLinks = mobileMenu.querySelectorAll('a');
+
+            if (!menuBtn) return;
+
+            // Toggle menu visibility
+            menuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close menu when a link is clicked
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!menuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
 </body>
 </html>
-</body>
 </html>

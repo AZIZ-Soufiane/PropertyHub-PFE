@@ -25,9 +25,9 @@ class CsvSeeder extends Seeder
             DB::table('users')->insert([
                 'name' => $row['name'],
                 'email' => $row['email'],
-                'password' => $row['password'], // Assuming already hashed in CSV or handle here
+                'password' => $row['password'],
                 'role' => $row['role'],
-                'license_number' => $row['license_number'] ?: null,
+                'license_number' => $row['license_number'] ?? null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -54,8 +54,18 @@ class CsvSeeder extends Seeder
         $data = $this->parseCsv($file);
         foreach ($data as $row) {
             DB::table('properties')->insert([
+                'title' => $row['title'],
+                'type' => $row['type'],
                 'price' => $row['price'],
                 'location' => $row['location'],
+                'address' => $row['address'] ?? null,
+                'city' => $row['city'] ?? null,
+                'country' => $row['country'] ?? null,
+                'area' => $row['area'] ?? null,
+                'bedrooms' => $row['bedrooms'] ?? null,
+                'bathrooms' => $row['bathrooms'] ?? null,
+                'description' => $row['description'] ?? null,
+                'features' => $row['features'] ?? null,
                 'status' => $row['status'],
                 'agent_id' => $row['agent_id'],
                 'created_at' => now(),
@@ -64,10 +74,11 @@ class CsvSeeder extends Seeder
         }
     }
 
-    private function seedGalleries()
-    {
+private function seedGalleries()
+{
         $file = database_path('data/galleries.csv');
         $data = $this->parseCsv($file);
+        
         foreach ($data as $row) {
             DB::table('galleries')->insert([
                 'property_id' => $row['property_id'],

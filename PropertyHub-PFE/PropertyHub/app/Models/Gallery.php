@@ -11,11 +11,11 @@ class Gallery extends Model
 
     protected $fillable = [
         'property_id',
-        'image_urls',
+        'url',
     ];
 
     protected $casts = [
-        'image_urls' => 'array',
+        'url' => 'array',
     ];
 
     // Relationships

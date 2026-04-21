@@ -1,6 +1,6 @@
-price,location,status,agent_id
-450000,Beverly Hills CA,available,2
-650000,Miami Beach FL,available,2
-320000,Austin TX,available,3
-1200000,Manhattan NY,sold,3
-580000,Seattle WA,available,2
+title,type,price,location,address,city,country,area,bedrooms,bathrooms,description,features,status,agent_id
+Modern Villa in Beverly Hills,villa,450000,Beverly Hills CA,123 Palm Drive,Beverly Hills,USA,3500,4,3,"Stunning modern villa with panoramic city views. Features include a chef's kitchen, infinity pool, and smart home technology.",Pool;Garage;Garden;Security,approved,2
+Luxury Beachfront Apartment,apartment,650000,Miami Beach FL,500 Ocean Drive,Miami Beach,USA,2200,3,2,"Direct beach access with stunning ocean views. Modern finishes throughout, includes concierge service.",Pool;Gym;Concierge;Security,approved,2
+Charming Family Home,house,320000,Austin TX,789 Maple Street,Austin,USA,2800,4,2,"Perfect family home in a quiet neighborhood. Large backyard, updated kitchen, and excellent school district.",Garden;Garage;Fireplace,approved,3
+Penthouse in Manhattan,penthouse,1200000,Manhattan NY,100 Central Park South,New York,USA,4500,5,4,"Ultra-luxury penthouse with 360-degree views of Central Park. Full-service building with white-glove living.",Gym;Concierge;Doorman;Terrace,approved,3
+Modern Loft in Seattle,apartment,580000,Seattle WA,456 Pioneer Square,Seattle,USA,1900,2,2,"Industrial-chic loft in historic building. Exposed brick, high ceilings, and city views.",Gym;Rooftop;Parking,approved,2

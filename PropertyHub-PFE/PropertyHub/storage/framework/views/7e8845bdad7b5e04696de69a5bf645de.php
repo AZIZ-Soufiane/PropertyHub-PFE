@@ -33,7 +33,7 @@
                         <?php $__currentLoopData = session('compare'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php $p = $properties->find($id); if($p): ?>
                                 <th class="p-4 text-center">
-                                    <img src="<?php echo e($p->images->first()?->url ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400'); ?>" alt="<?php echo e($p->title); ?>" class="w-full h-32 object-cover rounded-xl mb-2">
+                                    <img src="<?php echo e($p->images->first()?->first_url ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400'); ?>" alt="<?php echo e($p->title); ?>" class="w-full h-32 object-cover rounded-xl mb-2">
                                     <a href="<?php echo e(route('properties.show', $p)); ?>" class="text-blue-600 font-bold hover:underline"><?php echo e($p->title); ?></a>
                                 </th>
                             <?php endif; ?>

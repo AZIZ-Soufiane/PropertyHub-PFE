@@ -34,7 +34,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center gap-3">
                                 <img class="w-10 h-10 rounded-xl object-cover" 
-                                     src="{{ $property->images->first()?->url ?? 'https://via.placeholder.com/80' }}" alt="{{ $property->title }}">
+                                     src="{{ $property->images->first()?->first_url ?? 'https://via.placeholder.com/80' }}" alt="{{ $property->title }}">
                                 <div>
                                     <p class="text-sm font-bold text-gray-800">{{ $property->title }}</p>
                                     <p class="text-xs text-gray-400 font-medium">{{ $property->city }}, {{ $property->country }}</p>

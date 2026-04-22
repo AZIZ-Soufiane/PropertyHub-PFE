@@ -92,7 +92,7 @@
                     <div class="group flex flex-col bg-white border border-gray-50 shadow-sm rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-700">
                         <div class="h-80 overflow-hidden relative">
                             <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                                src="<?php echo e($property->images->first()?->url ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800'); ?>"
+                                src="<?php echo e($property->images->first()?->first_url ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800'); ?>"
                                 alt="<?php echo e($property->title); ?>">
                             <?php if($property->type): ?>
                                 <div class="absolute top-6 left-6">

@@ -11,16 +11,25 @@ class Gallery extends Model
 
     protected $fillable = [
         'property_id',
-        'url',
+        'image_urls',
     ];
 
     protected $casts = [
-        'url' => 'array',
+        'image_urls' => 'array',
     ];
 
     // Relationships
     public function property()
     {
         return $this->belongsTo(Property::class);
+    }
+
+    public function getFirstUrlAttribute()
+    {
+        $urls = $this->image_urls;
+        if (is_array($urls) && count($urls) > 0) {
+            return $urls[0];
+        }
+        return null;
     }
 }

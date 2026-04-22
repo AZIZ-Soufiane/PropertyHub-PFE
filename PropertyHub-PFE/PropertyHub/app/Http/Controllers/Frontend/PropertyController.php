@@ -55,7 +55,7 @@ class PropertyController extends Controller
 
     public function show(Property $property)
     {
-        $property->load(['images', 'agent', 'gallery']);
+        $property->load(['images', 'agent']);
 
         return view('frontend.property-details', compact('property'));
     }

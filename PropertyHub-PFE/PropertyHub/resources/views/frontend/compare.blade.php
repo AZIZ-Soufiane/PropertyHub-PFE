@@ -35,7 +35,7 @@
                         @foreach(session('compare') as $id)
                             @php $p = $properties->find($id); if($p): @endphp
                                 <th class="p-4 text-center">
-                                    <img src="{{ $p->images->first()?->url ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400' }}" alt="{{ $p->title }}" class="w-full h-32 object-cover rounded-xl mb-2">
+                                    <img src="{{ $p->images->first()?->first_url ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400' }}" alt="{{ $p->title }}" class="w-full h-32 object-cover rounded-xl mb-2">
                                     <a href="{{ route('properties.show', $p) }}" class="text-blue-600 font-bold hover:underline">{{ $p->title }}</a>
                                 </th>
                             @php endif; @endphp

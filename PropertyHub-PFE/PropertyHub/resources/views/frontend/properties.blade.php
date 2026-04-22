@@ -158,4 +158,5 @@
         </div>
     </div>
 </main>
+@include('frontend.partials.footer')
 @endsection

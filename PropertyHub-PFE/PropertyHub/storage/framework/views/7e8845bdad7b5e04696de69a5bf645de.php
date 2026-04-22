@@ -113,16 +113,11 @@
             <h3 class="text-xl font-bold text-gray-700 mb-2">No properties to compare</h3>
             <p class="text-gray-500 mb-6">Browse our listings and add properties to compare</p>
             <a href="<?php echo e(route('properties.index')); ?>" class="inline-flex items-center gap-2 py-3 px-6 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all">
-                Browse Properties
+Browse Properties
             </a>
         </div>
     <?php endif; ?>
 </main>
-
-<footer class="bg-slate-950 py-12 px-4 mt-12">
-    <div class="max-w-7xl mx-auto text-center text-gray-600 text-sm">
-        <span>© <?php echo e(date('Y')); ?> PropertyHub</span>
-    </div>
-</footer>
+<?php echo $__env->make('frontend.partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.frontend', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\GitHub\PropertyHub-PFE\PropertyHub-PFE\PropertyHub\resources\views/frontend/compare.blade.php ENDPATH**/ ?>

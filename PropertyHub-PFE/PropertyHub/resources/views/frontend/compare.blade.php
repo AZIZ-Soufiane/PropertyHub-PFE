@@ -115,15 +115,10 @@
             <h3 class="text-xl font-bold text-gray-700 mb-2">No properties to compare</h3>
             <p class="text-gray-500 mb-6">Browse our listings and add properties to compare</p>
             <a href="{{ route('properties.index') }}" class="inline-flex items-center gap-2 py-3 px-6 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all">
-                Browse Properties
+Browse Properties
             </a>
         </div>
     @endif
 </main>
-
-<footer class="bg-slate-950 py-12 px-4 mt-12">
-    <div class="max-w-7xl mx-auto text-center text-gray-600 text-sm">
-        <span>© {{ date('Y') }} PropertyHub</span>
-    </div>
-</footer>
+@include('frontend.partials.footer')
 @endsection

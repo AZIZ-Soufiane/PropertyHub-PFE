@@ -104,6 +104,17 @@ $isEdit = isset($property) && $property;
             <input type="file" name="images[]" multiple accept="image/*"
                 class="w-full py-3 px-4 border border-gray-200 rounded-xl text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700">
             <p class="text-xs text-gray-500 mt-2">You can select multiple images</p>
+            
+            @if($isEdit && $property->images->count() > 0)
+            <div class="mt-4 grid grid-cols-4 gap-2">
+                @foreach($property->images as $img)
+                    @php $urls = is_array($img->image_urls) ? $img->image_urls : [$img->image_urls]; @endphp
+                    @foreach($urls as $url)
+                    <img src="{{ $url }}" class="w-full h-20 object-cover rounded-lg">
+                    @endforeach
+                @endforeach
+            </div>
+            @endif
         </div>
         
         <div class="flex justify-end gap-4 pt-4 border-t border-gray-100">

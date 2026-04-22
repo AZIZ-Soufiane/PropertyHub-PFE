@@ -181,10 +181,5 @@
     </section>
 </main>
 
-<!-- Footer -->
-<footer class="bg-slate-950 py-16 px-4 mt-12">
-    <div class="max-w-7xl mx-auto text-center text-gray-600 text-sm">
-        <span>© {{ date('Y') }} PropertyHub</span>
-    </div>
-</footer>
+@include('frontend.partials.footer')
 @endsection

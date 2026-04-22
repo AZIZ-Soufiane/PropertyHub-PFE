@@ -83,10 +83,12 @@ class PropertyController extends Controller
         $property = Property::create($validated);
         
         if ($request->hasFile('images')) {
+            $imageUrls = [];
             foreach ($request->file('images') as $image) {
                 $path = $image->store('properties', 'public');
-                $property->images()->create(['url' => '/storage/' . $path]);
+                $imageUrls[] = '/storage/' . $path;
             }
+            $property->images()->create(['image_urls' => $imageUrls]);
         }
         
         return redirect()->route('agent.properties.index')->with('success', 'Property created successfully');
@@ -123,10 +125,12 @@ class PropertyController extends Controller
         $property->update($validated);
         
         if ($request->hasFile('images')) {
+            $imageUrls = [];
             foreach ($request->file('images') as $image) {
                 $path = $image->store('properties', 'public');
-                $property->images()->create(['url' => '/storage/' . $path]);
+                $imageUrls[] = '/storage/' . $path;
             }
+            $property->images()->create(['image_urls' => $imageUrls]);
         }
         
         return redirect()->route('agent.properties.index')->with('success', 'Property updated successfully');

@@ -181,11 +181,6 @@
     </section>
 </main>
 
-<!-- Footer -->
-<footer class="bg-slate-950 py-16 px-4 mt-12">
-    <div class="max-w-7xl mx-auto text-center text-gray-600 text-sm">
-        <span>© <?php echo e(date('Y')); ?> PropertyHub</span>
-    </div>
-</footer>
+<?php echo $__env->make('frontend.partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.frontend', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\GitHub\PropertyHub-PFE\PropertyHub-PFE\PropertyHub\resources\views/frontend/property-details.blade.php ENDPATH**/ ?>

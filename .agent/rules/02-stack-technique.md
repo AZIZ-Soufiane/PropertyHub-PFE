@@ -2,15 +2,29 @@
 trigger: always_on
 ---
 
----
-trigger: always_on
----
+# Technical Stack (Laravel Backend)
 
-# Technical Stack (Static Only)
+## 1. Backend (Laravel 12)
+- **PHP**: ^8.2
+- **Framework**: Laravel 12
+- **Auth**: Laravel UI (Breeze/Jetstream concepts adapted)
+- **Permissions**: Spatie laravel-permission
+- **Database**: MySQL/SQLite (see .env)
+- **ORM**: Eloquent
 
-## 1. Front-End (Structure & Style)
-*   **HTML**: Semantic HTML5 mandatory.
-*   **CSS**: Tailwind CSS v3 via CDN or local files.
-*   **Components**: **Preline UI** (Tailwind-based) required.
-*   **JS**: Vanilla JS.
-*   **Frameworks**: React/Vue/Alpine FORBIDDEN unless explicitly requested.
+## 2. Architecture
+- **MVC Pattern**: Models, Views (Blade), Controllers
+- **Services**: Business logic in App/Services/
+- **Resources**: API Transformers in App/Http/Resources/
+- **Requests**: Form Requests for validation in App/Http/Requests/
+
+## 3. Conventions
+- RESTful controllers
+- Resource-based routing
+- Policy-based authorization
+- Service classes for complex business logic
+
+## 4. Frontend (Minimal - handled by design agent)
+- Blade templates
+- Laravel Mix / Vite for assets
+- Tailwind CSS (via Laravel)

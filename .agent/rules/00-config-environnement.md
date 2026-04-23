@@ -6,5 +6,6 @@ id: config-environnement
 # Configuration et Environnement
 
 ## Gestion des Fichiers Ignorés
-- **Respect du .gitignore** : L'agent DOIT consulter le fichier `.gitignore` à la racine du projet.
-- **Interdiction de lecture** : L'agent NE DOIT PAS lire, analyser ou suggérer des modifications pour les fichiers ou dossiers listés dans `.gitignore` (ex: `vendor/`, `node_modules/`, `.env`, etc.), sauf demande explicite et justifiée de l'utilisateur.
+- **Projet Laravel** : Travailler dans `PropertyHub-PFE/PropertyHub/`
+- **Respect du .gitignore** :NE PAS lire, modifier ou suggérer des changements sur les fichiers dans `.gitignore` (vendor/, node_modules/, .env, etc.) sauf demande explicite
+- **Fichiers framework** : Lire les fichiers générés par Laravel dans `storage/framework/views/` uniquement si nécessaire pour le debugging

@@ -2,23 +2,29 @@
 trigger: always_on
 ---
 
-# Standards de Qualité Senior et Sécurité (Static & UI)
+# Standards de Qualité Senior et Sécurité (Laravel Backend)
 
-## 1. Clean Code HTML/CSS
-- **Atomicité** : Le code doit être découpé en composants clairs et indépendants.
-- **D.R.Y (Don't Repeat Yourself)** : Si un pattern se répète plus de 3 fois, il doit devenir un composant du UI-Kit.
-- **Naming CSS** : Aucune classe arbitraire. Utilisez le vocabulaire Tailwind.
+## 1. Clean Code PHP
+- **PSR-12**: Follow PHP coding standards
+- **SRP**: Single Responsibility Principle for Controllers/Services
+- **D.R.Y**: Extract repeated logic to Services/Traits
+- **Naming**: Use descriptive names (camelCase variables, PascalCase Classes)
 
-## 2. Qualité Visuelle "Pixel Perfect"
-- **Alignement** : Vérifier que les marges et paddings sont cohérents (échelle de 4px).
-- **Contraste** : Le texte doit toujours être lisible (WCAG AA minimum).
-- **Responsive** : Pas de barre de défilement horizontale accidentelle. Utiliser `overflow-hidden` si nécessaire sur les conteneurs.
+## 2. Security Best Practices
+- **SQL Injection**: Use Eloquent QB, never raw SQL
+- **XSS**: Escape output in Blade with {{ }} 
+- **CSRF**: Use @csrf in forms
+- **Mass Assignment**: Use $fillable/$guarded on models
+- **Auth**: Use Laravel's auth middleware
+- **Permissions**: Use Spatie policies
 
-## 3. Performance Web (Core Web Vitals)
-- **Images** : Toujours spécifier `width` et `height` pour éviter le Layout Shift (CLS).
-- **Polices** : Utiliser `font-display: swap` pour l'affichage immédiat du texte.
-- **Scripts** : Charger les scripts JS non-critiques avec `defer`.
+## 3. Performance
+- **N+1 Queries**: Use eager loading (with())
+- **Indexing**: Add indexes on foreign keys
+- **Caching**: Use Laravel cache for expensive queries
+- **Pagination**: Use paginate() for large datasets
 
-## 4. Sécurité Front-End
-- **Liens Externes** : Tout lien `target="_blank"` doit avoir `rel="noopener noreferrer"`.
-- **Contenu Mixte** : Ne jamais charger de ressources HTTP sur une page HTTPS.
+## 4. API & Resources
+- Use API Resources for transformation
+- Return proper HTTP status codes
+- Validate inputs with Form Requests

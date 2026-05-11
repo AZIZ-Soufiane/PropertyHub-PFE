@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Properties - PropertyHub</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        },
+                        secondary: {
+                            500: '#029fca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Preline UI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 flex min-h-screen" x-data="{ showCreateModal: false }">
+
+    <!-- SIDEBAR -->
+    <aside
+        class="hidden lg:flex w-full sm:w-64 lg:w-64 flex-shrink-0 bg-white border-r border-slate-200 flex-col pt-6 sm:pt-7 pb-8 sm:pb-10 min-h-screen lg:min-h-screen">
+        <div class="px-4 sm:px-6 mb-6 sm:mb-8">
+            <a class="text-xl sm:text-2xl font-black tracking-tighter" href="home.html" aria-label="PropertyHub"
+                style="color:#3b65ad;">PropertyHub</a>
+            <p class="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1 sm:mt-2">Admin
+                Portal</p>
+        </div>
+
+        <nav class="px-4 sm:px-6 flex-1" aria-label="Sidebar navigation">
+            <ul class="space-y-1">
+                <li>
+                    <a class="flex items-center gap-x-2.5 sm:gap-x-3.5 py-2 sm:py-2.5 px-2.5 sm:px-3 text-xs sm:text-sm text-slate-600 font-medium rounded-lg sm:rounded-xl hover:bg-slate-100 transition-all"
+                        href="admin-dashboard.html">
+                        <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="2">
+                            <rect width="18" height="18" x="3" y="3" rx="2" />
+                            <line x1="3" x2="21" y1="9" y2="9" />
+                            <line x1="9" x2="9" y1="21" y2="9" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-x-2.5 sm:gap-x-3.5 py-2 sm:py-2.5 px-2.5 sm:px-3 text-xs sm:text-sm text-slate-600 font-medium rounded-lg sm:rounded-xl hover:bg-slate-100 transition-all"
+                        href="admin-users.html">
+                        <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                        Users &amp; Roles
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-x-2.5 sm:gap-x-3.5 py-2 sm:py-2.5 px-2.5 sm:px-3 text-xs sm:text-sm font-bold rounded-lg sm:rounded-xl transition-all"
+                        style="background:#eff3fa; color:#3b65ad;" href="admin-properties.html">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        Properties
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-slate-600 font-medium rounded-xl hover:bg-slate-100 transition-all"
+                        href="admin-logs.html">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+                        </svg>
+                        System Logs
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm text-slate-600 font-medium rounded-xl hover:bg-slate-100 transition-all"
+                        href="messages.html">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                        Messages
+                        <span
+                            class="ms-auto size-5 inline-flex justify-center items-center rounded-full text-[10px] font-bold text-white"
+                            style="background:#3b65ad;">3</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col min-h-screen">
+        <header
+            class="sticky top-0 z-40 bg-white border-b border-slate-200 py-4 px-6 flex items-center justify-between shadow-sm">
+            <div>
+                <h1 class="text-xl font-black text-slate-800">Properties Management</h1>
+                <p class="text-xs text-slate-400 font-semibold">Review and manage all property listings</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <button type="button" @click="showCreateModal = true"
+                    class="hidden sm:inline-flex items-center gap-x-2 py-2 px-4 text-sm font-bold rounded-xl bg-primary-500 text-white hover:bg-primary-600 transition-all shadow-md shadow-primary-500/20"
+                    style="background:#3b65ad;">
+                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Property
+                </button>
+
+                <!-- Notifications Dropdown -->
+                <div class="hs-dropdown relative inline-flex">
+                    <button id="dropdown-notifications" type="button"
+                        class="hs-dropdown-toggle relative p-2.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                        <span class="absolute top-1.5 right-1.5 size-2 rounded-full" style="background:#3b65ad;"></span>
+                    </button>
+                    <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-80 bg-white shadow-xl rounded-2xl border border-slate-100 mt-2 z-50 overflow-hidden"
+                        aria-labelledby="dropdown-notifications">
+                        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
+                            <p class="text-sm font-black text-slate-800">Notifications</p>
+                            <span
+                                class="inline-flex items-center py-0.5 px-2 rounded-full text-[10px] font-bold text-white"
+                                style="background:#3b65ad;">3 New</span>
+                        </div>
+                        <div class="divide-y divide-slate-50">
+                            <a href="#" class="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                <span class="mt-0.5 size-8 flex-shrink-0 flex items-center justify-center rounded-full"
+                                    style="background:#eff3fa;">
+                                    <svg class="size-4" fill="none" stroke="#3b65ad" viewBox="0 0 24 24"
+                                        stroke-width="2">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                    </svg>
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800">New user registered</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 truncate">Ahmed Karimi signed up</p>
+                                    <p class="text-[10px] text-slate-300 font-semibold mt-1">2 min ago</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 p-6 sm:p-8 space-y-8">
+            <div class="flex flex-col bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden">
+                <div
+                    class="px-6 py-5 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex flex-1 items-center gap-3 w-full">
+                        <div class="relative flex-1 max-w-sm">
+                            <input type="text"
+                                class="py-2.5 px-4 ps-11 block w-full border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all border"
+                                placeholder="Search properties...">
+                            <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
+                                <svg class="size-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" width="24"
+                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg>
+                            </div>
+                        </div>
+                        <select data-hs-select='{
+                            "placeholder": "All Status",
+                            "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                            "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-2.5 ps-4 pe-9 flex text-nowrap w-48 cursor-pointer bg-white border border-slate-200 text-slate-800 rounded-xl text-start text-sm hover:bg-slate-50 focus:outline-none focus:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-200",
+                            "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-slate-800",
+                            "optionClasses": "hs-selected:bg-slate-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-slate-800 cursor-pointer hover:bg-slate-100 rounded-lg focus:outline-none focus:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                            "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-primary-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                            "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-slate-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                        }' class="hidden">
+                            <option value="">All Status</option>
+                            <option>Active</option>
+                            <option>Pending</option>
+                            <option>Sold</option>
+                        </select>
+                    </div>
+                    <button type="button" @click="showCreateModal = true"
+                        class="py-2.5 px-5 bg-primary-500 text-white rounded-xl font-bold text-sm shadow-sm whitespace-nowrap"
+                        style="background:#3b65ad;">Add Property</button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-100">
+                        <thead class="bg-slate-50/60">
+                            <tr>
+                                <th
+                                    class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                    Property</th>
+                                <th
+                                    class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                    Agent</th>
+                                <th
+                                    class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                    Status</th>
+                                <th
+                                    class="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                    Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-3">
+                                        <div class="size-10 bg-slate-200 rounded-lg overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&w=300&q=80"
+                                                alt="Villa" class="size-full object-cover">
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-bold text-slate-800">Sunset Villa, Malibu</p>
+                                            <p class="text-xs text-slate-400 font-medium">$1,250,000</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">Michael Johnson</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="py-1 px-3 inline-flex items-center gap-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 uppercase"><span
+                                            class="size-1.5 rounded-full bg-emerald-500"></span>Active</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right">
+                                    <div class="flex justify-end items-center gap-2">
+                                        <button
+                                            class="size-8 text-slate-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg"><svg
+                                                class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                                <circle cx="12" cy="12" r="3" />
+                                            </svg></button>
+                                        <button
+                                            class="size-8 text-slate-400 hover:text-amber-500 hover:bg-amber-50 rounded-lg"><svg
+                                                class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                            </svg></button>
+                                        <button
+                                            class="size-8 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg"><svg
+                                                class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                            </svg></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Property Modal -->
+    <!-- ═══════════════════════════════════════════
+         CREATE PROPERTY MODAL (AlpineJS Powered)
+    ════════════════════════════════════════════════ -->
+    <div x-show="showCreateModal" class="fixed inset-0 z-[100] overflow-y-auto" x-cloak>
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" @click="showCreateModal = false"
+            x-show="showCreateModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+
+        <!-- Modal Content -->
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl"
+                x-show="showCreateModal" x-transition:enter="ease-out duration-300"
+                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                <!-- Header -->
+                <div class="flex justify-between items-center py-4 px-6 border-b border-slate-100 bg-white">
+                    <h3 class="font-black text-slate-800 text-xl">Add New Property</h3>
+                    <button type="button" @click="showCreateModal = false"
+                        class="size-10 inline-flex justify-center items-center rounded-xl text-slate-400 hover:bg-slate-100 transition-all">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M18 6 6 18M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Body -->
+                <div class="p-8 overflow-y-auto max-h-[75vh] bg-white">
+                    <form class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="sm:col-span-2">
+                            <label class="block mb-2 text-sm font-bold text-slate-800 uppercase tracking-wide">Property
+                                Title</label>
+                            <input type="text"
+                                class="py-3.5 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all"
+                                placeholder="e.g. Sunset Villa, Malibu">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-sm font-bold text-slate-800 uppercase tracking-wide">Price
+                                ($)</label>
+                            <input type="number"
+                                class="py-3.5 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all"
+                                placeholder="1,250,000">
+                        </div>
+                        <div>
+                            <label
+                                class="block mb-2 text-sm font-bold text-slate-800 uppercase tracking-wide">Type</label>
+                            <select data-hs-select='{
+                                "placeholder": "Select type...",
+                                "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                                "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3.5 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-slate-200 text-slate-800 rounded-xl text-start text-sm hover:bg-slate-50 focus:outline-none focus:bg-slate-50",
+                                "dropdownClasses": "mt-2 z-[110] w-full max-h-72 p-1 space-y-0.5 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden overflow-y-auto",
+                                "optionClasses": "hs-selected:bg-slate-100 py-2 px-4 w-full text-sm text-slate-800 cursor-pointer hover:bg-slate-100 rounded-lg focus:outline-none focus:bg-slate-100",
+                                "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-primary-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                                "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-slate-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                            }' class="hidden">
+                                <option>Residential</option>
+                                <option>Commercial</option>
+                                <option>Land</option>
+                            </select>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label
+                                class="block mb-2 text-sm font-bold text-slate-800 uppercase tracking-wide">Address</label>
+                            <input type="text"
+                                class="py-3.5 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all"
+                                placeholder="123 Malibu Dr, California">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="bg-slate-50/50 flex justify-end items-center gap-x-3 py-5 px-8 border-t border-slate-100">
+                    <button type="button" @click="showCreateModal = false"
+                        class="py-3 px-6 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl border border-slate-200 bg-white text-slate-800 shadow-sm hover:bg-slate-50 transition-all">Cancel</button>
+                    <button type="button"
+                        class="py-3 px-6 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl bg-primary-500 text-white hover:bg-primary-600 transition-all shadow-xl shadow-primary-500/20"
+                        style="background:#3b65ad;">Publish Listing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

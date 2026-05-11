@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+' Actors
+actor "Visitor" as Visitor
+actor "Agent" as Agent
+actor "Admin" as Admin
+
+' Hierarchy
+Agent <|-- Admin
+
+rectangle "Sprint 1: Core Property Platform" {
+
+  package "Authentication & Security" {
+      usecase "Login / Authentication" as Login
+  }
+
+  package "Public Property Access" {
+      usecase "Search & Filter Properties" as Search
+      usecase "View Property Details" as Details
+      usecase "Compare Properties" as Compare
+  }
+
+  package "Property Management (Agent Workspace)" {
+      usecase "Create Property Listing" as CreateListing
+      usecase "Edit Property Listing" as EditListing
+      usecase "Delete Property Listing" as DeleteListing
+      usecase "Manage Images / Gallery" as Gallery
+      usecase "Manage Shared Calendar" as Calendar
+      usecase "View Client History" as ClientHistory
+  }
+
+}
+
+' Visitor actions
+Visitor -- Search
+Visitor -- Details
+Visitor -- Compare
+
+' Agent actions
+Agent -- Login
+Agent -- CreateListing
+Agent -- EditListing
+Agent -- DeleteListing
+Agent -- Gallery
+Agent -- Calendar
+Agent -- ClientHistory
+
+' Security includes
+CreateListing ..> Login : <<include>>
+EditListing ..> Login : <<include>>
+DeleteListing ..> Login : <<include>>
+Gallery ..> Login : <<include>>
+Calendar ..> Login : <<include>>
+ClientHistory ..> Login : <<include>>
+
+@enduml

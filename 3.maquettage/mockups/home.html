@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropertyHub - Luxury Real Estate Management</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-pattern {
+            background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)), url('https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .glass-dark {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-700">
+
+    <!-- Header -->
+    <header class="fixed top-0 inset-x-0 z-50 w-full bg-white/80 border-b border-gray-100 py-4 backdrop-blur-xl">
+        <nav class="max-w-7xl mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <a class="text-2xl font-black tracking-tighter" href="home.html" style="color:#3b65ad;">PropertyHub</a>
+            </div>
+            <div class="hidden sm:block">
+                <div class="flex flex-row items-center gap-x-8">
+                    <a class="font-bold text-blue-600" href="#">Home</a>
+                    <a class="font-semibold text-gray-500 hover:text-blue-600 transition-colors"
+                        href="properties.html">Properties</a>
+                    <a class="font-semibold text-gray-500 hover:text-blue-600 transition-colors"
+                        href="compare.html">Compare</a>
+                    <a class="font-semibold text-gray-500 hover:text-blue-600 transition-colors"
+                        href="agent-dashboard.html">Agent Portal</a>
+                    <a class="py-2.5 px-6 bg-gray-900 text-white rounded-2xl text-sm font-bold hover:bg-black transition-all shadow-lg shadow-gray-200"
+                        href="login.html">Sign In</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center hero-pattern">
+            <div class="relative max-w-5xl mx-auto px-4 sm:px-6 md:px-8 text-center z-10">
+                <span
+                    class="inline-block py-1 sm:py-1.5 px-3 sm:px-4 bg-blue-600/10 text-white text-[8px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-full mb-4 sm:mb-6 border border-white/10 backdrop-blur-md">Premium
+                    Real Estate</span>
+                <h1
+                    class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-4 sm:mb-8 tracking-tighter leading-[0.9]">
+                    Find Your <br class="hidden sm:inline" /> <span class="text-blue-400">Dream Haven.</span>
+                </h1>
+                <p
+                    class="text-sm sm:text-base md:text-lg lg:text-xl text-white/70 mb-6 sm:mb-12 max-w-2xl mx-auto font-medium leading-relaxed px-2">
+                    A sophisticated platform to search, compare, and manage verified premium listings across the globe.
+                </p>
+
+                <!-- Floating Search Bar -->
+                <div style="background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15)"
+                    class="p-1.5 sm:p-2 rounded-xl sm:rounded-2xl md:rounded-[2rem] max-w-4xl mx-auto shadow-2xl mx-2 sm:mx-4">
+                    <div class="flex flex-col sm:flex-row">
+                        <div
+                            class="flex-1 px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">
+                            <label
+                                class="block text-[8px] sm:text-[10px] font-black text-white/50 uppercase tracking-widest mb-0.5 sm:mb-1">Location</label>
+                            <input type="text" placeholder="e.g. Malibu, CA"
+                                class="bg-transparent text-white font-semibold text-xs sm:text-sm outline-none w-full placeholder:text-white/30 border-none p-0 focus:ring-0">
+                        </div>
+                        <div class="flex-1 px-6 py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">
+                            <label
+                                class="block text-[10px] font-black text-white/50 uppercase tracking-widest mb-1">Property
+                                Type</label>
+                            <select data-hs-select='{
+                                "placeholder": "Select type...",
+                                "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                                "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-1 flex text-nowrap w-full cursor-pointer bg-transparent text-white font-semibold text-sm outline-none border-none p-0 focus:ring-0",
+                                "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-gray-700",
+                                "optionClasses": "hs-selected:bg-gray-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                                "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                                "extraMarkup": "<div class=\"absolute top-1/2 end-0 -translate-y-1/2\"><svg class=\"shrink-0 size-3 px-0 text-white/50\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                            }' class="hidden">
+                                <option value="">Modern Villa</option>
+                                <option>Penthouse</option>
+                                <option>Beach House</option>
+                            </select>
+                        </div>
+                        <div class="flex-1 px-6 py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">
+                            <label
+                                class="block text-[10px] font-black text-white/50 uppercase tracking-widest mb-1">Price
+                                Range</label>
+                            <select data-hs-select='{
+                                "placeholder": "Select range...",
+                                "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                                "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-1 flex text-nowrap w-full cursor-pointer bg-transparent text-white font-semibold text-sm outline-none border-none p-0 focus:ring-0",
+                                "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-gray-700",
+                                "optionClasses": "hs-selected:bg-gray-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                                "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                                "extraMarkup": "<div class=\"absolute top-1/2 end-0 -translate-y-1/2\"><svg class=\"shrink-0 size-3 px-0 text-white/50\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                            }' class="hidden">
+                                <option value="">$500k – $1M</option>
+                                <option>$1M – $5M</option>
+                                <option>$5M+</option>
+                            </select>
+                        </div>
+                        <div class="p-1.5 flex items-stretch">
+                            <a href="properties.html"
+                                class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-black px-8 py-4 rounded-[1.5rem] transition-all w-full sm:w-auto whitespace-nowrap shadow-lg shadow-blue-600/30">
+                                <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2.5">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg>
+                                Search
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Listings Refined -->
+        <section class="py-12 sm:py-20 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div
+                    class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 sm:mb-16 md:mb-20 gap-4 sm:gap-6">
+                    <div>
+                        <span
+                            class="text-blue-600 font-black text-[8px] sm:text-[10px] uppercase tracking-widest mb-2 block">Our
+                            Collection</span>
+                        <h2
+                            class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 tracking-tighter">
+                            Exclusive Listings
+                        </h2>
+                    </div>
+                    <a href="properties.html"
+                        class="inline-flex items-center gap-2 group text-xs sm:text-sm font-black text-gray-900 p-3 sm:p-4 border border-gray-100 rounded-xl sm:rounded-2xl hover:bg-gray-50 transition-all">
+                        View All
+                        <svg class="size-3 sm:size-4 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
+                    <!-- Property Card -->
+                    <div
+                        class="group flex flex-col bg-white border border-gray-50 shadow-sm rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-700">
+                        <div class="h-40 sm:h-60 md:h-80 overflow-hidden relative">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"
+                                alt="Villa">
+                            <div class="absolute top-3 sm:top-6 left-3 sm:left-6">
+                                <span
+                                    class="bg-white/90 backdrop-blur-md text-gray-900 text-[8px] sm:text-[10px] font-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-full uppercase tracking-widest shadow-sm">West
+                                    Lake</span>
+                            </div>
+                        </div>
+                        <div class="p-4 sm:p-6 md:p-10">
+                            <h3
+                                class="text-lg sm:text-2xl md:text-3xl font-black text-gray-900 mb-1 sm:mb-2 group-hover:text-blue-600 transition-colors">
+                                The Glass House</h3>
+                            <div
+                                class="flex items-center gap-2 text-xs sm:text-sm text-gray-400 font-bold mb-4 sm:mb-8">
+                                <svg class="size-3 sm:size-4 text-blue-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                </svg>
+                                Austin, Texas
+                            </div>
+                            <div class="flex items-center justify-between gap-2 mb-4 sm:mb-6">
+                                <span class="text-xl sm:text-2xl md:text-3xl font-black text-blue-600">$850,000</span>
+                                <div class="flex gap-3 sm:gap-6">
+                                    <div class="text-xs sm:text-sm font-bold"><span
+                                            class="block text-gray-400 text-[7px] sm:text-[10px] uppercase font-black tracking-widest">Beds</span>4
+                                    </div>
+                                    <div class="text-xs sm:text-sm font-bold"><span
+                                            class="block text-gray-400 text-[7px] sm:text-[10px] uppercase font-black tracking-widest">Baths</span>3
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 sm:mt-8 md:mt-10">
+                                <a href="property-details.html"
+                                    class="w-full py-3 sm:py-4 md:py-5 block text-center text-sm sm:text-base bg-gray-50 text-gray-900 font-black rounded-xl sm:rounded-2xl md:rounded-3xl group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">Explore
+                                    Property</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-950 py-12 sm:py-20 md:py-32 px-4 rounded-t-3xl sm:rounded-t-[3rem] md:rounded-t-[5rem]">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 md:gap-20">
+            <div class="md:col-span-1">
+                <a class="text-2xl sm:text-3xl font-black text-white mb-4 sm:mb-8 block tracking-tighter"
+                    href="home.html">Property<span class="text-blue-500">Hub.</span></a>
+                <p class="text-gray-500 font-medium leading-[1.8] text-sm">Elevating the real estate experience through
+                    intelligent management and stunning presentation.</p>
+            </div>
+            <div>
+                <h4 class="text-gray-400 font-black mb-4 sm:mb-8 text-[8px] sm:text-[10px] uppercase tracking-[0.2em]">
+                    Quick Access</h4>
+                <ul class="space-y-3 sm:space-y-4 text-white font-bold text-xs sm:text-sm">
+                    <li><a class="hover:text-blue-500 transition-colors" href="properties.html">Listing</a></li>
+                    <li><a class="hover:text-blue-500 transition-colors" href="compare.html">Comparison</a></li>
+                    <li><a class="hover:text-blue-500 transition-colors" href="login.html">Authentication</a></li>
+                </ul>
+            </div>
+            <div class="sm:col-span-1 md:col-span-2">
+                <h4 class="text-gray-400 font-black mb-4 sm:mb-8 text-[8px] sm:text-[10px] uppercase tracking-[0.2em]">
+                    Newsletter</h4>
+                <form class="flex flex-col sm:flex-row gap-2">
+                    <input type="email" placeholder="Email contact"
+                        class="grow bg-white/5 border border-white/10 rounded-lg sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 outline-none focus:border-blue-500 text-white font-bold transition-all text-sm">
+                    <button
+                        class="px-6 sm:px-8 py-3 sm:py-4 bg-white text-black font-black text-sm rounded-lg sm:rounded-2xl hover:bg-gray-100 transition-all whitespace-nowrap">Join</button>
+                </form>
+            </div>
+        </div>
+        <div
+            class="max-w-7xl mx-auto border-t border-white/5 mt-12 sm:mt-20 md:mt-24 pt-6 sm:pt-10 flex flex-col sm:flex-row justify-between gap-4 sm:gap-6 text-[7px] sm:text-[10px] font-black text-gray-700 tracking-[0.2em] sm:tracking-[0.3em] uppercase">
+            <span>© 2026 PropertyHub Luxury Estate.</span>
+            <span>Crafted by Solicode.</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

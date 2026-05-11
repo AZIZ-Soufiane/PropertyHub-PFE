@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Guide - PropertyHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff3fa',
+                            100: '#dbe4f4',
+                            200: '#bdcfea',
+                            300: '#90addc',
+                            400: '#5d85c8',
+                            500: '#3b65ad',
+                            600: '#2d4f8e',
+                            700: '#264073',
+                            800: '#23385f',
+                            900: '#213151',
+                            950: '#161e33',
+                        },
+                        secondary: {
+                            500: '#029fca',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Preline UI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+    <div class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <header class="mb-12 border-b border-slate-200 pb-8">
+            <h1 class="text-4xl font-black text-primary-900 tracking-tighter">PropertyHub Style Guide</h1>
+            <p class="mt-2 text-lg text-slate-600 font-medium">Visual identity and UI tokens for the PropertyHub
+                platform.</p>
+        </header>
+
+        <!-- Colors -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 flex items-center text-slate-800">
+                <span class="w-8 h-8 bg-primary-500 rounded-lg mr-3 shadow-sm"></span>
+                Color Palette
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Primary -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Primary: Deep Slate Blue
+                    </h3>
+                    <div class="grid grid-cols-5 gap-2">
+                        <div class="space-y-1">
+                            <div class="h-16 w-full bg-primary-100 rounded-xl border border-slate-200 shadow-sm"></div>
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">100</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="h-16 w-full bg-primary-300 rounded-xl shadow-sm"></div>
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">300</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="h-16 w-full bg-primary-500 rounded-xl shadow-lg border-2 border-white"></div>
+                            <span class="text-[10px] font-bold text-primary-600 font-mono">500</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="h-16 w-full bg-primary-700 rounded-xl shadow-sm"></div>
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">700</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="h-16 w-full bg-primary-900 rounded-xl shadow-sm"></div>
+                            <span class="text-[10px] font-bold text-slate-400 font-mono">900</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Secondary: Vibrant Cyan
+                    </h3>
+                    <div class="flex space-x-4">
+                        <div class="space-y-1 w-24">
+                            <div class="h-16 w-full bg-secondary-500 rounded-xl shadow-md border-2 border-white"></div>
+                            <span class="text-[10px] font-bold text-secondary-500 font-mono">500</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">Typography</h2>
+            <div class="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm space-y-8">
+                <div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest pb-3 block">Heading 1 -
+                        Inter Black</span>
+                    <h1 class="text-4xl font-black text-slate-900 tracking-tighter">Modern Property Management</h1>
+                </div>
+                <div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest pb-3 block">Heading 2 -
+                        Inter ExtraBold</span>
+                    <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight">Effortless Discovery & Booking
+                    </h2>
+                </div>
+                <div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest pb-3 block">Body Text -
+                        Inter Medium</span>
+                    <p class="text-lg text-slate-600 font-medium leading-relaxed">Experience a unified ecosystem where
+                        property information is verified in real-time, appointments are automated, and results load in
+                        seconds.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Components Preview -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">UI Elements Preview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-10 rounded-[2rem] border border-slate-100 space-y-6 shadow-sm">
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Buttons</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button
+                            class="px-6 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition shadow-sm shadow-primary-500/20">Primary
+                            Action</button>
+                        <button
+                            class="px-6 py-3 bg-white border border-slate-200 text-slate-800 font-bold rounded-xl hover:bg-slate-50 transition">Secondary</button>
+                    </div>
+                </div>
+                <div class="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm">
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Status Badges</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span
+                            class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider">For
+                            Sale</span>
+                        <span
+                            class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 uppercase tracking-wider">Pending</span>
+                        <span
+                            class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 uppercase tracking-wider">Sold</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer
+            class="text-center text-slate-400 text-[10px] font-bold tracking-widest uppercase border-t border-slate-100 pt-8">
+            PropertyHub &copy; 2026 - Designed for Excellence.
+        </footer>
+    </div>
+</body>
+
+</html>

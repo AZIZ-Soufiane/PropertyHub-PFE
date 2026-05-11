@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Kit Gallery - PropertyHub</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+</head>
+
+<body class="bg-gray-50 flex h-full overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200 flex flex-col h-full flex-shrink-0">
+        <div class="p-4 border-b border-gray-200">
+            <h1 class="text-xl font-bold text-gray-800 tracking-tight">UI Kit <span class="text-blue-600">Gallery</span>
+            </h1>
+            <p class="text-xs text-gray-500 mt-1">Project: PropertyHub</p>
+        </div>
+        <nav id="sidebar-nav" class="flex-1 overflow-y-auto p-4 space-y-6">
+
+            <!-- System Section -->
+            <div>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Design System</h3>
+                <div class="space-y-1">
+                    <button onclick="loadComponent('charte-graphique/index.html', 'Style Guide')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Style
+                        Guide</button>
+                </div>
+            </div>
+
+            <!-- Atoms Section -->
+            <div>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Atoms</h3>
+                <div class="space-y-1">
+                    <button onclick="loadComponent('components-lib/atoms/button/atom.html', 'Button')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Button</button>
+                    <button onclick="loadComponent('components-lib/atoms/title/atom.html', 'Title')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Title</button>
+                    <button onclick="loadComponent('components-lib/atoms/text/atom.html', 'Text')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Text</button>
+                    <button onclick="loadComponent('components-lib/atoms/badge/atom.html', 'Badge')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Badge</button>
+                    <button onclick="loadComponent('components-lib/atoms/input-text/atom.html', 'Input Text')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Input
+                        Text</button>
+                    <button onclick="loadComponent('components-lib/atoms/input-select/atom.html', 'Input Select')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Input
+                        Select</button>
+                    <button onclick="loadComponent('components-lib/atoms/avatar/atom.html', 'Avatar')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Avatar</button>
+                </div>
+            </div>
+
+            <!-- Molecules Section -->
+            <div>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Molecules</h3>
+                <div class="space-y-1">
+                    <button onclick="loadComponent('components-lib/molecules/navbar/molecule.html', 'Navbar')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Navbar</button>
+                    <button onclick="loadComponent('components-lib/molecules/search-bar/molecule.html', 'Search Bar')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Search
+                        Bar</button>
+                    <button
+                        onclick="loadComponent('components-lib/molecules/property-card/molecule.html', 'Property Card')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Property
+                        Card</button>
+                    <button onclick="loadComponent('components-lib/molecules/footer/molecule.html', 'Footer')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Footer</button>
+                    <button onclick="loadComponent('components-lib/molecules/form-field/molecule.html', 'Form Field')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Form
+                        Field</button>
+                    <button onclick="loadComponent('components-lib/molecules/stat-card/molecule.html', 'Stat Card')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Stat
+                        Card</button>
+                    <button
+                        onclick="loadComponent('components-lib/molecules/admin-sidebar/molecule.html', 'Admin Sidebar')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Admin
+                        Sidebar</button>
+                    <button
+                        onclick="loadComponent('components-lib/molecules/appointment-slot/molecule.html', 'Appointment Slot')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Appointment
+                        Slot</button>
+                    <button
+                        onclick="loadComponent('components-lib/molecules/message-bubble/molecule.html', 'Message Bubble')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Message
+                        Bubble</button>
+                    <button
+                        onclick="loadComponent('components-lib/molecules/compare-card/molecule.html', 'Compare Card')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Compare
+                        Card</button>
+                </div>
+            </div>
+
+            <!-- Mockups Section -->
+            <div>
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Mockups</h3>
+                <div class="space-y-1">
+                    <button onclick="loadComponent('mockups/home.html', 'Home Page')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Home
+                        Page</button>
+                    <button onclick="loadComponent('mockups/login.html', 'Login')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Login</button>
+                    <button onclick="loadComponent('mockups/properties.html', 'Properties Listing')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Properties
+                        Listing</button>
+                    <button onclick="loadComponent('mockups/property-details.html', 'Property Details')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Property
+                        Details</button>
+                    <button onclick="loadComponent('mockups/compare.html', 'Compare')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Compare</button>
+                    <button onclick="loadComponent('mockups/agent-dashboard.html', 'Agent Dashboard')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Agent
+                        Dashboard</button>
+                    <button onclick="loadComponent('mockups/agent-properties.html', 'Agent Properties')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Agent
+                        Properties</button>
+                    <button onclick="loadComponent('mockups/agent-appointments.html', 'Agent Appointments')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Agent
+                        Appointments</button>
+                    <button onclick="loadComponent('mockups/agent-create-property.html', 'Create Property')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Create
+                        Property</button>
+                    <button onclick="loadComponent('mockups/admin-dashboard.html', 'Admin Dashboard')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Admin
+                        Dashboard</button>
+                    <button onclick="loadComponent('mockups/admin-users.html', 'Admin Users')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Admin
+                        Users</button>
+                    <button onclick="loadComponent('mockups/admin-properties.html', 'Admin Properties')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Admin
+                        Properties</button>
+                    <button onclick="loadComponent('mockups/admin-logs.html', 'Admin Logs')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Admin
+                        Logs</button>
+                    <button onclick="loadComponent('mockups/messages.html', 'Messages')"
+                        class="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100 transition">Messages</button>
+                </div>
+            </div>
+
+        </nav>
+        <div class="p-4 border-t text-xs text-center text-gray-400">Powered by Preline UI</div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full bg-slate-100">
+        <div class="bg-white border-b border-gray-200 px-4 py-2 flex justify-between items-center shadow-sm z-10">
+            <h2 id="component-title" class="text-sm font-semibold text-gray-700">Preview</h2>
+            <div class="flex gap-2">
+                <a id="open-new-tab" href="#" target="_blank"
+                    class="text-xs px-3 py-1.5 border rounded hover:bg-gray-50 text-gray-600 flex items-center gap-1 hidden">Open
+                    Tab</a>
+                <div class="flex bg-gray-100 rounded p-0.5">
+                    <button onclick="resizeIframe('100%')"
+                        class="px-2 py-1 text-xs rounded hover:bg-white shadow-sm transition">Desktop</button>
+                    <button onclick="resizeIframe('768px')"
+                        class="px-2 py-1 text-xs rounded hover:bg-white transition">Tablet</button>
+                    <button onclick="resizeIframe('375px')"
+                        class="px-2 py-1 text-xs rounded hover:bg-white transition">Mobile</button>
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 overflow-hidden flex justify-center relative">
+            <iframe id="preview-frame" src=""
+                class="w-full h-full border-0 bg-white shadow-lg transition-all duration-300"></iframe>
+        </div>
+    </main>
+
+    <script>
+        function loadComponent(path, title) {
+            const frame = document.getElementById('preview-frame');
+            const titleEl = document.getElementById('component-title');
+            const openLink = document.getElementById('open-new-tab');
+            frame.classList.add('opacity-0');
+            setTimeout(() => {
+                frame.src = path;
+                titleEl.textContent = title;
+                openLink.href = path;
+                openLink.classList.remove('hidden');
+                frame.onload = () => frame.classList.remove('opacity-0');
+            }, 100);
+        }
+        function resizeIframe(width) {
+            document.getElementById('preview-frame').style.width = width;
+        }
+        window.onload = () => loadComponent('charte-graphique/index.html', 'Style Guide');
+    </script>
+</body>
+
+</html>

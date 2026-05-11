@@ -1,0 +1,77 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+' Actors
+actor "Buyer" as Buyer
+actor "Agent" as Agent
+actor "Admin" as Admin
+actor "Mobile Application" as MobileApp <<System>>
+
+' Hierarchy
+Agent <|-- Admin
+
+rectangle "Sprint 2: Interaction & Administration" {
+
+  package "Authentication & Security" {
+      usecase "Login / Authentication" as Login
+  }
+
+  package "Buyer Services" {
+      usecase "Manage Favorites" as Favorites
+      usecase "Schedule Viewing Appointment" as Appointment
+      usecase "Advanced Property Filtering" as Filter
+  }
+
+  package "Communication" {
+      usecase "Send / Receive Messages" as Messaging
+  }
+
+  package "Appointment Management (Agent)" {
+      usecase "Confirm Appointment" as Confirm
+      usecase "Reject Appointment" as Reject
+  }
+
+  package "Administration" {
+      usecase "Manage Users & Roles" as Users
+      usecase "View Analytics & Reports" as Analytics
+  }
+
+  package "Mobile API Access" {
+      usecase "View Properties via API" as APIView
+  }
+
+}
+
+' Buyer actions
+Buyer -- Login
+Buyer -- Favorites
+Buyer -- Appointment
+Buyer -- Messaging
+Buyer -- Filter
+
+' Agent actions
+Agent -- Login
+Agent -- Messaging
+Agent -- Confirm
+Agent -- Reject
+
+' Admin actions
+Admin -- Users
+Admin -- Analytics
+
+' Mobile application
+MobileApp -- APIView : Consumes API
+
+' Security includes
+Favorites ..> Login : <<include>>
+Appointment ..> Login : <<include>>
+Messaging ..> Login : <<include>>
+Confirm ..> Login : <<include>>
+Reject ..> Login : <<include>>
+Users ..> Login : <<include>>
+Analytics ..> Login : <<include>>
+
+@enduml

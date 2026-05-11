@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Text – Atom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-6 sm:py-8 md:py-12">
+    <div class="w-full max-w-sm space-y-6 sm:space-y-7 md:space-y-8">
+        <!-- Default Input -->
+        <div>
+            <label for="input-default" class="block text-sm font-semibold text-slate-700 mb-2">Default Input</label>
+            <input type="text" id="input-default"
+                class="py-3 px-4 block w-full border border-slate-300 rounded-xl text-sm bg-white text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed"
+                placeholder="Placeholder...">
+        </div>
+
+        <!-- Input with Value -->
+        <div>
+            <label for="input-value" class="block text-sm font-semibold text-slate-700 mb-2">Input with Value</label>
+            <input type="text" id="input-value" value="123 Main Street, Malibu"
+                class="py-3 px-4 block w-full border border-slate-300 rounded-xl text-sm bg-white text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed">
+        </div>
+
+        <!-- Input with Helper Text -->
+        <div>
+            <label for="input-helper" class="block text-sm font-semibold text-slate-700 mb-2">With Helper Text</label>
+            <input type="text" id="input-helper"
+                class="py-3 px-4 block w-full border border-slate-300 rounded-xl text-sm bg-white text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed"
+                placeholder="Enter your address">
+            <p class="mt-2 text-xs text-slate-500">Your property address will be used for verification</p>
+        </div>
+
+        <!-- Disabled Input -->
+        <div>
+            <label for="input-disabled" class="block text-sm font-semibold text-slate-700 mb-2">Disabled Input</label>
+            <input type="text" id="input-disabled" disabled value="Disabled input"
+                class="py-3 px-4 block w-full border border-slate-200 bg-slate-100 text-slate-400 rounded-xl text-sm cursor-not-allowed">
+        </div>
+
+        <!-- Input with Focus Highlight -->
+        <div>
+            <label for="input-focus" class="block text-sm font-semibold text-slate-700 mb-2">Focus State Demo</label>
+            <input type="text" id="input-focus"
+                class="py-3 px-4 block w-full border border-slate-300 rounded-xl text-sm bg-white text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200"
+                placeholder="Click to see focus state">
+        </div>
+    </div>
+</body>
+
+</html>

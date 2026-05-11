@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badge – Atom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="p-4 sm:p-6 md:p-8 flex flex-wrap items-start gap-2 sm:gap-3 md:gap-4 bg-slate-50 min-h-screen">
+    <!-- For Sale Badge (Emerald) -->
+    <span class="inline-flex items-center gap-x-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+        <span class="size-1.5 bg-emerald-600 rounded-full"></span>
+        For Sale
+    </span>
+
+    <!-- For Rent Badge (Primary) -->
+    <span class="inline-flex items-center gap-x-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-primary-100 text-primary-700 border border-primary-200">
+        <span class="size-1.5 bg-primary-600 rounded-full"></span>
+        For Rent
+    </span>
+
+    <!-- Pending Badge (Amber) -->
+    <span class="inline-flex items-center gap-x-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+        <span class="size-1.5 bg-amber-600 rounded-full"></span>
+        Pending
+    </span>
+
+    <!-- Sold Badge (Slate) -->
+    <span class="inline-flex items-center gap-x-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
+        <span class="size-1.5 bg-slate-400 rounded-full"></span>
+        Sold
+    </span>
+
+    <!-- Featured Badge (Secondary) -->
+    <span class="inline-flex items-center gap-x-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-secondary-100 text-secondary-800 border border-secondary-200">
+        <span class="size-1.5 bg-secondary-500 rounded-full"></span>
+        Featured
+    </span>
+
+    <!-- Verified Badge (Success) -->
+    <span class="inline-flex items-center gap-x-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Verified
+    </span>
+
+    <!-- New Badge (Info) -->
+    <span class="inline-flex items-center gap-x-1.5 py-0.5 px-2.5 rounded-full text-xs font-bold bg-sky-100 text-sky-800 border border-sky-200">
+        New
+    </span>

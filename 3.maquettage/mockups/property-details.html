@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - PropertyHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 200: '#bdcfea', 300: '#90addc', 400: '#5d85c8', 500: '#3b65ad', 600: '#2d4f8e', 700: '#264073', 800: '#23385f', 900: '#213151', 950: '#161e33' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-800 dark:text-gray-200">
+    <header
+        class="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-gray-800 dark:border-gray-700">
+        <nav class="relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
+            aria-label="Global">
+            <div class="flex items-center justify-between">
+                <a class="flex-none text-2xl font-black tracking-tighter" href="home.html"
+                    style="color:#3b65ad;">PropertyHub</a>
+            </div>
+            <div class="overflow-hidden transition-all duration-300 basis-full grow sm:block">
+                <div
+                    class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
+                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
+                        href="home.html">Home</a>
+                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
+                        href="properties.html">Properties</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 mx-auto">
+        <!-- Title and actions -->
+        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-8 sm:mb-12 gap-4 sm:gap-6">
+            <div>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold dark:text-white">Sunset Villa</h1>
+                <p class="text-sm sm:text-base text-gray-500 flex items-center gap-1 dark:text-gray-400 mt-2 sm:mt-3">
+                    <svg class="size-4 sm:size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    Malibu, CA
+                </p>
+            </div>
+            <div class="text-xl sm:text-2xl md:text-3xl font-bold dark:text-white">
+                $1,250,000
+            </div>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+            <!-- Left col - Info-->
+            <div class="lg:col-span-2 space-y-6 sm:space-y-8 md:space-y-10">
+                <!-- Image Gallery (Simplified) -->
+                <div>
+                    <img class="w-full h-56 sm:h-80 md:h-96 object-cover rounded-xl sm:rounded-2xl md:rounded-3xl"
+                        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&w=1200&q=80"
+                        alt="Main Property Image">
+                </div>
+
+                <!-- Specs -->
+                <div
+                    class="bg-white border shadow-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 dark:bg-slate-800 dark:border-gray-700 mt-6 sm:mt-8 md:mt-10">
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-semibold mb-6 sm:mb-8 dark:text-white">Overview</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-10">
+                        <div><strong
+                                class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Bedrooms</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">4</span></div>
+                        <div><strong
+                                class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Bathrooms</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">3</span></div>
+                        <div><strong
+                                class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Area</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">3,200 sqft</span>
+                        </div>
+                        <div><strong
+                                class="block text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Type</strong><span
+                                class="font-semibold text-lg sm:text-xl md:text-2xl dark:text-white">Villa</span></div>
+                    </div>
+                    <h3 class="font-semibold mb-3 sm:mb-4 dark:text-white text-base sm:text-lg">Description</h3>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                        A stunningly beautiful sunset villa located in the heart of Malibu. Offering panoramic ocean
+                        views, this modern design showcases the pinnacle of luxury living. Featuring a spacious open
+                        concept layout, an infinity pool, and state of the art appliances.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right col - Actions -->
+            <div class="space-y-6 sm:space-y-8">
+                <!-- Booking Card -->
+                <div
+                    class="bg-white border shadow-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 dark:bg-slate-800 dark:border-gray-700">
+                    <h2 class="text-lg sm:text-xl md:text-2xl font-semibold mb-6 sm:mb-8 dark:text-white">Schedule a
+                        Viewing</h2>
+                    <form class="space-y-4 sm:space-y-5 md:space-y-6">
+                        <div>
+                            <label class="block text-xs sm:text-sm font-medium mb-2 sm:mb-3 dark:text-white">Select
+                                Date</label>
+                            <input type="date"
+                                class="py-2 sm:py-3 px-3 sm:px-4 block w-full border border-gray-200 rounded-lg text-xs sm:text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs sm:text-sm font-medium mb-2 sm:mb-3 dark:text-white">Select
+                                Time</label>
+                            <select data-hs-select='{
+                                "placeholder": "Select time...",
+                                "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+                                "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex text-nowrap w-full cursor-pointer bg-white border border-gray-200 text-gray-800 rounded-xl text-start text-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                                "dropdownClasses": "mt-2 z-50 w-full max-h-72 p-1 space-y-0.5 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden overflow-y-auto dark:bg-slate-900 dark:border-gray-700",
+                                "optionClasses": "hs-selected:bg-gray-100 dark:hs-selected:bg-slate-800 py-2 px-4 w-full text-sm text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800 dark:focus:bg-slate-800",
+                                "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"hidden hs-selected:block\"><svg class=\"shrink-0 size-3.5 text-blue-600\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg></span></div>",
+                                "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
+                            }' class="hidden">
+                                <option>10:00 AM</option>
+                                <option>11:00 AM</option>
+                                <option>2:00 PM</option>
+                            </select>
+                        </div>
+                        <button type="button"
+                            class="w-full py-2 sm:py-3 px-4 inline-flex justify-center items-center gap-x-2 text-xs sm:text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700">
+                            Request Appointment
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Agent Contact -->
+                <div
+                    class="bg-white border shadow-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 dark:bg-slate-800 dark:border-gray-700">
+                    <div class="flex items-center gap-x-3 sm:gap-x-4 mb-4 sm:mb-6">
+                        <img class="inline-block size-10 sm:size-12 rounded-full ring-2 ring-white dark:ring-gray-800"
+                            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&w=300&q=80"
+                            alt="Agent Image">
+                        <div>
+                            <h3 class="font-semibold dark:text-white text-sm sm:text-base">Michael Johnson</h3>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Listing Agent</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button type="button"
+                            class="w-full py-2 sm:py-3 px-3 sm:px-4 inline-flex justify-center items-center gap-x-2 text-xs sm:text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800">
+                            Message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+</body>
+
+</html>

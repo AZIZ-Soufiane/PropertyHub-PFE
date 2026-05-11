@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam shadowing false
+
+actor "Agent" as Agent
+
+rectangle "Agent Workspace" {
+
+    usecase "Login / Authentication" as Login
+    usecase "Manage Property Listings" as Listings
+    usecase "Manage Images / Gallery" as Gallery
+    usecase "Manage Shared Calendar" as Calendar
+    usecase "View Client History" as ClientHistory
+    usecase "In-App Messaging" as Messaging
+
+    Listings ..> Login : <<include>>
+    Gallery ..> Login : <<include>>
+    Calendar ..> Login : <<include>>
+    ClientHistory ..> Login : <<include>>
+    Messaging ..> Login : <<include>>
+}
+
+Agent -- Listings
+Agent -- Gallery
+Agent -- Calendar
+Agent -- ClientHistory
+Agent -- Messaging
+
+@enduml

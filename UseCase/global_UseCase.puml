@@ -1,0 +1,99 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+'================ ACTORS =================
+actor "Visitor" as Visitor
+actor "Buyer" as Buyer
+actor "Agent" as Agent
+actor "Admin" as Admin
+actor "Mobile Application" as MobileApp <<System>>
+
+' Actor hierarchy
+Agent <|-- Admin
+
+rectangle "PropertyHub System" {
+
+  '=========== AUTH ===========
+  package "Authentication & Security" {
+      (Login / Authentication) as Login
+  }
+
+  '=========== PUBLIC FEATURES ===========
+  package "Public Property Access" {
+      (Search & Filter Properties) as Search
+      (Compare Properties) as Compare
+  }
+
+  '=========== BUYER FEATURES ===========
+  package "Buyer Services" {
+      (Manage Favorites) as Favorites
+      (Schedule Appointment) as Appointment
+      (In-App Messaging) as Messaging
+  }
+
+  '=========== AGENT FEATURES ===========
+  package "Agent Workspace" {
+      (Manage Property Listings) as Listings
+      (Manage Images / Gallery) as Gallery
+      (Manage Shared Calendar) as Calendar
+      (View Client History) as ClientHistory
+  }
+
+  '=========== ADMIN FEATURES ===========
+  package "Administration" {
+      (Manage Users & Roles) as Users
+      (View Analytics & Reports) as Analytics
+  }
+
+  '=========== API ACCESS ===========
+  package "Public API (Mobile Access)" {
+      (View Properties via API) as APIView
+  }
+}
+
+'================ RELATIONSHIPS =================
+
+' Visitor
+Visitor --> Search
+Visitor --> Compare
+
+' Buyer
+Buyer --> Login
+Buyer --> Search
+Buyer --> Favorites
+Buyer --> Appointment
+Buyer --> Messaging
+
+' Agent
+Agent --> Login
+Agent --> Messaging
+Agent --> Listings
+Agent --> Gallery
+Agent --> Calendar
+Agent --> ClientHistory
+
+' Admin
+Admin --> Users
+Admin --> Analytics
+
+' Mobile API consumer
+MobileApp --> APIView : Consumes API
+
+'================ SECURITY =================
+Favorites ..> Login : <<include>>
+Appointment ..> Login : <<include>>
+Messaging ..> Login : <<include>>
+Listings ..> Login : <<include>>
+Gallery ..> Login : <<include>>
+Calendar ..> Login : <<include>>
+ClientHistory ..> Login : <<include>>
+Users ..> Login : <<include>>
+Analytics ..> Login : <<include>>
+
+' API reuses search logic
+APIView ..> Search : <<include>>
+
+@enduml

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Card – Molecule</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff3fa', 100: '#dbe4f4', 500: '#3b65ad', 600: '#2d4f8e' },
+                        secondary: { 500: '#029fca' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 min-h-screen flex items-start justify-center p-4 sm:p-6 md:p-12 py-6 sm:py-8 md:py-12">
+    <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-4xl w-full">
+
+        <!-- Property Card 1 -->
+        <div
+            class="group flex flex-col bg-white border border-slate-50 shadow-sm rounded-[3rem] overflow-hidden hover:shadow-2xl transition-all duration-700">
+            <!-- Image -->
+            <div class="h-80 overflow-hidden relative">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&w=800&q=80"
+                    alt="Sunset Villa" width="800" height="320">
+                <div class="absolute top-6 left-6">
+                    <span
+                        class="bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-sm">Villa</span>
+                </div>
+                <div class="absolute top-6 right-6">
+                    <button type="button"
+                        class="p-2.5 bg-white/90 backdrop-blur-sm rounded-full text-slate-400 hover:text-rose-500 shadow-sm transition-all">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Body -->
+            <div class="p-10">
+                <h3 class="text-2xl font-black text-slate-900 mb-2 group-hover:text-primary-600 transition-colors">
+                    Sunset Villa</h3>
+                <div class="flex items-center gap-2 text-sm text-slate-400 font-bold mb-8">
+                    <svg class="size-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    Malibu, California
+                </div>
+                <div class="flex items-center justify-between mb-8">
+                    <span class="text-3xl font-black text-primary-600">$1.2M</span>
+                    <div class="flex gap-x-6">
+                        <div><span
+                                class="block text-slate-400 text-[10px] uppercase font-black tracking-widest">Beds</span><span
+                                class="font-black text-slate-900">4</span></div>
+                        <div><span
+                                class="block text-slate-400 text-[10px] uppercase font-black tracking-widest">Baths</span><span
+                                class="font-black text-slate-900">3</span></div>
+                        <div><span
+                                class="block text-slate-400 text-[10px] uppercase font-black tracking-widest">Sqft</span><span
+                                class="font-black text-slate-900">3.2K</span></div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="#"
+                        class="py-4 text-center text-sm font-black rounded-3xl bg-slate-50 text-slate-900 group-hover:bg-primary-600 group-hover:text-white transition-all duration-500">Explore
+                        Property</a>
+                    <a href="#"
+                        class="py-4 text-center text-sm font-black rounded-3xl border border-slate-100 text-slate-600 hover:border-primary-600 hover:text-primary-600 transition-all">Compare</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Card 2 -->
+        <div
+            class="group flex flex-col bg-white border border-slate-50 shadow-sm rounded-[3rem] overflow-hidden hover:shadow-2xl transition-all duration-700">
+            <div class="h-80 overflow-hidden relative">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"
+                    alt="The Glass House" width="800" height="320">
+                <div class="absolute top-6 left-6">
+                    <span
+                        class="bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-sm">Modern</span>
+                </div>
+                <div class="absolute top-6 right-6">
+                    <button type="button"
+                        class="p-2.5 bg-white/90 backdrop-blur-sm rounded-full text-slate-400 hover:text-rose-500 shadow-sm transition-all">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-10">
+                <h3 class="text-2xl font-black text-slate-900 mb-2 group-hover:text-primary-600 transition-colors">The
+                    Glass House</h3>
+                <div class="flex items-center gap-2 text-sm text-slate-400 font-bold mb-8">
+                    <svg class="size-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    Austin, Texas
+                </div>
+                <div class="flex items-center justify-between mb-8">
+                    <span class="text-3xl font-black text-primary-600">$850K</span>
+                    <div class="flex gap-x-6">
+                        <div><span
+                                class="block text-slate-400 text-[10px] uppercase font-black tracking-widest">Beds</span><span
+                                class="font-black text-slate-900">3</span></div>
+                        <div><span
+                                class="block text-slate-400 text-[10px] uppercase font-black tracking-widest">Baths</span><span
+                                class="font-black text-slate-900">2</span></div>
+                        <div><span
+                                class="block text-slate-400 text-[10px] uppercase font-black tracking-widest">Sqft</span><span
+                                class="font-black text-slate-900">2.7K</span></div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="#"
+                        class="py-4 text-center text-sm font-black rounded-3xl bg-slate-50 text-slate-900 group-hover:bg-primary-600 group-hover:text-white transition-all duration-500">Explore
+                        Property</a>
+                    <a href="#"
+                        class="py-4 text-center text-sm font-black rounded-3xl border border-slate-100 text-slate-600 hover:border-primary-600 hover:text-primary-600 transition-all">Compare</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

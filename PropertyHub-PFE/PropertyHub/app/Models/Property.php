@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Property extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'type',
+        'price',
+        'location',
+        'address',
+        'city',
+        'country',
+        'area',
+        'bedrooms',
+        'bathrooms',
+        'description',
+        'features',
+        'status',
+        'agent_id',
+    ];
+
+    // Relationships
+    public function agent()
+    {
+        return $this->belongsTo(User::class, 'agent_id');
+    }
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
+public function buyers()
+{
+    return $this->belongsToMany(User::class, 'property_user', 'property_id', 'user_id');
+}
+
+public function images()
+{
+    return $this->hasMany(Gallery::class);
+}
+
+public function getImageUrlAttribute()
+{
+    $firstImage = $this->images->first();
+    if ($firstImage && is_array($firstImage->image_urls) && count($firstImage->image_urls) > 0) {
+        return $firstImage->image_urls[0];
+    }
+    return 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800';
+}
+}

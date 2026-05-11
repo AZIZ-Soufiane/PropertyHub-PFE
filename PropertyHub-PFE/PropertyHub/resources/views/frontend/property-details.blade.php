@@ -21,23 +21,56 @@
 </header>
 
 <main class="pt-20">
-    <!-- Image Gallery -->
+    <!-- Image Slider -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
-            <div class="h-96 lg:h-[500px] rounded-3xl overflow-hidden">
-                <img id="mainImage" class="w-full h-full object-cover" 
-                    src="{{ $property->images->first()?->first_url ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200' }}" 
-                    alt="{{ $property->title }}">
-            </div>
-            @if($property->images->count() > 1)
-                <div class="grid grid-cols-2 gap-4">
-                    @foreach($property->images->skip(1)->take(3) as $image)
-                        <div class="h-44 lg:h-[236px] rounded-2xl overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
-                            <img src="{{ $image->first_url ?? 'https://images.unsplash.com/photo-16x00x65x42815-ffad4c1539a9?w=800' }}" alt="Gallery image" class="w-full h-full object-cover">
-                        </div>
-                    @endforeach
+        <div x-data="{
+            images: @js($property->all_image_urls),
+            current: 0,
+            get total() { return this.images.length },
+            next() { this.current = (this.current + 1) % this.total },
+            prev() { this.current = (this.current - 1 + this.total) % this.total },
+            goTo(i) { this.current = i }
+        }" x-init="setInterval(() => next(), 6000)" @keydown.arrow-right.window="next()" @keydown.arrow-left.window="prev()" class="mb-8">
+            <!-- Main Image -->
+            <div class="relative h-96 lg:h-[540px] rounded-3xl overflow-hidden bg-gray-100 group">
+                <template x-for="(img, index) in images" :key="index">
+                    <img :src="img"
+                         :alt="'{{ $property->title }} - Image ' + (index + 1)"
+                         class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+                         :class="current === index ? 'opacity-100 z-10' : 'opacity-0 z-0'">
+                </template>
+
+                <!-- Prev / Next -->
+                <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                    <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                    <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+
+                <!-- Counter Badge -->
+                <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                    <span x-text="current + 1"></span> / <span x-text="total"></span>
                 </div>
-            @endif
+
+                <!-- Dot Indicators -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                    <template x-for="(img, index) in images" :key="'dot-'+index">
+                        <button @click="goTo(index)" class="w-2.5 h-2.5 rounded-full transition-all duration-300"
+                                :class="current === index ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'"></button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Thumbnails -->
+            <div class="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                <template x-for="(img, index) in images" :key="'thumb-'+index">
+                    <button @click="goTo(index)" class="flex-shrink-0 h-20 w-28 rounded-xl overflow-hidden transition-all duration-300 ring-2"
+                            :class="current === index ? 'ring-blue-600 scale-105' : 'ring-transparent opacity-60 hover:opacity-100'">
+                        <img :src="img" :alt="'Thumbnail ' + (index + 1)" class="w-full h-full object-cover">
+                    </button>
+                </template>
+            </div>
         </div>
 
         <div class="flex flex-col lg:flex-row gap-12">

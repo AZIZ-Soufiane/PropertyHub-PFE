@@ -55,4 +55,15 @@ public function getImageUrlAttribute()
     }
     return 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800';
 }
+
+public function getAllImageUrlsAttribute()
+{
+    $urls = [];
+    foreach ($this->images as $gallery) {
+        if (is_array($gallery->image_urls)) {
+            $urls = array_merge($urls, $gallery->image_urls);
+        }
+    }
+    return !empty($urls) ? $urls : ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800'];
+}
 }

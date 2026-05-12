@@ -137,5 +137,75 @@ class PropertyController extends Controller
 
         return view('properties.by-agent', compact('properties', 'agent'));
     }
+
+    /**
+     * Home page
+     */
+    public function home()
+    {
+        $featuredProperties = array_slice($this->getDemoProperties(), 0, 3);
+        return view('welcome', compact('featuredProperties'));
+    }
+
+    /**
+     * Search properties
+     */
+    public function search(Request $request)
+    {
+        return $this->index($request);
+    }
+
+    /**
+     * Compare properties page
+     */
+    public function compare(Request $request)
+    {
+        $compareIds = session('compare', []);
+        $properties = $this->getDemoProperties();
+        
+        $compareProperties = collect($properties)
+            ->filter(fn($p) => in_array($p['id'], $compareIds))
+            ->values()
+            ->all();
+
+        return view('properties.compare', compact('compareProperties'));
+    }
+
+    /**
+     * Add property to compare
+     */
+    public function addToCompare(Request $request)
+    {
+        $id = $request->get('id');
+        $compare = session('compare', []);
+        
+        if (!in_array($id, $compare) && count($compare) < 3) {
+            $compare[] = $id;
+            session(['compare' => $compare]);
+        }
+        
+        return back()->with('success', 'Property added to compare');
+    }
+
+    /**
+     * Remove property from compare
+     */
+    public function removeFromCompare($id)
+    {
+        $compare = session('compare', []);
+        $compare = array_filter($compare, fn($i) => $i != $id);
+        session(['compare' => array_values($compare)]);
+        
+        return back()->with('success', 'Property removed from compare');
+    }
+
+    /**
+     * Clear compare list
+     */
+    public function clearCompare()
+    {
+        session(['compare' => []]);
+        return back()->with('success', 'Compare list cleared');
+    }
 }
 

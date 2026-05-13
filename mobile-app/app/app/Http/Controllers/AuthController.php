@@ -16,7 +16,7 @@ class AuthController extends Controller
      */
     public function showLogin()
     {
-        if (auth('api')->check()) {
+        if (session()->has('api_token')) {
             return redirect()->route('properties.index');
         }
         return view('auth.login');
@@ -47,7 +47,7 @@ class AuthController extends Controller
      */
     public function showRegister()
     {
-        if (auth('api')->check()) {
+        if (session()->has('api_token')) {
             return redirect()->route('properties.index');
         }
         return view('auth.register');

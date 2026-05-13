@@ -4,21 +4,81 @@
 
 @section('content')
 <div class="pt-4">
-    <!-- Image -->
+    <!-- Image Slider -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative h-72 lg:h-96 rounded-3xl overflow-hidden bg-gradient-to-br from-blue-400 to-blue-600 mb-6" x-data="{ current: 0 }">
-            <div class="absolute inset-0 flex items-center justify-center">
-                <svg class="w-32 h-32 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9"></path>
-                </svg>
+        <div x-data="{
+            images: @js($property['images'] ?? []),
+            current: 0,
+            get total() { return this.images.length },
+            next() { this.current = (this.current + 1) % this.total },
+            prev() { this.current = (this.current - 1 + this.total) % this.total },
+            goTo(i) { this.current = i }
+        }" x-init="if (total > 1) setInterval(() => next(), 6000)" @keydown.arrow-right.window="next()" @keydown.arrow-left.window="prev()" class="mb-6">
+            <!-- Main Image -->
+            <div class="relative h-72 lg:h-96 rounded-3xl overflow-hidden bg-gray-100 group">
+                <template x-for="(img, index) in images" :key="index">
+                    <img :src="img"
+                         :alt="'{{ $property['title'] }} - Image ' + (index + 1)"
+                         class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+                         :class="current === index ? 'opacity-100 z-10' : 'opacity-0 z-0'">
+                </template>
+
+                <template x-if="!images.length">
+                    <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600">
+                        <svg class="w-32 h-32 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9" />
+                        </svg>
+                    </div>
+                </template>
+
+                <!-- Prev / Next -->
+                <template x-if="total > 1">
+                    <div class="absolute inset-0 z-20">
+                        <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </template>
+
+                <!-- Counter Badge -->
+                <template x-if="total > 1">
+                    <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                        <span x-text="current + 1"></span> / <span x-text="total"></span>
+                    </div>
+                </template>
+
+                <!-- Dot Indicators -->
+                <template x-if="total > 1">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                        <template x-for="(img, index) in images" :key="'dot-'+index">
+                            <button @click="goTo(index)" class="w-2.5 h-2.5 rounded-full transition-all duration-300"
+                                    :class="current === index ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'"></button>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Favorite Button -->
+                <button id="favorite-btn" class="absolute top-4 right-16 z-20 p-2.5 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-rose-500 shadow-sm transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </button>
             </div>
 
-            <!-- Favorite Button -->
-            <button id="favorite-btn" class="absolute top-4 right-4 z-20 p-2.5 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-rose-500 shadow-sm transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-            </button>
+            <!-- Thumbnails -->
+            <template x-if="total > 1">
+                <div class="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                    <template x-for="(img, index) in images" :key="'thumb-'+index">
+                        <button @click="goTo(index)" class="flex-shrink-0 h-20 w-28 rounded-xl overflow-hidden transition-all duration-300 ring-2"
+                                :class="current === index ? 'ring-blue-600 scale-105' : 'ring-transparent opacity-60 hover:opacity-100'">
+                            <img :src="img" :alt="'Thumbnail ' + (index + 1)" class="w-full h-full object-cover">
+                        </button>
+                    </template>
+                </div>
+            </template>
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8">
@@ -26,7 +86,7 @@
             <div class="w-full lg:w-2/3">
                 <div class="flex items-start justify-between mb-4">
                     <div>
-                        <span class="text-sm font-bold text-blue-600 uppercase tracking-widest">{{ $property['status'] }}</span>
+                        <span class="text-sm font-bold text-blue-600 uppercase tracking-widest">{{ $property['type'] ?? $property['status'] }}</span>
                         <h1 class="text-3xl font-black text-gray-900 mt-2">{{ $property['title'] }}</h1>
                         <div class="flex items-center gap-2 text-gray-500 mt-2 text-sm">
                             <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,10 +124,7 @@
                 <div class="mb-6">
                     <h2 class="text-lg font-bold text-gray-900 mb-3">Description</h2>
                     <p class="text-gray-600 leading-relaxed text-sm">
-                        Welcome to this stunning {{ $property['title'] }} perfectly situated in {{ $property['location'] }}. 
-                        This exquisite property features contemporary design, premium finishes, and exceptional amenities throughout.
-                        With {{ $property['bedrooms'] }} bedrooms and {{ $property['bathrooms'] }} bathrooms spread across {{ number_format($property['area']) }} sqft,
-                        this is the perfect home for those seeking luxury and comfort.
+                        {{ $property['description'] ?? "Welcome to this stunning {$property['title']} perfectly situated in {$property['location']}. This exquisite property features contemporary design, premium finishes, and exceptional amenities throughout. With {$property['bedrooms']} bedrooms and {$property['bathrooms']} bathrooms spread across " . number_format($property['area']) . " sqft, this is the perfect home for those seeking luxury and comfort." }}
                     </p>
                 </div>
 
@@ -75,12 +132,12 @@
                 <div class="mb-6">
                     <h2 class="text-lg font-bold text-gray-900 mb-4">Features & Amenities</h2>
                     <div class="grid grid-cols-2 gap-3">
-                        @foreach(['Modern Kitchen', 'Spacious Living', 'Garden', 'Parking', 'Security', 'Pool'] as $feature)
+                        @foreach($property['features'] ?? ['Modern Kitchen', 'Spacious Living', 'Garden', 'Parking', 'Security', 'Pool'] as $feature)
                             <div class="flex items-center gap-2 text-gray-600 text-sm">
                                 <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
-                                {{ $feature }}
+                                {{ is_string($feature) ? trim($feature) : $feature }}
                             </div>
                         @endforeach
                     </div>

@@ -49,12 +49,10 @@
                 @foreach($properties as $property)
                     <div class="card overflow-hidden hover:shadow-lg transition-shadow">
                         <!-- Image -->
-                        <div class="relative h-48 bg-gradient-to-br from-primary-100 to-slate-100 flex items-center justify-center">
-                            @if(isset($property['thumbnail']) && $property['thumbnail'])
-                                <img src="{{ $property['thumbnail'] }}" alt="{{ $property['name'] ?? 'Property' }}" class="w-full h-full object-cover">
-                            @else
-                                <div class="text-4xl">🏠</div>
-                            @endif
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="{{ $property['images'][0] ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800' }}"
+                                 alt="{{ $property['title'] ?? 'Property' }}"
+                                 class="w-full h-full object-cover">
                         </div>
 
                         <!-- Content -->

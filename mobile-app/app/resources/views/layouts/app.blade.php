@@ -14,13 +14,13 @@
 <body class="bg-gray-50 text-gray-900 font-sans antialiased" style="font-family: 'Inter', sans-serif;">
     <div class="flex flex-col min-h-screen">
         <!-- Header -->
-        <header class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <header class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-200" x-data="{ mobileOpen: false }">
             <nav class="max-w-7xl mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between py-3">
                     <a href="{{ route('home') }}" class="text-xl font-black tracking-tighter text-primary-500 no-underline">PropertyHub</a>
                     <!-- Mobile menu button -->
-                    <button id="mobile-menu-btn" class="sm:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors" type="button">
-                        <svg id="hamburger-icon" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <button @click="mobileOpen = !mobileOpen" class="sm:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors" type="button">
+                        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
@@ -38,15 +38,15 @@
             </nav>
 
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-100 bg-white">
+            <div x-show="mobileOpen" @click.away="mobileOpen = false" x-cloak class="sm:hidden border-t border-gray-100 bg-white">
                 <div class="px-4 py-4 space-y-2">
-                    <a href="{{ route('home') }}" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg {{ request()->routeIs('home') || request()->routeIs('welcome') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' }}">Home</a>
-                    <a href="{{ route('properties.index') }}" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg {{ request()->routeIs('properties.*') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' }}">Properties</a>
-                    <a href="{{ route('compare') }}" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg {{ request()->routeIs('compare') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' }}">Compare</a>
+                    <a href="{{ route('home') }}" @click="mobileOpen = false" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg {{ request()->routeIs('home') || request()->routeIs('welcome') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' }}">Home</a>
+                    <a href="{{ route('properties.index') }}" @click="mobileOpen = false" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg {{ request()->routeIs('properties.*') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' }}">Properties</a>
+                    <a href="{{ route('compare') }}" @click="mobileOpen = false" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg {{ request()->routeIs('compare') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' }}">Compare</a>
                     @auth
-                        <a href="{{ route('dashboard') }}" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg text-gray-700 hover:bg-gray-100">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" @click="mobileOpen = false" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg text-gray-700 hover:bg-gray-100">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg bg-gray-900 text-white">Sign In</a>
+                        <a href="{{ route('login') }}" @click="mobileOpen = false" class="block w-full text-left px-4 py-3 text-base font-semibold rounded-lg bg-gray-900 text-white">Sign In</a>
                     @endauth
                 </div>
             </div>
@@ -99,37 +99,10 @@
         </footer>
     </div>
 
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
     @stack('scripts')
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (!menuBtn || !mobileMenu) return;
-
-            menuBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
-
-            document.addEventListener('click', function(event) {
-                if (!menuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape') {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-    </script>
 </body>
 </html>

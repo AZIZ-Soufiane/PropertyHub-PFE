@@ -67,13 +67,11 @@
                 @forelse($properties as $property)
                     <div class="group flex flex-col bg-white border border-gray-50 shadow-sm rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-700">
                         <div class="h-64 overflow-hidden relative">
-                            <div class="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center transition-transform duration-1000 group-hover:scale-110">
-                                <svg class="w-20 h-20 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9"></path>
-                                </svg>
-                            </div>
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                 src="{{ $property['images'][0] ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800' }}"
+                                 alt="{{ $property['title'] }}">
                             <div class="absolute top-4 left-4">
-                                <span class="bg-white/90 backdrop-blur-md text-gray-900 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">{{ $property['status'] }}</span>
+                                <span class="bg-white/90 backdrop-blur-md text-gray-900 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">{{ $property['type'] ?? $property['status'] }}</span>
                             </div>
                             <a href="{{ route('compare.add') }}?id={{ $property['id'] }}" class="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-blue-600 shadow-sm transition-all">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

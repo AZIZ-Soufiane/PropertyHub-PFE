@@ -17,11 +17,9 @@
                         <th class="text-left p-4 font-bold text-gray-500 uppercase text-sm">Property</th>
                         @foreach($compareProperties as $property)
                             <th class="p-4 text-center">
-                                <div class="h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl mb-2 flex items-center justify-center">
-                                    <svg class="w-12 h-12 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9"></path>
-                                    </svg>
-                                </div>
+                                <img src="{{ $property['images'][0] ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400' }}"
+                                     alt="{{ $property['title'] }}"
+                                     class="w-full h-32 object-cover rounded-xl mb-2">
                                 <a href="{{ route('properties.show', $property['id']) }}" class="text-blue-600 font-bold text-sm hover:underline">{{ $property['title'] }}</a>
                             </th>
                         @endforeach

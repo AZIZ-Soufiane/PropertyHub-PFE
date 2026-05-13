@@ -75,28 +75,19 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @php
-                $featured = [
-                    ['title' => 'The Glass House', 'location' => 'Austin, Texas', 'price' => 850000, 'beds' => 4, 'baths' => 3, 'area' => 3200, 'type' => 'Modern'],
-                    ['title' => 'Sunset Villa', 'location' => 'Malibu, California', 'price' => 1200000, 'beds' => 5, 'baths' => 4, 'area' => 4800, 'type' => 'Villa'],
-                    ['title' => 'Oceanview Retreat', 'location' => 'Santa Monica, CA', 'price' => 1850000, 'beds' => 6, 'baths' => 5, 'area' => 5200, 'type' => 'Luxury'],
-                ];
-            @endphp
-            @foreach($featured as $property)
+            @forelse($featuredProperties as $property)
                 <div class="group flex flex-col bg-white border border-gray-50 shadow-sm rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-700">
                     <div class="h-64 overflow-hidden relative">
-                        <div class="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center transition-transform duration-1000 group-hover:scale-110">
-                            <svg class="w-24 h-24 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9"></path>
-                            </svg>
-                        </div>
+                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                             src="{{ $property['images'][0] ?? 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800' }}"
+                             alt="{{ $property['title'] }}">
                         <div class="absolute top-6 left-6">
-                            <span class="bg-white/90 backdrop-blur-md text-gray-900 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest">{{ $property['type'] }}</span>
+                            <span class="bg-white/90 backdrop-blur-md text-gray-900 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest">{{ $property['type'] ?? $property['status'] }}</span>
                         </div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-black text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                            <a href="{{ route('properties.show', $loop->iteration) }}">{{ $property['title'] }}</a>
+                            <a href="{{ route('properties.show', $property['id']) }}">{{ $property['title'] }}</a>
                         </h3>
                         <div class="flex items-center gap-2 text-sm text-gray-400 font-bold mb-4">
                             <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,19 +99,21 @@
                             <span class="text-2xl font-black text-blue-600">${{ number_format($property['price']) }}</span>
                             <div class="flex gap-6">
                                 <div class="text-sm font-bold">
-                                    <span class="block text-gray-400 text-[10px] uppercase font-black tracking-widest">Beds</span>{{ $property['beds'] }}
+                                    <span class="block text-gray-400 text-[10px] uppercase font-black tracking-widest">Beds</span>{{ $property['bedrooms'] }}
                                 </div>
                                 <div class="text-sm font-bold">
-                                    <span class="block text-gray-400 text-[10px] uppercase font-black tracking-widest">Baths</span>{{ $property['baths'] }}
+                                    <span class="block text-gray-400 text-[10px] uppercase font-black tracking-widest">Baths</span>{{ $property['bathrooms'] }}
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('properties.show', $loop->iteration) }}" class="mt-2 w-full py-3 block text-center text-sm bg-gray-50 text-gray-900 font-black rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-all">
+                        <a href="{{ route('properties.show', $property['id']) }}" class="mt-2 w-full py-3 block text-center text-sm bg-gray-50 text-gray-900 font-black rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-all">
                             Explore Property
                         </a>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p class="text-gray-500 col-span-3 text-center py-12">No featured properties available.</p>
+            @endforelse
         </div>
     </div>
 </section>

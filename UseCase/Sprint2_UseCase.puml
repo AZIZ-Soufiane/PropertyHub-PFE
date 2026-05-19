@@ -1,77 +1,44 @@
 @startuml
 left to right direction
 skinparam packageStyle rectangle
-skinparam shadowing false
-skinparam actorStyle awesome
 
-' Actors
-actor "Buyer" as Buyer
-actor "Agent" as Agent
-actor "Admin" as Admin
-actor "Mobile Application" as MobileApp <<System>>
+actor "Agent" as agent
+actor "Admin" as admin
 
-' Hierarchy
-Agent <|-- Admin
+admin -up-|> agent
 
-rectangle "Sprint 2: Interaction & Administration" {
+rectangle "Real Estate Platform - Sprint 2 (Admin Scope)" {
 
-  package "Authentication & Security" {
-      usecase "Login / Authentication" as Login
-  }
+    rectangle "Authentication & Security" {
+        usecase "Login / Authentication" as UC_Auth
+    }
 
-  package "Buyer Services" {
-      usecase "Manage Favorites" as Favorites
-      usecase "Schedule Viewing Appointment" as Appointment
-      usecase "Advanced Property Filtering" as Filter
-  }
+    rectangle "Administration" {
+        usecase "View Analytics & Reports" as UC_Analytics
+        usecase "Manage Users & Roles" as UC_ManageUsers
+    }
 
-  package "Communication" {
-      usecase "Send / Receive Messages" as Messaging
-  }
+    rectangle "Appointment Management (Agent)" {
+        usecase "Confirm Appointment" as UC_Confirm
+        usecase "Reject Appointment" as UC_Reject
+    }
 
-  package "Appointment Management (Agent)" {
-      usecase "Confirm Appointment" as Confirm
-      usecase "Reject Appointment" as Reject
-  }
-
-  package "Administration" {
-      usecase "Manage Users & Roles" as Users
-      usecase "View Analytics & Reports" as Analytics
-  }
-
-  package "Mobile API Access" {
-      usecase "View Properties via API" as APIView
-  }
-
+    rectangle "Communication" {
+        usecase "Send / Receive Messages" as UC_Messages
+    }
 }
 
-' Buyer actions
-Buyer -- Login
-Buyer -- Favorites
-Buyer -- Appointment
-Buyer -- Messaging
-Buyer -- Filter
+admin -- UC_Analytics
+admin -- UC_ManageUsers
 
-' Agent actions
-Agent -- Login
-Agent -- Messaging
-Agent -- Confirm
-Agent -- Reject
+agent -- UC_Messages
+agent -- UC_Confirm
+agent -- UC_Reject
 
-' Admin actions
-Admin -- Users
-Admin -- Analytics
-
-' Mobile application
-MobileApp -- APIView : Consumes API
-
-' Security includes
-Favorites ..> Login : <<include>>
-Appointment ..> Login : <<include>>
-Messaging ..> Login : <<include>>
-Confirm ..> Login : <<include>>
-Reject ..> Login : <<include>>
-Users ..> Login : <<include>>
-Analytics ..> Login : <<include>>
+UC_Messages ..> UC_Auth : <<include>>
+UC_Confirm ..> UC_Auth : <<include>>
+UC_Reject ..> UC_Auth : <<include>>
+UC_Analytics ..> UC_Auth : <<include>>
+UC_ManageUsers ..> UC_Auth : <<include>>
 
 @enduml

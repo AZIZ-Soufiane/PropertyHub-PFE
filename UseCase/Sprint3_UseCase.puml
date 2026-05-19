@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "AI Service" as AI <<System>>
+actor "Buyer" as Buyer
+
+rectangle "Sprint 3: AI-Powered Smart Property Comparison" {
+
+  package "Smart Property Intelligence" {
+      usecase "AI Analyze Property Features" as AI_AnalyzeFeatures
+      usecase "Smart Property Recommendations" as AI_Recommend
+      usecase "Price Valuation Estimate" as AI_PriceValuation
+      usecase "Similar Properties Suggestion" as AI_SimilarProps
+      usecase "Trigger: User Views Property" as TriggerView
+  }
+
+}
+
+AI -- AI_AnalyzeFeatures
+AI -- AI_Recommend
+AI -- AI_PriceValuation
+AI -- AI_SimilarProps
+AI -- TriggerView
+
+Buyer -- TriggerView
+Buyer -- AI_Recommend
+Buyer -- AI_PriceValuation
+Buyer -- AI_SimilarProps
+
+TriggerView ..> AI_AnalyzeFeatures : <<trigger>>
+AI_AnalyzeFeatures ..> AI_Recommend : <<include>>
+AI_AnalyzeFeatures ..> AI_SimilarProps : <<include>>
+
+@enduml

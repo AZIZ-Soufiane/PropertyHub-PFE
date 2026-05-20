@@ -1,132 +1,225 @@
 @extends('layouts.app')
 
-@section('title', 'Property Details - PropertyHub')
+@section('title', $property['title'] . ' - PropertyHub')
 
 @section('content')
-<!-- Gallery Section -->
-<div class="relative h-64 bg-gradient-to-br from-primary-400 to-primary-500 flex items-center justify-center overflow-hidden">
-    <svg class="w-32 h-32 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9"></path>
-    </svg>
-    <span class="absolute top-4 right-4 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">Sale</span>
-    <button class="absolute top-4 left-4 p-2 bg-white rounded-lg hover:shadow-lg transition-smooth">
-        <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
-    </button>
-    <button class="absolute top-4 right-12 p-2 bg-white rounded-lg hover:shadow-lg transition-smooth" id="favorite-btn">
-        <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-        </svg>
-    </button>
-</div>
+<div class="pt-4">
+    <!-- Image Slider -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div x-data="{
+            images: @js($property['images'] ?? []),
+            current: 0,
+            get total() { return this.images.length },
+            next() { this.current = (this.current + 1) % this.total },
+            prev() { this.current = (this.current - 1 + this.total) % this.total },
+            goTo(i) { this.current = i }
+        }" x-init="if (total > 1) setInterval(() => next(), 6000)" @keydown.arrow-right.window="next()" @keydown.arrow-left.window="prev()" class="mb-6">
+            <!-- Main Image -->
+            <div class="relative h-72 lg:h-96 rounded-3xl overflow-hidden bg-gray-100 group">
+                <template x-for="(img, index) in images" :key="index">
+                    <img :src="img"
+                         :alt="'{{ $property['title'] }} - Image ' + (index + 1)"
+                         class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+                         :class="current === index ? 'opacity-100 z-10' : 'opacity-0 z-0'">
+                </template>
 
-<!-- Property Header -->
-<div class="px-4 py-6 bg-white border-b border-slate-100">
-    <div class="flex items-start justify-between mb-3">
-        <div>
-            <h1 class="text-2xl font-black text-slate-900">Modern Luxury Villa</h1>
-            <p class="text-sm text-slate-600 flex items-center gap-1 mt-1">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                New York, New York, USA
-            </p>
-        </div>
-    </div>
-    <p class="text-3xl font-black text-primary-600">$850,000</p>
-</div>
+                <template x-if="!images.length">
+                    <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600">
+                        <svg class="w-32 h-32 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9" />
+                        </svg>
+                    </div>
+                </template>
 
-<!-- Key Features Grid -->
-<div class="px-4 py-4 border-b border-slate-100">
-    <div class="grid grid-cols-4 gap-2">
-        <div class="text-center p-3 bg-slate-50 rounded-lg">
-            <p class="text-xs text-slate-600 font-semibold mb-1">Rooms</p>
-            <p class="text-xl font-black text-slate-900">4</p>
-        </div>
-        <div class="text-center p-3 bg-slate-50 rounded-lg">
-            <p class="text-xs text-slate-600 font-semibold mb-1">Baths</p>
-            <p class="text-xl font-black text-slate-900">2</p>
-        </div>
-        <div class="text-center p-3 bg-slate-50 rounded-lg">
-            <p class="text-xs text-slate-600 font-semibold mb-1">Size</p>
-            <p class="text-xl font-black text-slate-900">3.8K</p>
-        </div>
-        <div class="text-center p-3 bg-slate-50 rounded-lg">
-            <p class="text-xs text-slate-600 font-semibold mb-1">Year</p>
-            <p class="text-xl font-black text-slate-900">2021</p>
-        </div>
-    </div>
-</div>
+                <!-- Prev / Next -->
+                <template x-if="total > 1">
+                    <div class="absolute inset-0 z-20">
+                        <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                            <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </template>
 
-<!-- Description -->
-<div class="px-4 py-6 border-b border-slate-100">
-    <h2 class="text-lg font-bold text-slate-900 mb-3">Description</h2>
-    <p class="text-sm text-slate-700 leading-relaxed">
-        Welcome to this stunning modern luxury villa perfectly situated in one of New York's most desirable neighborhoods. This exquisite property features contemporary design, premium finishes, and exceptional amenities throughout.
-    </p>
-</div>
+                <!-- Counter Badge -->
+                <template x-if="total > 1">
+                    <div class="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                        <span x-text="current + 1"></span> / <span x-text="total"></span>
+                    </div>
+                </template>
 
-<!-- Amenities -->
-<div class="px-4 py-6 border-b border-slate-100">
-    <h2 class="text-lg font-bold text-slate-900 mb-4">Amenities</h2>
-    <div class="grid grid-cols-2 gap-3">
-        <div class="flex items-center gap-2 p-3 bg-primary-50 rounded-lg">
-            <svg class="w-4 h-4 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="text-xs font-semibold text-slate-900">Modern Kitchen</span>
-        </div>
-        <div class="flex items-center gap-2 p-3 bg-primary-50 rounded-lg">
-            <svg class="w-4 h-4 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="text-xs font-semibold text-slate-900">Spacious Living</span>
-        </div>
-        <div class="flex items-center gap-2 p-3 bg-primary-50 rounded-lg">
-            <svg class="w-4 h-4 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="text-xs font-semibold text-slate-900">Garden</span>
-        </div>
-        <div class="flex items-center gap-2 p-3 bg-primary-50 rounded-lg">
-            <svg class="w-4 h-4 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="text-xs font-semibold text-slate-900">Parking</span>
-        </div>
-        <div class="flex items-center gap-2 p-3 bg-primary-50 rounded-lg">
-            <svg class="w-4 h-4 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="text-xs font-semibold text-slate-900">Security</span>
-        </div>
-        <div class="flex items-center gap-2 p-3 bg-primary-50 rounded-lg">
-            <svg class="w-4 h-4 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="text-xs font-semibold text-slate-900">Pool</span>
-        </div>
-    </div>
-</div>
+                <!-- Dot Indicators -->
+                <template x-if="total > 1">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                        <template x-for="(img, index) in images" :key="'dot-'+index">
+                            <button @click="goTo(index)" class="w-2.5 h-2.5 rounded-full transition-all duration-300"
+                                    :class="current === index ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'"></button>
+                        </template>
+                    </div>
+                </template>
 
-<!-- Agent Card -->
-<div class="px-4 py-6 border-b border-slate-100">
-    <h2 class="text-lg font-bold text-slate-900 mb-4">Agent</h2>
-    <div class="flex items-center gap-4 p-4 bg-primary-50 rounded-xl">
-        <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-        </div>
-        <div class="flex-1">
-            <h3 class="font-bold text-slate-900 text-sm">John Smith</h3>
-            <p class="text-xs text-slate-600">Senior Agent</p>
-            <p class="text-xs font-semibold text-primary-600 mt-1">📞 +1 (555) 123-4567</p>
-        </div>
-    </div>
-</div>
+                <!-- Favorite Button -->
+                <button id="favorite-btn" class="absolute top-4 right-16 z-20 p-2.5 bg-white/90 backdrop-blur-sm rounded-full text-gray-400 hover:text-rose-500 shadow-sm transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </button>
+            </div>
 
-<!-- Actions -->
-<div class="px-4 py-6 space-y-3 pb-12">
-    <a href="{{ route('appointments.book', ['propertyId' => 1]) }}" class="w-full block text-center bg-primary-600 text-white font-semibold py-3 rounded-lg hover:bg-primary-700 transition-smooth">
-        📅 Book Appointment
-    </a>
-    <a href="{{ route('properties.index') }}" class="w-full block text-center bg-slate-100 text-slate-900 font-semibold py-3 rounded-lg hover:bg-slate-200 transition-smooth">
-        ← Back to Properties
-    </a>
+            <!-- Thumbnails -->
+            <template x-if="total > 1">
+                <div class="flex gap-3 mt-4 overflow-x-auto pb-2 scrollbar-hide">
+                    <template x-for="(img, index) in images" :key="'thumb-'+index">
+                        <button @click="goTo(index)" class="flex-shrink-0 h-20 w-28 rounded-xl overflow-hidden transition-all duration-300 ring-2"
+                                :class="current === index ? 'ring-blue-600 scale-105' : 'ring-transparent opacity-60 hover:opacity-100'">
+                            <img :src="img" :alt="'Thumbnail ' + (index + 1)" class="w-full h-full object-cover">
+                        </button>
+                    </template>
+                </div>
+            </template>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Property Info -->
+            <div class="w-full lg:w-2/3">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <span class="text-sm font-bold text-blue-600 uppercase tracking-widest">{{ $property['type'] ?? $property['status'] }}</span>
+                        <h1 class="text-3xl font-black text-gray-900 mt-2">{{ $property['title'] }}</h1>
+                        <div class="flex items-center gap-2 text-gray-500 mt-2 text-sm">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            </svg>
+                            {{ $property['location'] }}
+                        </div>
+                    </div>
+                    <span class="text-3xl font-black text-blue-600">${{ number_format($property['price']) }}</span>
+                </div>
+
+                <!-- Features -->
+                <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <span class="block text-[10px] uppercase font-black text-gray-400 tracking-widest mb-1">Bedrooms</span>
+                            <span class="text-xl font-black text-gray-900">{{ $property['bedrooms'] }}</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="block text-[10px] uppercase font-black text-gray-400 tracking-widest mb-1">Bathrooms</span>
+                            <span class="text-xl font-black text-gray-900">{{ $property['bathrooms'] }}</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="block text-[10px] uppercase font-black text-gray-400 tracking-widest mb-1">Area</span>
+                            <span class="text-xl font-black text-gray-900">{{ number_format($property['area']) }} sqft</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="block text-[10px] uppercase font-black text-gray-400 tracking-widest mb-1">Status</span>
+                            <span class="text-xl font-black {{ $property['status'] === 'active' ? 'text-emerald-600' : 'text-gray-600' }}">{{ ucfirst($property['status']) }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-3">Description</h2>
+                    <p class="text-gray-600 leading-relaxed text-sm">
+                        {{ $property['description'] ?? "Welcome to this stunning {$property['title']} perfectly situated in {$property['location']}. This exquisite property features contemporary design, premium finishes, and exceptional amenities throughout. With {$property['bedrooms']} bedrooms and {$property['bathrooms']} bathrooms spread across " . number_format($property['area']) . " sqft, this is the perfect home for those seeking luxury and comfort." }}
+                    </p>
+                </div>
+
+                <!-- Features List -->
+                <div class="mb-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">Features & Amenities</h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        @foreach($property['features'] ?? ['Modern Kitchen', 'Spacious Living', 'Garden', 'Parking', 'Security', 'Pool'] as $feature)
+                            <div class="flex items-center gap-2 text-gray-600 text-sm">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                {{ is_string($feature) ? trim($feature) : $feature }}
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Agent Info -->
+                <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">Listed by</h2>
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+                            <span class="text-xl font-bold text-blue-600">{{ substr($property['agent']['name'], 0, 1) }}</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900">{{ $property['agent']['name'] }}</h3>
+                            <p class="text-gray-500 text-sm">{{ $property['agent']['email'] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="w-full lg:w-1/3">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-24">
+                    <h3 class="text-lg font-bold text-gray-900 mb-6">Schedule a Visit</h3>
+                    
+                    <form action="{{ route('appointments.store') }}" method="POST" class="space-y-4">
+                        @csrf
+                        <input type="hidden" name="property_id" value="{{ $property['id'] }}">
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
+                            <input type="date" name="date" required min="{{ date('Y-m-d') }}"
+                                class="w-full py-3 px-4 border border-gray-200 rounded-xl text-sm focus:border-blue-600 focus:ring-blue-600">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
+                            <select name="time_slot" required class="w-full py-3 px-4 border border-gray-200 rounded-xl text-sm">
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 px-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all">
+                            Request Appointment
+                        </button>
+                    </form>
+
+                    <hr class="my-6 border-gray-200">
+
+                    <div class="space-y-3">
+                        <a href="mailto:{{ $property['agent']['email'] }}?subject=Inquiry about {{ $property['title'] }}" 
+                            class="flex items-center justify-center gap-2 py-3 px-4 border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            Send Message
+                        </a>
+                        <a href="{{ route('compare.add') }}?id={{ $property['id'] }}" 
+                            class="flex items-center justify-center gap-2 py-3 px-4 bg-gray-50 text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-all text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                            Compare
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
-    document.getElementById('favorite-btn').addEventListener('click', function() {
-        this.classList.toggle('text-primary-600');
+    document.getElementById('favorite-btn')?.addEventListener('click', function() {
+        this.classList.toggle('text-rose-500');
         const svg = this.querySelector('svg');
-        if (this.classList.contains('text-primary-600')) {
-            svg.style.fill = '#3b65ad';
+        if (this.classList.contains('text-rose-500')) {
+            svg.style.fill = '#f43f5e';
         } else {
             svg.style.fill = 'none';
         }

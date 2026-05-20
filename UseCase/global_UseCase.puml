@@ -4,96 +4,107 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 skinparam actorStyle awesome
 
-'================ ACTORS =================
 actor "Visitor" as Visitor
 actor "Buyer" as Buyer
 actor "Agent" as Agent
 actor "Admin" as Admin
 actor "Mobile Application" as MobileApp <<System>>
+actor "AI Service" as AI <<System>>
 
-' Actor hierarchy
-Agent <|-- Admin
+Admin -up-|> Agent
 
-rectangle "PropertyHub System" {
+rectangle "PropertyHub System - All Sprints" {
 
-  '=========== AUTH ===========
-  package "Authentication & Security" {
-      (Login / Authentication) as Login
+  rectangle "Sprint 1: Public Property Platform" {
+      package "Public Property Access" {
+          (Search & Filter Properties) as Search
+          (View Property Details) as Details
+          (Compare Properties) as Compare
+          (Contact Agent Form) as ContactAgent
+          (View About Page) as AboutPage
+          (View Agency Info) as AgencyInfo
+      }
+      package "Mobile API (Public)" {
+          (View Properties via API) as APIView
+      }
   }
 
-  '=========== PUBLIC FEATURES ===========
-  package "Public Property Access" {
-      (Search & Filter Properties) as Search
-      (Compare Properties) as Compare
+  rectangle "Sprint 2: Agent & Admin" {
+      package "Authentication & Security" {
+          (Login / Authentication) as Login
+      }
+      package "Agent Workspace" {
+          (Send / Receive Messages) as Messages
+          (Confirm Appointment) as Confirm
+          (Reject Appointment) as Reject
+      }
+      package "Administration" {
+          (View Analytics & Reports) as Analytics
+          (Manage Users & Roles) as ManageUsers
+      }
+      package "Buyer Services" {
+          (Add to Favorites) as Favorites
+          (Schedule Appointment) as Appointment
+      }
   }
 
-  '=========== BUYER FEATURES ===========
-  package "Buyer Services" {
-      (Manage Favorites) as Favorites
-      (Schedule Appointment) as Appointment
-      (In-App Messaging) as Messaging
+  rectangle "Sprint 3: AI-Powered Smart Comparison" {
+      package "Smart Property Intelligence" {
+          (AI Analyze Property Features) as AI_AnalyzeFeatures
+          (Smart Property Recommendations) as AI_Recommend
+          (Price Valuation Estimate) as AI_PriceValuation
+          (Similar Properties Suggestion) as AI_SimilarProps
+          (Trigger: User Views Property) as TriggerView
+      }
   }
 
-  '=========== AGENT FEATURES ===========
-  package "Agent Workspace" {
-      (Manage Property Listings) as Listings
-      (Manage Images / Gallery) as Gallery
-      (Manage Shared Calendar) as Calendar
-      (View Client History) as ClientHistory
-  }
-
-  '=========== ADMIN FEATURES ===========
-  package "Administration" {
-      (Manage Users & Roles) as Users
-      (View Analytics & Reports) as Analytics
-  }
-
-  '=========== API ACCESS ===========
-  package "Public API (Mobile Access)" {
-      (View Properties via API) as APIView
-  }
 }
 
-'================ RELATIONSHIPS =================
-
-' Visitor
 Visitor --> Search
+Visitor --> Details
 Visitor --> Compare
+Visitor --> ContactAgent
+Visitor --> AboutPage
+Visitor --> AgencyInfo
 
-' Buyer
 Buyer --> Login
 Buyer --> Search
 Buyer --> Favorites
 Buyer --> Appointment
-Buyer --> Messaging
+Buyer --> AI_Recommend
+Buyer --> AI_PriceValuation
+Buyer --> AI_SimilarProps
 
-' Agent
 Agent --> Login
-Agent --> Messaging
-Agent --> Listings
-Agent --> Gallery
-Agent --> Calendar
-Agent --> ClientHistory
+Agent --> Messages
+Agent --> Confirm
+Agent --> Reject
 
-' Admin
-Admin --> Users
+Admin --> Login
 Admin --> Analytics
+Admin --> ManageUsers
 
-' Mobile API consumer
-MobileApp --> APIView : Consumes API
+MobileApp --> APIView
+MobileApp --> Search
 
-'================ SECURITY =================
+AI --> AI_AnalyzeFeatures
+AI --> AI_Recommend
+AI --> AI_PriceValuation
+AI --> AI_SimilarProps
+AI --> TriggerView
+
 Favorites ..> Login : <<include>>
 Appointment ..> Login : <<include>>
-Messaging ..> Login : <<include>>
-Listings ..> Login : <<include>>
-Gallery ..> Login : <<include>>
-Calendar ..> Login : <<include>>
-ClientHistory ..> Login : <<include>>
-Users ..> Login : <<include>>
+Messages ..> Login : <<include>>
+Confirm ..> Login : <<include>>
+Reject ..> Login : <<include>>
 Analytics ..> Login : <<include>>
+ManageUsers ..> Login : <<include>>
 
-' API reuses search logic
 APIView ..> Search : <<include>>
+
+TriggerView ..> AI_AnalyzeFeatures : <<trigger>>
+AI_AnalyzeFeatures ..> AI_Recommend : <<include>>
+AI_AnalyzeFeatures ..> AI_SimilarProps : <<include>>
 
 @enduml

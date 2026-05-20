@@ -1,23 +1,23 @@
 @startuml
 left to right direction
-skinparam shadowing false
+skinparam packageStyle rectangle
 
 actor "Agent" as Agent
 actor "Admin" as Admin
 
-Agent <|-- Admin
+Admin -up-|> Agent
 
-rectangle "Administration" {
+rectangle "Admin Workspace" {
 
     usecase "Login / Authentication" as Login
-    usecase "Manage Users & Roles" as ManageUsers
     usecase "View Analytics & Reports" as Analytics
-
-    ManageUsers ..> Login : <<include>>
-    Analytics ..> Login : <<include>>
+    usecase "Manage Users & Roles" as ManageUsers
 }
 
-Admin -- ManageUsers
+Analytics ..> Login : <<include>>
+ManageUsers ..> Login : <<include>>
+
 Admin -- Analytics
+Admin -- ManageUsers
 
 @enduml

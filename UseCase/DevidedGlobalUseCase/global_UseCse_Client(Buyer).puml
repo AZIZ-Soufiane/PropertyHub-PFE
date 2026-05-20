@@ -1,36 +1,43 @@
 @startuml
 left to right direction
-skinparam shadowing false
+skinparam packageStyle rectangle
 
 actor "Visitor" as Visitor
 actor "Buyer" as Buyer
 actor "Mobile Application" as MobileApp <<System>>
 
-rectangle "Buyer Space" {
+rectangle "Client (Buyer) Space" {
 
-    usecase "Login / Authentication" as Login
-    usecase "Search & Filter Properties" as Search
-    usecase "Compare Properties" as Compare
-    usecase "Manage Favorites" as Favorites
-    usecase "Schedule Appointment" as Appointment
-    usecase "In-App Messaging" as Messaging
-    usecase "View Properties via API" as APIView
+    rectangle "Sprint 1: Public Access (No Auth)" {
+        usecase "Search & Filter Properties" as Search
+        usecase "View Property Details" as Details
+        usecase "Compare Properties" as Compare
+        usecase "Contact Agent Form" as ContactAgent
+        usecase "View Properties via API" as APIView
+    }
 
-    Favorites ..> Login : <<include>>
-    Appointment ..> Login : <<include>>
-    Messaging ..> Login : <<include>>
-
-    APIView ..> Search : <<include>>
+    rectangle "Sprint 2: Authenticated Features" {
+        usecase "Login / Authentication" as Login
+        usecase "Add to Favorites" as Favorites
+        usecase "Schedule Appointment" as Appointment
+    }
 }
 
 Visitor -- Search
+Visitor -- Details
 Visitor -- Compare
+Visitor -- ContactAgent
 
+Buyer -- Login
 Buyer -- Search
 Buyer -- Favorites
 Buyer -- Appointment
-Buyer -- Messaging
 
-MobileApp -- APIView : "Consumes API"
+MobileApp -- APIView
+MobileApp -- Search
+
+Favorites ..> Login : <<include>>
+Appointment ..> Login : <<include>>
+APIView ..> Search : <<include>>
 
 @enduml

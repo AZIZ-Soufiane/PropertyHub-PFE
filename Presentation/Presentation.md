@@ -214,29 +214,7 @@ style: |
   <img src="images/Sprint2-UseCase.png" class="img-usecase" alt="Sprint 2 Use Case">
 </div>
 
----
 
-## Functional Branch: Mockups (UI/UX) Web
-
-### Homepage
-<div class="img-container">
-  <img src="images/homepage.png" class="img-methodo" alt="Homepage Mockup">
-</div>
-
----
-
-### Admin Dashboard
-<div class="img-container">
-  <img src="images/admindashboard.png" class="img-methodo" alt="Admin Dashboard Mockup">
-</div>
-
----
-
-## Functional Branch: Mockups (UI/UX) Mobile
-
-<div class="img-container">
-  <img src="images/mobile.png" class="img-methodo" alt="Mobile Mockup">
-</div>
 
 ---
 
@@ -335,31 +313,31 @@ style: |
 
 ## 6. Realization: Quality Assurance & Testing
 
-<div class="sommaire-grid">
-  <div class="dt-card" style="margin-top:0; border-top-color: #e65100; font-size: 21px; grid-column: span 2;">
-    <h3 style="color: #e65100; margin-top:0; font-size: 1.3em;">Comprehensive Service Testing (Laravel Artisan Test Suite)</h3>
-    <p>
-      An extensive, regression-proof test suite has been built to validate every aspect of the backend business logic.
-    </p>
-    <div style="display: flex; justify-content: space-around; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
-      <div style="text-align: center;">
-        <span style="font-size: 2em; font-weight: bold; color: #e65100;">10</span><br>
-        <strong>Test Suites</strong>
-      </div>
-      <div style="text-align: center;">
-        <span style="font-size: 2em; font-weight: bold; color: #2e7d32;">110+</span><br>
-        <strong>Test Cases</strong>
-      </div>
-      <div style="text-align: center;">
-        <span style="font-size: 2em; font-weight: bold; color: #0288d1;">100%</span><br>
-        <strong>Success Rate</strong>
-      </div>
+<div class="dt-card" style="margin-top: 5px; padding: 20px; border-top-color: #e65100; font-size: 22px;">
+  <h3 style="color: #e65100; margin-top:0; font-size: 1.2em; margin-bottom: 8px;">Comprehensive Service Testing (Laravel Artisan Test Suite)</h3>
+  <p style="margin-bottom: 8px; font-size: 1em;">
+    An extensive, regression-proof test suite has been built to validate every aspect of the backend business logic.
+  </p>
+  
+  <div style="display: flex; justify-content: space-around; margin: 8px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 8px 0;">
+    <div style="text-align: center;">
+      <span style="font-size: 1.6em; font-weight: bold; color: #e65100;">10</span><br>
+      <strong style="font-size: 0.9em;">Test Suites</strong>
     </div>
-    <ul style="padding-left: 20px; margin-top: 15px; font-size: 0.9em;">
-      <li>Coverage includes: Happy paths, error validation, permission boundaries, and database locks.</li>
-      <li>Easily executable with a single command: <code>php artisan test --coverage</code></li>
-    </ul>
+    <div style="text-align: center;">
+      <span style="font-size: 1.6em; font-weight: bold; color: #2e7d32;">110+</span><br>
+      <strong style="font-size: 0.9em;">Test Cases</strong>
+    </div>
+    <div style="text-align: center;">
+      <span style="font-size: 1.6em; font-weight: bold; color: #0288d1;">100%</span><br>
+      <strong style="font-size: 0.9em;">Success Rate</strong>
+    </div>
   </div>
+
+  <ul style="padding-left: 20px; margin-top: 8px; margin-bottom: 0; font-size: 0.95em; line-height: 1.4;">
+    <li>Coverage: Happy paths, validation gates, permission boundaries, and database locks.</li>
+    <li>Command: <code>php artisan test --coverage</code></li>
+  </ul>
 </div>
 
 ---

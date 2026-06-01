@@ -59,8 +59,13 @@ class Property {
     +String propertyId
     +Double price
     +String location
-    +String status
+    +Long statusId
     +getDetails()
+}
+
+class PropertyStatus {
+    +Long id
+    +String name
 }
 
 class Gallery {
@@ -114,6 +119,7 @@ Agent <|-- Admin
 Agent "1" --> "*" Property : manages
 Property "1" *-- "1" Gallery : contains
 Buyer "*" --> "*" Property : favorites
+Property "*" --> "1" PropertyStatus : has
 
 %% ==================================================
 %% APPOINTMENT SYSTEM

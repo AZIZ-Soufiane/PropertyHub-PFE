@@ -55,8 +55,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('home') }}"
-                       class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all text-slate-600 font-medium hover:bg-slate-100">
+                    <a href="{{ route('admin.messages.index') }}"
+                       class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all {{ request()->routeIs('admin.messages.*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100' }}">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                         Messages
                     </a>

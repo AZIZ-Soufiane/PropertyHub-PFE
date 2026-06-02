@@ -11,6 +11,7 @@ use App\Http\Controllers\Agent\AppointmentController as AgentAppointmentControll
 use App\Http\Controllers\Agent\MessageController as AgentMessageController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\LogController as AdminLogController;
+use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 
 // ======================
 // PUBLIC ROUTES
@@ -98,5 +99,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/properties/{property}', [AdminPropertyController::class, 'destroy'])->name('properties.destroy');
 
         Route::get('/logs', [AdminLogController::class, 'index'])->name('logs.index');
+
+        Route::get('/messages', [AdminMessageController::class, 'index'])->name('messages.index');
+        Route::get('/messages/{user}', [AdminMessageController::class, 'show'])->name('messages.show');
+        Route::post('/messages', [AdminMessageController::class, 'store'])->name('messages.store');
     });
 });

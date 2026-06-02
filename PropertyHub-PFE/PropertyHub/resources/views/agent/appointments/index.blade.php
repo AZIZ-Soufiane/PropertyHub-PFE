@@ -43,7 +43,9 @@
                         $st = $appt->status;
                         $map = [
                             'pending'   => 'bg-amber-100 text-amber-700',
+                            'scheduled' => 'bg-blue-100 text-blue-700',
                             'confirmed' => 'bg-emerald-100 text-emerald-700',
+                            'completed' => 'bg-teal-100 text-teal-700',
                             'cancelled' => 'bg-red-100 text-red-700',
                         ];
                         $pill = $map[$st] ?? 'bg-gray-100 text-gray-700';
@@ -61,7 +63,9 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right">
                             <div class="flex justify-end gap-2">
-                                @if($appt->status === 'pending')
+                                <a href="{{ route('agent.appointments.show', $appt) }}"
+                                    class="py-1.5 px-3 bg-white border border-gray-200 text-gray-600 rounded-lg text-xs font-bold hover:bg-gray-50">Review</a>
+                                @if(in_array($appt->status, ['pending', 'scheduled']))
                                     <form action="{{ route('agent.appointments.confirm', $appt) }}" method="POST" class="inline">
                                         @csrf
                                         <button class="py-1.5 px-3 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-bold hover:bg-emerald-200">Accept</button>

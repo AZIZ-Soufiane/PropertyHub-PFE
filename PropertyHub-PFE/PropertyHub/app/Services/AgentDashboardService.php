@@ -38,10 +38,10 @@ class AgentDashboardService
             ->take(5)
             ->get();
 
-        $recentProperties = Property::with('images')
+        $recentProperties = Property::with(['images', 'statusRelation'])
             ->where('agent_id', $agentId)
             ->orderBy('created_at', 'desc')
-            ->take(5)
+            ->take(10)
             ->get();
 
         return [

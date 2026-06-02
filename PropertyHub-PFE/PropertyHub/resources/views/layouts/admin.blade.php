@@ -65,11 +65,17 @@
         </nav>
         <div class="px-4 sm:px-6 mt-auto pt-4 sm:pt-6 border-t border-slate-100">
             <div class="flex items-center gap-3">
-                <span class="size-9 rounded-full bg-primary-500 flex items-center justify-center text-white font-black text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
-                <div>
-                    <p class="text-sm font-bold text-slate-800">{{ Auth::user()->name }}</p>
-                    <p class="text-[10px] text-slate-400 font-semibold">{{ Auth::user()->email }}</p>
+                <span class="size-9 rounded-full bg-primary-500 flex items-center justify-center text-white font-black text-sm flex-shrink-0">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                <div class="min-w-0 flex-1">
+                    <p class="text-sm font-bold text-slate-800 truncate">{{ Auth::user()->name }}</p>
+                    <p class="text-[10px] text-slate-400 font-semibold truncate">{{ Auth::user()->email }}</p>
                 </div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="size-8 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Sign out">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                    </button>
+                </form>
             </div>
         </div>
     </aside>

@@ -28,13 +28,13 @@
 
         
         <aside id="application-sidebar"
-            class="fixed top-0 start-0 bottom-0 z-[60] w-full sm:w-64 bg-white border-e border-gray-200 pt-6 sm:pt-7 pb-8 sm:pb-10 overflow-y-auto -translate-x-full lg:translate-x-0 transition-all duration-300"
+            class="fixed top-0 start-0 bottom-0 z-[60] w-full sm:w-64 bg-white border-e border-gray-200 pt-6 sm:pt-7 pb-0 overflow-y-auto -translate-x-full lg:translate-x-0 transition-all duration-300 flex flex-col"
             :class="sidebarOpen && 'translate-x-0'">
             <div class="px-4 sm:px-6 mb-6 sm:mb-8">
                 <a class="text-xl sm:text-2xl font-black tracking-tighter" href="<?php echo e(route('home')); ?>" aria-label="PropertyHub" style="color:#3b65ad;">PropertyHub</a>
                 <p class="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1 sm:mt-2">Agent Portal</p>
             </div>
-            <nav class="px-4 sm:px-6 w-full flex flex-col flex-wrap">
+            <nav class="px-4 sm:px-6 flex-1">
                 <ul class="space-y-1.5">
                     <li>
                         <a class="flex items-center gap-x-3 sm:gap-x-3.5 py-2 px-3 text-xs sm:text-sm rounded-lg sm:rounded-xl transition-all <?php echo e(request()->routeIs('agent.dashboard') ? 'bg-primary-50 text-primary-500 font-semibold' : 'text-gray-700 font-medium hover:bg-gray-100'); ?>"
@@ -69,6 +69,21 @@
                     </li>
                 </ul>
             </nav>
+            <div class="px-4 sm:px-6 py-4 sm:py-5 border-t border-gray-200">
+                <div class="flex items-center gap-3">
+                    <span class="size-9 rounded-full bg-primary-500 flex items-center justify-center text-white font-black text-sm flex-shrink-0"><?php echo e(strtoupper(substr($user->name, 0, 1))); ?></span>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm font-bold text-gray-800 truncate"><?php echo e($user->name); ?></p>
+                        <p class="text-[10px] text-gray-400 font-medium truncate"><?php echo e($user->email); ?></p>
+                    </div>
+                    <form method="POST" action="<?php echo e(route('logout')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <button type="submit" class="size-8 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Sign out">
+                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
         </aside>
 
         
@@ -86,34 +101,36 @@
                         <button type="button" class="p-2 text-gray-400 hover:bg-gray-100 rounded-full">
                             <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                         </button>
-                        <div x-data="{ open: false }" class="relative">
-                            <button type="button" @click="open = !open"
-                                class="size-8 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold text-xs">
-                                <?php echo e(strtoupper(substr($user->name, 0, 1))); ?>
-
+                        <div class="hs-dropdown relative inline-flex">
+                            <button id="agent-avatar-dropdown" type="button"
+                                class="hs-dropdown-toggle flex items-center gap-2 focus:outline-none">
+                                <span class="size-9 rounded-full ring-2 ring-gray-200 bg-primary-500 flex items-center justify-center text-white font-black text-sm"><?php echo e(strtoupper(substr($user->name, 0, 1))); ?></span>
+                                <svg class="size-3.5 text-gray-400 hs-dropdown-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
                             </button>
-                            <div x-show="open" @click.away="open = false" x-cloak
-                                class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-xl py-1.5 z-50">
-                                <div class="px-4 py-2.5 border-b border-gray-100">
-                                    <p class="text-sm font-bold text-gray-800"><?php echo e($user->name); ?></p>
-                                    <p class="text-[10px] text-gray-400 font-medium"><?php echo e($user->email); ?></p>
+                            <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-56 bg-white shadow-xl rounded-2xl border border-gray-100 mt-2 z-50 overflow-hidden"
+                                 aria-labelledby="agent-avatar-dropdown">
+                                <div class="px-4 py-3 border-b border-gray-100">
+                                    <p class="text-sm font-black text-gray-800"><?php echo e($user->name); ?></p>
+                                    <p class="text-xs text-gray-400 mt-0.5"><?php echo e($user->email); ?></p>
                                 </div>
-                                <a href="<?php echo e(route('home')); ?>" class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                    <svg class="size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    View site
-                                </a>
-                                <a href="<?php echo e(route('agent.dashboard')); ?>" class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                    <svg class="size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                                    Dashboard
-                                </a>
-                                <div class="border-t border-gray-100 my-1.5"></div>
-                                <form method="POST" action="<?php echo e(route('logout')); ?>">
-                                    <?php echo csrf_field(); ?>
-                                    <button type="submit" class="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                                        Log out
-                                    </button>
-                                </form>
+                                <div class="p-1">
+                                    <a href="<?php echo e(route('home')); ?>" class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                        <svg class="size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                        View site
+                                    </a>
+                                    <a href="<?php echo e(route('agent.dashboard')); ?>" class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-100 font-medium transition-colors">
+                                        <svg class="size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                                        Dashboard
+                                    </a>
+                                    <div class="my-1 border-t border-gray-100"></div>
+                                    <form action="<?php echo e(route('logout')); ?>" method="POST">
+                                        <?php echo csrf_field(); ?>
+                                        <button type="submit" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-rose-500 hover:bg-rose-50 font-medium transition-colors">
+                                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                                            Sign out
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

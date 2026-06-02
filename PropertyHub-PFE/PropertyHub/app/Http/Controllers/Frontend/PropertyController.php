@@ -4,58 +4,23 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use App\Services\PropertyService;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
+    public function __construct(private PropertyService $propertyService) {}
+
     public function index(Request $request)
     {
-        $query = Property::with('images')->whereHas('statusRelation', fn($q) => $q->where('name', 'approved'));
-
-        if ($request->has('location') && $request->location) {
-            $query->where(function($q) use ($request) {
-                $q->where('city', 'like', '%' . $request->location . '%')
-                  ->orWhere('country', 'like', '%' . $request->location . '%')
-                  ->orWhere('address', 'like', '%' . $request->location . '%');
-            });
-        }
-
-        if ($request->has('type') && $request->type) {
-            $query->where('type', $request->type);
-        }
-
-        if ($request->has('min_price') && $request->min_price) {
-            $query->where('price', '>=', $request->min_price);
-        }
-
-        if ($request->has('max_price') && $request->max_price) {
-            $query->where('price', '<=', $request->max_price);
-        }
-
-        if ($request->has('bedrooms') && $request->bedrooms) {
-            $query->where('bedrooms', '>=', $request->bedrooms);
-        }
-
-        $sort = $request->get('sort', 'newest');
-        switch ($sort) {
-            case 'price_asc':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'price_desc':
-                $query->orderBy('price', 'desc');
-                break;
-            default:
-                $query->orderBy('created_at', 'desc');
-        }
-
-        $properties = $query->paginate(12);
+        $properties = $this->propertyService->getPublicProperties($request->all(), 12);
 
         return view('frontend.properties', compact('properties'));
     }
 
     public function show(Property $property)
     {
-        $property->load(['images', 'agent']);
+        $property = $this->propertyService->getPropertyById($property->id);
 
         return view('frontend.property-details', compact('property'));
     }
@@ -69,13 +34,20 @@ class PropertyController extends Controller
     {
         $compareIds = session('compare', []);
 
-        if ($request->has('id') && $request->id) {
-            $compareIds = array_unique(array_merge($compareIds, [(int)$request->id]));
-            $compareIds = array_slice($compareIds, 0, 3);
+        if ($request->filled('id')) {
+            $id = (int) $request->id;
+
+            if ($request->boolean('remove')) {
+                $compareIds = array_values(array_diff($compareIds, [$id]));
+            } else {
+                $compareIds = array_values(array_unique(array_merge($compareIds, [$id])));
+                $compareIds = array_slice($compareIds, 0, 3);
+            }
+
             session(['compare' => $compareIds]);
         }
 
-        $properties = Property::with('images')->whereIn('id', $compareIds)->get();
+        $properties = $this->propertyService->getPropertiesByIds($compareIds);
 
         return view('frontend.compare', compact('properties'));
     }

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function __construct(private UserService $userService) {}
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -22,15 +24,14 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            $redirect = $request->query('redirect');
-            if ($redirect) {
+            if ($redirect = $request->query('redirect')) {
                 return redirect($redirect);
             }
 
@@ -44,25 +45,26 @@ class AuthController extends Controller
             return redirect()->route('home');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return back()->withErrors(['email' => 'The provided credentials do not match our records.'])->onlyInput('email');
     }
 
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed',
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
-        $validated['role'] = 'buyer'; // Default role
+        $validated['role'] = 'buyer';
 
-        $user = User::create($validated);
+        try {
+            $user = $this->userService->createUser($validated);
+        } catch (\Exception $e) {
+            return back()->withErrors(['email' => $e->getMessage()])->withInput();
+        }
+
         Auth::login($user);
-
         return redirect()->route('home');
     }
 

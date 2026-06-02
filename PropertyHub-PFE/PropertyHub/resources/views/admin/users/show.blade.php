@@ -1,42 +1,104 @@
 @extends('layouts.admin')
 
+@section('title', $user->name)
+@section('page-title', $user->name)
+@section('page-subtitle', 'Account details and management.')
+
 @section('content')
-<div class="mb-8">
-    <h1 class="text-2xl font-bold text-gray-800">User Details</h1>
-    <p class="text-sm text-gray-500 mt-1">View and manage this user</p>
-</div>
 
-<div class="bg-white border border-gray-200 rounded-3xl p-8 space-y-4">
-    <div class="flex items-center gap-4 pb-4 border-b border-gray-100">
-        <div class="w-16 h-16 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-2xl">
-            {{ strtoupper(substr($user->name, 0, 1)) }}
-        </div>
-        <div>
-            <h2 class="text-xl font-bold text-gray-800">{{ $user->name }}</h2>
-            <p class="text-sm text-gray-500">{{ $user->email }}</p>
-        </div>
-    </div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-    <dl class="grid md:grid-cols-2 gap-4">
-        <div>
-            <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest">Role</dt>
-            <dd class="mt-1 text-sm text-gray-800 font-semibold">{{ ucfirst($user->role) }}</dd>
-        </div>
-        <div>
-            <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest">Joined</dt>
-            <dd class="mt-1 text-sm text-gray-800 font-semibold">{{ $user->created_at->format('M d, Y') }}</dd>
-        </div>
-        @if($user->license_number)
-            <div>
-                <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest">License #</dt>
-                <dd class="mt-1 text-sm text-gray-800 font-semibold">{{ $user->license_number }}</dd>
+    {{-- Profile card --}}
+    <div class="lg:col-span-1">
+        <div class="bg-white border border-slate-200 rounded-3xl shadow-soft overflow-hidden">
+            <div class="grad-primary h-24 relative">
+                <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 80% 20%, white 0%, transparent 50%);"></div>
             </div>
-        @endif
-    </dl>
+            <div class="px-6 pb-6 -mt-12 text-center">
+                <div class="size-24 mx-auto rounded-3xl bg-white p-1.5 shadow-lg">
+                    <div class="size-full rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-black text-4xl">
+                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                    </div>
+                </div>
+                <h2 class="mt-4 text-xl font-black text-slate-800">{{ $user->name }}</h2>
+                <p class="text-sm text-slate-400">{{ $user->email }}</p>
 
-    <div class="pt-4 flex gap-3">
-        <a href="{{ route('admin.users.edit', $user) }}" class="py-2.5 px-5 bg-amber-500 text-white text-sm font-bold rounded-xl hover:bg-amber-600">Edit</a>
-        <a href="{{ route('admin.users.index') }}" class="py-2.5 px-5 bg-gray-100 text-gray-700 text-sm font-bold rounded-xl hover:bg-gray-200">Back</a>
+                @php
+                    $rmap = [
+                        'admin' => 'bg-primary-100 text-primary-700',
+                        'agent' => 'bg-emerald-100 text-emerald-700',
+                        'buyer' => 'bg-slate-100 text-slate-600',
+                    ];
+                    $rpill = $rmap[$user->role] ?? 'bg-slate-100 text-slate-600';
+                @endphp
+                <span class="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold {{ $rpill }}">
+                    <span class="size-1.5 rounded-full bg-current"></span>
+                    {{ ucfirst($user->role) }}
+                </span>
+
+                <div class="mt-5 grid grid-cols-2 gap-2 text-left">
+                    <a href="{{ route('admin.users.edit', $user) }}" class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-primary-600 text-white text-sm font-bold hover:bg-primary-700 shadow-md shadow-primary-500/20 transition-all">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        Edit
+                    </a>
+                    @if($user->id !== auth()->id())
+                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" onsubmit="return confirm('Permanently delete this user?')">
+                        @csrf @method('DELETE')
+                        <button class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-rose-50 text-rose-700 text-sm font-bold hover:bg-rose-100 transition-all">
+                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            Delete
+                        </button>
+                    </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Details --}}
+    <div class="lg:col-span-2 space-y-6">
+        <div class="bg-white border border-slate-200 rounded-3xl shadow-soft p-6">
+            <h3 class="font-black text-slate-800 mb-4">Account information</h3>
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                <div>
+                    <dt class="text-[10px] font-black text-slate-400 uppercase tracking-widest">User ID</dt>
+                    <dd class="mt-1 text-sm font-mono font-bold text-slate-800">#{{ str_pad($user->id, 4, '0', STR_PAD_LEFT) }}</dd>
+                </div>
+                <div>
+                    <dt class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Joined</dt>
+                    <dd class="mt-1 text-sm font-bold text-slate-800">{{ $user->created_at->format('M d, Y · H:i') }}</dd>
+                </div>
+                <div>
+                    <dt class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Last updated</dt>
+                    <dd class="mt-1 text-sm font-bold text-slate-800">{{ $user->updated_at->diffForHumans() }}</dd>
+                </div>
+                <div>
+                    <dt class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email verified</dt>
+                    <dd class="mt-1 text-sm font-bold text-slate-800">
+                        @if($user->email_verified_at)
+                            <span class="inline-flex items-center gap-1.5 text-emerald-600">
+                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                Verified
+                            </span>
+                        @else
+                            <span class="text-slate-500">Not verified</span>
+                        @endif
+                    </dd>
+                </div>
+                @if($user->license_number)
+                <div class="sm:col-span-2">
+                    <dt class="text-[10px] font-black text-slate-400 uppercase tracking-widest">License number</dt>
+                    <dd class="mt-1 text-sm font-bold text-slate-800 font-mono">{{ $user->license_number }}</dd>
+                </div>
+                @endif
+            </dl>
+        </div>
+
+        <a href="{{ route('admin.users.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-primary-600 transition-colors">
+            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Back to all users
+        </a>
     </div>
 </div>
+
 @endsection

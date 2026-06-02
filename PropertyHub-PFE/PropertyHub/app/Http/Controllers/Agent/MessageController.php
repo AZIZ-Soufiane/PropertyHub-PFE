@@ -3,41 +3,26 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
-use App\Models\Message;
 use App\Models\User;
+use App\Services\MessageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
+    public function __construct(private MessageService $messageService) {}
+
     public function index()
     {
-        $conversations = Message::with('sender')
-            ->where('receiver_id', Auth::id())
-            ->orWhere('sender_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->groupBy(fn($m) => $m->sender_id === Auth::id() ? $m->receiver_id : $m->sender_id)
-            ->map(fn($msgs) => $msgs->first());
-            
+        $conversations = $this->messageService->getRecentConversations(Auth::id());
         return view('agent.messages.index', compact('conversations'));
     }
 
     public function show(User $user)
     {
-        $messages = Message::where(fn($q) => $q
-            ->where('sender_id', Auth::id())->where('receiver_id', $user->id)
-        )->orWhere(fn($q2) => $q2->where('sender_id', $user->id)->where('receiver_id', Auth::id())
-        )->update(['read_at' => now()]);
-        
-        $messages = Message::with('sender')
-            ->where(fn($q) => $q
-                ->where('sender_id', Auth::id())->where('receiver_id', $user->id)
-            )->orWhere(fn($q2) => $q2->where('sender_id', $user->id)->where('receiver_id', Auth::id())
-            )
-            ->orderBy('created_at')
-            ->get();
-            
+        $this->messageService->markConversationAsRead(Auth::id(), $user->id);
+        $messages = $this->messageService->getConversation(Auth::id(), $user->id);
+
         return view('agent.messages.show', compact('user', 'messages'));
     }
 
@@ -45,15 +30,11 @@ class MessageController extends Controller
     {
         $validated = $request->validate([
             'receiver_id' => 'required|exists:users,id',
-            'content' => 'required|string',
+            'content'     => 'required|string',
         ]);
-        
-        Message::create([
-            'sender_id' => Auth::id(),
-            'receiver_id' => $validated['receiver_id'],
-            'content' => $validated['content'],
-        ]);
-        
+
+        $this->messageService->sendMessage(Auth::id(), (int) $validated['receiver_id'], $validated['content']);
+
         return back();
     }
 }

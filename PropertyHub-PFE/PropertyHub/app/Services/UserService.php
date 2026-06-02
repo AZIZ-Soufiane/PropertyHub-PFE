@@ -9,21 +9,64 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    /**
-     * Get users with pagination and optional role filter.
-     */
-    public function getUsers(string $role = null, int $perPage = 15): LengthAwarePaginator
+    /* -----------------------------------------------------------------
+     | Read paths
+     | ----------------------------------------------------------------- */
+
+    public function getUsers(array|string $filters = [], int $perPage = 15): LengthAwarePaginator
     {
-        $query = User::with('agentProperties', 'calendar');
-        if ($role) {
-            $query->where('role', $role);
+        if (is_string($filters)) {
+            $filters = ['role' => $filters];
         }
-        return $query->paginate($perPage);
+
+        $query = User::query();
+
+        if (!empty($filters['role'])) {
+            $query->where('role', $filters['role']);
+        }
+
+        if (!empty($filters['search'])) {
+            $term = $filters['search'];
+            $query->where(function ($q) use ($term) {
+                $q->where('name', 'like', "%{$term}%")
+                  ->orWhere('email', 'like', "%{$term}%");
+            });
+        }
+
+        return $query->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
     }
 
     /**
-     * Create/Update User.
+     * Backward-compatible single-filter getter.
      */
+    public function getUsersByRole(string $role, int $perPage = 15): LengthAwarePaginator
+    {
+        return User::where('role', $role)->paginate($perPage);
+    }
+
+    public function findById(int $id): User
+    {
+        return User::findOrFail($id);
+    }
+
+    /**
+     * Platform-wide statistics for the admin dashboard.
+     */
+    public function getUserStatistics(): array
+    {
+        return [
+            'total'              => User::count(),
+            'new_this_month'     => User::where('created_at', '>=', now()->startOfMonth())->count(),
+            'admins'             => User::where('role', 'admin')->count(),
+            'agents'             => User::where('role', 'agent')->count(),
+            'buyers'             => User::where('role', 'buyer')->count(),
+        ];
+    }
+
+    /* -----------------------------------------------------------------
+     | Write paths
+     | ----------------------------------------------------------------- */
+
     public function createUser(array $data): User
     {
         return DB::transaction(function () use ($data) {
@@ -32,10 +75,10 @@ class UserService
             }
 
             return User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'role' => $data['role'],
+                'name'           => $data['name'],
+                'email'          => $data['email'],
+                'password'       => Hash::make($data['password']),
+                'role'           => $data['role'] ?? 'buyer',
                 'license_number' => $data['license_number'] ?? null,
             ]);
         });
@@ -52,8 +95,10 @@ class UserService
                 }
             }
 
-            if (isset($data['password'])) {
+            if (!empty($data['password'])) {
                 $data['password'] = Hash::make($data['password']);
+            } else {
+                unset($data['password']);
             }
 
             $user->update($data);
@@ -61,9 +106,6 @@ class UserService
         });
     }
 
-    /**
-     * Role assignments.
-     */
     public function assignRole(int $userId, string $role): User
     {
         $user = User::findOrFail($userId);
@@ -71,15 +113,15 @@ class UserService
         return $user;
     }
 
-    /**
-     * Soft-validation deletion.
-     */
-    public function deleteUser(int $userId): void
+    public function deleteUser(int $userId, ?int $currentUserId = null): void
     {
-        DB::transaction(function () use ($userId) {
+        DB::transaction(function () use ($userId, $currentUserId) {
             $user = User::findOrFail($userId);
 
-            // Business logic check
+            if ($currentUserId !== null && $user->id === $currentUserId) {
+                throw new \Exception("You cannot delete yourself.");
+            }
+
             if ($user->role === 'agent' && $user->agentProperties()->count() > 0) {
                 throw new \Exception("Cannot delete agent with active properties.");
             }

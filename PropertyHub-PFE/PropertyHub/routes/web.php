@@ -9,6 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Agent\PropertyController as AgentPropertyController;
 use App\Http\Controllers\Agent\AppointmentController as AgentAppointmentController;
 use App\Http\Controllers\Agent\MessageController as AgentMessageController;
+use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
+use App\Http\Controllers\Admin\LogController as AdminLogController;
 
 // ======================
 // PUBLIC ROUTES
@@ -86,5 +88,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
         Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+        Route::get('/properties', [AdminPropertyController::class, 'index'])->name('properties.index');
+        Route::post('/properties', [AdminPropertyController::class, 'store'])->name('properties.store');
+        Route::get('/properties/{property}/edit', [AdminPropertyController::class, 'edit'])->name('properties.edit');
+        Route::put('/properties/{property}', [AdminPropertyController::class, 'update'])->name('properties.update');
+        Route::post('/properties/{property}/approve', [AdminPropertyController::class, 'approve'])->name('properties.approve');
+        Route::post('/properties/{property}/reject', [AdminPropertyController::class, 'reject'])->name('properties.reject');
+        Route::delete('/properties/{property}', [AdminPropertyController::class, 'destroy'])->name('properties.destroy');
+
+        Route::get('/logs', [AdminLogController::class, 'index'])->name('logs.index');
     });
 });

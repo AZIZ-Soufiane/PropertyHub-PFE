@@ -4,90 +4,200 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? 'Admin Dashboard - PropertyHub' }}</title>
+    <title>{{ $title ?? 'Admin Dashboard — PropertyHub' }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline/dist/preline.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>[x-cloak]{display:none!important}</style>
     @stack('styles')
 </head>
-<body class="h-full bg-gray-50 text-gray-800 font-sans antialiased">
-    <div class="min-h-screen flex">
-        <aside class="fixed top-0 start-0 bottom-0 w-64 bg-white border-e border-gray-200 flex flex-col pt-6 pb-10 z-50 hidden lg:flex">
-            <div class="px-6 mb-8">
-                <a class="text-2xl font-black tracking-tighter text-primary-500" href="/">PropertyHub</a>
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-2">Admin Portal</p>
-            </div>
-            
-            <nav class="px-6 flex-1">
-                <ul class="space-y-1">
-                    <li>
-                        <a class="flex items-center gap-3.5 py-2.5 px-3 text-sm font-bold rounded-xl {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-100' }}"
-                           href="{{ route('admin.dashboard') }}">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <rect width="18" height="18" x="3" y="3" rx="2" />
-                                <line x1="3" x2="21" y1="9" y2="9" />
-                                <line x1="9" x2="9" y1="21" y2="9" />
-                            </svg>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center gap-3.5 py-2.5 px-3 text-sm font-medium rounded-xl text-gray-700 hover:bg-gray-100 {{ request()->routeIs('admin.users.*') ? 'bg-gray-100' : '' }}"
-                           href="{{ route('admin.users.index') }}">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                            </svg>
-                            Users & Roles
-                        </a>
-                    </li>
-                    <li>
-                        <a class="flex items-center gap-3.5 py-2.5 px-3 text-sm font-medium rounded-xl text-gray-700 hover:bg-gray-100 {{ request()->routeIs('admin.properties.*') ? 'bg-gray-100' : '' }}"
-                           href="{{ route('properties.index') }}">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                                <polyline points="9 22 9 12 15 12 15 22" />
-                            </svg>
-                            Properties
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex min-h-screen">
 
-            <div class="px-6 mt-auto pt-6 border-t border-gray-100">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="flex items-center gap-3 w-full py-2 px-3 text-sm font-medium rounded-xl text-gray-700 hover:bg-gray-100">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                            <polyline points="16 17 21 12 16 7" />
-                            <line x1="21" x2="9" y1="12" y2="12" />
-                        </svg>
-                        Logout
-                    </button>
-                </form>
-            </div>
-        </aside>
-        <div class="flex-1 lg:ps-64">
-            <header class="sticky top-0 z-40 bg-white border-b border-gray-200 py-4 px-6 flex items-center justify-between">
-                <div>
-                    <h1 class="text-xl font-black text-gray-800">Admin Dashboard</h1>
-                </div>
-                <div class="flex items-center gap-4">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="py-2 px-4 text-sm font-bold rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </header>
-            <main class="p-6 sm:p-8 space-y-8">
-                @yield('content')
-            </main>
+    {{-- ═══════════════════════════════════════════
+         SIDEBAR
+    ════════════════════════════════════════════════ --}}
+    <aside class="hidden lg:flex w-full sm:w-64 lg:w-64 flex-shrink-0 bg-white border-r border-slate-200 flex-col pt-6 sm:pt-7 pb-8 sm:pb-10 min-h-screen">
+        <div class="px-4 sm:px-6 mb-6 sm:mb-8">
+            <a class="text-xl sm:text-2xl font-black tracking-tighter" href="{{ route('home') }}" aria-label="PropertyHub" style="color:#3b65ad;">PropertyHub</a>
+            <p class="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1 sm:mt-2">Admin Portal</p>
         </div>
+        <nav class="px-4 sm:px-6 flex-1" aria-label="Sidebar navigation">
+            <ul class="space-y-1">
+                <li>
+                    <a href="{{ route('admin.dashboard') }}"
+                       class="flex items-center gap-x-2.5 sm:gap-x-3.5 py-2 sm:py-2.5 px-2.5 sm:px-3 text-xs sm:text-sm rounded-lg sm:rounded-xl transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100' }}">
+                        <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.users.index') }}"
+                       class="flex items-center gap-x-2.5 sm:gap-x-3.5 py-2 sm:py-2.5 px-2.5 sm:px-3 text-xs sm:text-sm rounded-lg sm:rounded-xl transition-all {{ request()->routeIs('admin.users.*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100' }}">
+                        <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Users &amp; Roles
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.properties.index') }}"
+                       class="flex items-center gap-x-2.5 sm:gap-x-3.5 py-2 sm:py-2.5 px-2.5 sm:px-3 text-xs sm:text-sm rounded-lg sm:rounded-xl transition-all {{ request()->routeIs('admin.properties.*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100' }}">
+                        <svg class="size-3 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        Properties
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.logs.index') }}"
+                       class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all {{ request()->routeIs('admin.logs*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100' }}">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+                        System Logs
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('home') }}"
+                       class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all text-slate-600 font-medium hover:bg-slate-100">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        Messages
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="px-4 sm:px-6 mt-auto pt-4 sm:pt-6 border-t border-slate-100">
+            <div class="flex items-center gap-3">
+                <span class="size-9 rounded-full bg-primary-500 flex items-center justify-center text-white font-black text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                <div>
+                    <p class="text-sm font-bold text-slate-800">{{ Auth::user()->name }}</p>
+                    <p class="text-[10px] text-slate-400 font-semibold">{{ Auth::user()->email }}</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    {{-- ═══════════════════════════════════════════
+         MAIN CONTENT
+    ════════════════════════════════════════════════ --}}
+    <div class="flex-1 flex flex-col min-h-screen">
+
+        {{-- Top header bar --}}
+        <header class="sticky top-0 z-40 bg-white border-b border-slate-200 py-4 px-6 flex items-center justify-between shadow-sm">
+            <div>
+                <h1 class="text-xl font-black text-slate-800">@yield('page-title', 'Admin Dashboard')</h1>
+                <p class="text-xs text-slate-400 font-semibold">@yield('page-subtitle', 'Welcome back, ' . Auth::user()->name)</p>
+            </div>
+            <div class="flex items-center gap-4">
+                @yield('header-actions')
+
+                {{-- Preline Dropdown — Notifications --}}
+                <div class="hs-dropdown relative inline-flex">
+                    <button id="dropdown-notifications" type="button"
+                        class="hs-dropdown-toggle relative p-2.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
+                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span class="absolute top-1.5 right-1.5 size-2 rounded-full" style="background:#3b65ad;"></span>
+                    </button>
+                    <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-80 bg-white shadow-xl rounded-2xl border border-slate-100 mt-2 z-50 overflow-hidden"
+                         aria-labelledby="dropdown-notifications">
+                        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
+                            <p class="text-sm font-black text-slate-800">Notifications</p>
+                            <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[10px] font-bold text-white bg-primary-500">3 New</span>
+                        </div>
+                        <div class="divide-y divide-slate-50">
+                            <a href="#" class="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                <span class="mt-0.5 size-8 flex-shrink-0 flex items-center justify-center rounded-full bg-primary-50">
+                                    <svg class="size-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800">New user registered</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 truncate">Ahmed Karimi signed up as a Buyer</p>
+                                    <p class="text-[10px] text-slate-300 font-semibold mt-1">2 min ago</p>
+                                </div>
+                                <span class="mt-1.5 size-2 rounded-full flex-shrink-0 bg-primary-500"></span>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                <span class="mt-0.5 size-8 flex-shrink-0 flex items-center justify-center rounded-full bg-amber-50">
+                                    <svg class="size-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800">Property pending review</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 truncate">Villa Nador — awaiting approval</p>
+                                    <p class="text-[10px] text-slate-300 font-semibold mt-1">15 min ago</p>
+                                </div>
+                                <span class="mt-1.5 size-2 rounded-full flex-shrink-0 bg-primary-500"></span>
+                            </a>
+                            <a href="#" class="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors">
+                                <span class="mt-0.5 size-8 flex-shrink-0 flex items-center justify-center rounded-full bg-emerald-50">
+                                    <svg class="size-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                </span>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-800">New message received</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 truncate">Sarah Jenkins sent you a message</p>
+                                    <p class="text-[10px] text-slate-300 font-semibold mt-1">1 hr ago</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="px-4 py-3 border-t border-slate-100">
+                            <a href="#" class="block text-center text-xs font-bold text-primary-500 hover:text-primary-600 transition-colors">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Preline Dropdown — Admin avatar --}}
+                <div class="hs-dropdown relative inline-flex">
+                    <button id="admin-avatar-dropdown" type="button"
+                        class="hs-dropdown-toggle flex items-center gap-2 focus:outline-none">
+                        <span class="size-9 rounded-full ring-2 ring-slate-100 bg-primary-500 flex items-center justify-center text-white font-black text-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                        <svg class="size-3.5 text-slate-400 hs-dropdown-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-56 bg-white shadow-xl rounded-2xl border border-slate-100 mt-2 z-50 overflow-hidden"
+                         aria-labelledby="admin-avatar-dropdown">
+                        <div class="px-4 py-3 border-b border-slate-100">
+                            <p class="text-sm font-black text-slate-800">{{ Auth::user()->name }}</p>
+                            <p class="text-xs text-slate-400 mt-0.5">{{ Auth::user()->email }}</p>
+                        </div>
+                        <div class="p-1">
+                            <a href="{{ route('admin.users.show', Auth::id()) }}" class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-slate-700 hover:bg-slate-100 font-medium transition-colors">
+                                <svg class="size-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                My Profile
+                            </a>
+                            <div class="my-1 border-t border-slate-100"></div>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-rose-500 hover:bg-rose-50 font-medium transition-colors">
+                                    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                                    Sign out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {{-- Flash messages --}}
+        @if(session('success') || session('error'))
+            <div class="px-6 sm:px-8 pt-6">
+                @if(session('success'))
+                    <div class="flex items-center gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-semibold">
+                        <svg class="size-5 shrink-0 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if(session('error'))
+                    <div class="flex items-center gap-3 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-sm font-semibold">
+                        <svg class="size-5 shrink-0 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        @endif
+
+        {{-- Page body --}}
+        <main class="flex-1 p-6 sm:p-8 space-y-8">
+            @yield('content')
+        </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
     @stack('scripts')
 </body>
 </html>

@@ -25,4 +25,4 @@
         <span>&copy; <?php echo e(date('Y')); ?> PropertyHub</span>
         <span>Crafted by Solicode</span>
     </div>
-</footer><?php /**PATH C:\GitHub\PropertyHub-PFE\PropertyHub-PFE\PropertyHub\resources\views/frontend/partials/footer.blade.php ENDPATH**/ ?>
+</footer><?php /**PATH C:\GitHub\PropertyHub-PFE\PropertyHub-PFE\PropertyHub\resources\views\frontend\partials\footer.blade.php ENDPATH**/ ?>

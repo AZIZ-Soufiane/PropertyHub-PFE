@@ -3,47 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Property;
-use App\Models\Appointment;
+use App\Services\AdminDashboardService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct(
+        private UserService $userService,
+        private AdminDashboardService $adminDashboard,
+    ) {}
+
     public function dashboard()
     {
-        $stats = [
-            'total_users' => User::count(),
-            'new_users_this_month' => User::where('created_at', '>=', now()->startOfMonth())->count(),
-            'total_properties' => Property::count(),
-            'new_properties_this_month' => Property::where('created_at', '>=', now()->startOfMonth())->count(),
-            'total_appointments' => Appointment::count(),
-            'pending_appointments' => Appointment::where('status', 'pending')->count(),
-            'total_revenue' => 0,
-        ];
-        
-        $users = User::orderBy('created_at', 'desc')->paginate(10);
-        
+        $stats = $this->adminDashboard->getStats();
+        $users = $this->userService->getUsers([], 10);
+
         return view('admin.dashboard', compact('stats', 'users'));
     }
 
     public function index(Request $request)
     {
-        $query = User::query();
-        
-        if ($request->role) {
-            $query->where('role', $request->role);
-        }
-        
-        if ($request->search) {
-            $query->where(fn($q) => $q
-                ->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('email', 'like', '%' . $request->search . '%')
-            );
-        }
-        
-        $users = $query->orderBy('created_at', 'desc')->paginate(15);
-        
+        $users = $this->userService->getUsers($request->only(['role', 'search']));
         return view('admin.users.index', compact('users'));
     }
 
@@ -55,16 +37,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
-            'role' => 'required|in:admin,agent,buyer',
+            'name'           => 'required|string|max:255',
+            'email'          => 'required|email|unique:users,email',
+            'password'       => 'required|min:8|confirmed',
+            'role'           => 'required|in:admin,agent,buyer',
+            'license_number' => 'nullable|string|max:100',
         ]);
-        
-        $validated['password'] = bcrypt($validated['password']);
-        
-        User::create($validated);
-        
+
+        try {
+            $this->userService->createUser($validated);
+        } catch (\Exception $e) {
+            return back()->withErrors(['email' => $e->getMessage()])->withInput();
+        }
+
         return redirect()->route('admin.users.index')->with('success', 'User created successfully');
     }
 
@@ -81,32 +66,30 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:8|confirmed',
-            'role' => 'required|in:admin,agent,buyer',
-            'status' => 'required|in:active,inactive',
+            'name'           => 'required|string|max:255',
+            'email'          => 'required|email|unique:users,email,' . $user->id,
+            'password'       => 'nullable|min:8|confirmed',
+            'role'           => 'required|in:admin,agent,buyer',
+            'license_number' => 'nullable|string|max:100',
         ]);
-        
-        if (isset($validated['password'])) {
-            $validated['password'] = bcrypt($validated['password']);
-        } else {
-            unset($validated['password']);
+
+        try {
+            $this->userService->updateUser($user->id, $validated);
+        } catch (\Exception $e) {
+            return back()->withErrors(['email' => $e->getMessage()])->withInput();
         }
-        
-        $user->update($validated);
-        
+
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
     }
 
     public function destroy(User $user)
     {
-        if ($user->id === Auth::id()) {
-            return back()->with('error', 'You cannot delete yourself');
+        try {
+            $this->userService->deleteUser($user->id, Auth::id());
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-        
-        $user->delete();
-        
+
         return redirect()->route('admin.users.index')->with('success', 'User deleted');
     }
 }

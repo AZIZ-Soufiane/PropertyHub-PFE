@@ -3,55 +3,50 @@
 namespace App\Services;
 
 use App\Models\Property;
+use App\Models\PropertyStatus;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class PropertyService
 {
-    /**
-     * Get properties with optional status filtering.
-     * Works for both public (active only) and admin (all).
-     */
     public function getProperties(string $status = null, int $perPage = 15): LengthAwarePaginator
     {
         $query = Property::with('agent', 'galleries', 'buyers');
 
         if ($status) {
-            $query->where('status', $status);
+            $query->whereHas('statusRelation', fn($q) => $q->where('name', $status));
         }
 
         return $query->paginate($perPage);
     }
 
-    /**
-     * Get a single property with all details.
-     */
     public function getPropertyDetails(int $id): Property
     {
-        return Property::with('agent', 'galleries', 'buyers')
+        return Property::with('agent', 'galleries', 'buyers', 'statusRelation')
             ->findOrFail($id);
     }
 
-    /**
-     * Search properties by location and price range.
-     */
     public function searchProperties(
-        string $location = null,
-        int $minPrice = null,
-        int $maxPrice = null,
-        string $status = 'active',
+        ?string $location = null,
+        ?int $minPrice = null,
+        ?int $maxPrice = null,
+        string $status = 'approved',
         int $perPage = 15
-    ): LengthAwarePaginator
-    {
-        $query = Property::with('agent', 'galleries');
+    ): LengthAwarePaginator {
+        $query = Property::with('agent', 'galleries', 'statusRelation');
 
         if ($status) {
-            $query->where('status', $status);
+            $query->whereHas('statusRelation', fn($q) => $q->where('name', $status));
         }
 
         if ($location) {
-            $query->where('location', 'like', '%' . $location . '%');
+            $query->where(function ($q) use ($location) {
+                $q->where('location', 'like', '%' . $location . '%')
+                  ->orWhere('city', 'like', '%' . $location . '%')
+                  ->orWhere('country', 'like', '%' . $location . '%')
+                  ->orWhere('address', 'like', '%' . $location . '%');
+            });
         }
 
         if ($minPrice !== null) {
@@ -65,29 +60,89 @@ class PropertyService
         return $query->paginate($perPage);
     }
 
-    /**
-     * Create a new property (Admin/Agent).
-     */
+    public function searchAndFilter(array $filters, int $perPage = 12): LengthAwarePaginator
+    {
+        $query = Property::with('images', 'agent', 'statusRelation');
+
+        if (!empty($filters['status'])) {
+            $query->whereHas('statusRelation', fn($q) => $q->where('name', $filters['status']));
+        }
+
+        if (!empty($filters['location'])) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('city', 'like', '%' . $filters['location'] . '%')
+                  ->orWhere('country', 'like', '%' . $filters['location'] . '%')
+                  ->orWhere('address', 'like', '%' . $filters['location'] . '%')
+                  ->orWhere('location', 'like', '%' . $filters['location'] . '%');
+            });
+        }
+
+        if (!empty($filters['type'])) {
+            $query->where('type', $filters['type']);
+        }
+
+        if (!empty($filters['min_price'])) {
+            $query->where('price', '>=', $filters['min_price']);
+        }
+
+        if (!empty($filters['max_price'])) {
+            $query->where('price', '<=', $filters['max_price']);
+        }
+
+        if (!empty($filters['bedrooms'])) {
+            $query->where('bedrooms', '>=', $filters['bedrooms']);
+        }
+
+        if (!empty($filters['bathrooms'])) {
+            $query->where('bathrooms', '>=', $filters['bathrooms']);
+        }
+
+        $sort = $filters['sort'] ?? 'newest';
+        match ($sort) {
+            'price_asc' => $query->orderBy('price', 'asc'),
+            'price_desc' => $query->orderBy('price', 'desc'),
+            default => $query->orderBy('created_at', 'desc'),
+        };
+
+        return $query->paginate($perPage);
+    }
+
+    public function getFeaturedProperties(int $limit = 6)
+    {
+        return Property::with('images', 'agent', 'statusRelation')
+            ->whereHas('statusRelation', fn($q) => $q->where('name', 'approved'))
+            ->orderBy('created_at', 'desc')
+            ->take($limit)
+            ->get();
+    }
+
+    public function getPropertiesForComparison(array $ids)
+    {
+        return Property::with('images', 'agent', 'statusRelation')
+            ->whereIn('id', $ids)
+            ->get();
+    }
+
     public function createProperty(array $data): Property
     {
         return DB::transaction(function () use ($data) {
-            $agent = User::findOrFail($data['agent_id']);
-            if ($agent->role !== 'agent') {
-                throw new \Exception("Selected user is not an agent.");
+            if (!empty($data['agent_id'])) {
+                $agent = User::findOrFail($data['agent_id']);
+                if ($agent->role !== 'agent' && $agent->role !== 'admin') {
+                    throw new \Exception("Selected user is not an agent.");
+                }
             }
 
-            return Property::create([
-                'price' => $data['price'],
-                'location' => $data['location'],
-                'status' => $data['status'] ?? 'pending',
-                'agent_id' => $data['agent_id'],
-            ]);
+            $property = new Property();
+            $property->fill(array_diff_key($data, array_flip(['status'])));
+            if (isset($data['status'])) {
+                $property->status = $data['status'];
+            }
+            $property->save();
+            return $property;
         });
     }
 
-    /**
-     * Update a property.
-     */
     public function updateProperty(int $propertyId, array $data): Property
     {
         return DB::transaction(function () use ($propertyId, $data) {
@@ -95,28 +150,26 @@ class PropertyService
 
             if (isset($data['agent_id']) && $data['agent_id'] !== $property->agent_id) {
                 $agent = User::findOrFail($data['agent_id']);
-                if ($agent->role !== 'agent') {
+                if ($agent->role !== 'agent' && $agent->role !== 'admin') {
                     throw new \Exception("Selected user is not an agent.");
                 }
             }
 
-            $property->update($data);
+            $property->fill(array_diff_key($data, array_flip(['status'])));
+            if (isset($data['status'])) {
+                $property->status = $data['status'];
+            }
+            $property->save();
             return $property;
         });
     }
 
-    /**
-     * Delete a property.
-     */
     public function deleteProperty(int $propertyId): void
     {
         $property = Property::findOrFail($propertyId);
         $property->delete();
     }
 
-    /**
-     * Favorite management.
-     */
     public function addToFavorites(int $buyerId, int $propertyId): void
     {
         $buyer = User::findOrFail($buyerId);
@@ -137,16 +190,14 @@ class PropertyService
         return $buyer->favorites()->where('property_id', $propertyId)->exists();
     }
 
-    /**
-     * Statistics.
-     */
     public function getPropertyStatistics(): array
     {
         return [
             'total' => Property::count(),
-            'active' => Property::where('status', 'active')->count(),
-            'pending' => Property::where('status', 'pending')->count(),
-            'sold' => Property::where('status', 'sold')->count(),
+            'approved' => Property::whereHas('statusRelation', fn($q) => $q->where('name', 'approved'))->count(),
+            'pending' => Property::whereHas('statusRelation', fn($q) => $q->where('name', 'pending'))->count(),
+            'rejected' => Property::whereHas('statusRelation', fn($q) => $q->where('name', 'rejected'))->count(),
+            'sold' => Property::whereHas('statusRelation', fn($q) => $q->where('name', 'sold'))->count(),
             'average_price' => round(Property::avg('price'), 2),
         ];
     }

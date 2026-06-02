@@ -14,20 +14,21 @@ class PropertyController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        
+
         $stats = [
-            'active_listings' => Property::where('agent_id', $user->id)->where('status', 'approved')->count(),
-            'pending_viewings' => Appointment::whereHas('property', fn($q) => $q->where('agent_id', $user->id))
-                ->where('status', 'pending')->whereDate('scheduled_at', today())->count(),
-            'total_appointments' => Appointment::whereHas('property', fn($q) => $q->where('agent_id', $user->id))->count(),
+            'active_listings' => Property::where('agent_id', $user->id)
+                ->whereHas('statusRelation', fn($q) => $q->where('name', 'approved'))->count(),
+            'pending_viewings' => Appointment::where('agent_id', $user->id)
+                ->where('status', 'pending')->whereDate('date_time', today())->count(),
+            'total_appointments' => Appointment::where('agent_id', $user->id)->count(),
             'unread_messages' => Message::where('receiver_id', $user->id)->whereNull('read_at')->count(),
             'new_this_week' => Property::where('agent_id', $user->id)->where('created_at', '>=', now()->subWeek())->count(),
         ];
-        
+
         $upcomingAppointments = Appointment::with(['property', 'client'])
-            ->whereHas('property', fn($q) => $q->where('agent_id', $user->id))
-            ->whereDate('scheduled_at', '>=', today())
-            ->orderBy('scheduled_at')
+            ->where('agent_id', $user->id)
+            ->whereDate('date_time', '>=', today())
+            ->orderBy('date_time')
             ->take(3)
             ->get();
             

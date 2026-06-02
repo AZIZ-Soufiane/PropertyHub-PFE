@@ -10,7 +10,7 @@ class PropertyController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Property::with('images')->where('status', 'approved');
+        $query = Property::with('images')->whereHas('statusRelation', fn($q) => $q->where('name', 'approved'));
 
         if ($request->has('location') && $request->location) {
             $query->where(function($q) use ($request) {

@@ -46,9 +46,9 @@ class AppointmentService
     /**
      * Book an appointment.
      */
-    public function bookAppointment(int $buyerId, int $agentId, string $dateTime): Appointment
+    public function bookAppointment(int $buyerId, int $agentId, int $propertyId, string $dateTime): Appointment
     {
-        return DB::transaction(function () use ($buyerId, $agentId, $dateTime) {
+        return DB::transaction(function () use ($buyerId, $agentId, $propertyId, $dateTime) {
             $buyer = User::findOrFail($buyerId);
             $agent = User::findOrFail($agentId);
             $calendar = $agent->calendar;
@@ -73,6 +73,7 @@ class AppointmentService
                 'status' => 'scheduled',
                 'buyer_id' => $buyerId,
                 'agent_id' => $agentId,
+                'property_id' => $propertyId,
                 'calendar_id' => $calendar->id,
             ]);
         });

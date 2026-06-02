@@ -174,7 +174,7 @@ class PropertyController extends Controller
     public function getByAgent(int $agentId, Request $request): JsonResponse
     {
         $properties = \App\Models\Property::where('agent_id', $agentId)
-            ->where('status', 'active')
+            ->whereHas('statusRelation', fn($q) => $q->where('name', 'approved'))
             ->paginate($request->get('per_page', 15));
 
         return response()->json([

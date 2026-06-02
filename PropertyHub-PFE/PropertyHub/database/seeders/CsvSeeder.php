@@ -13,8 +13,20 @@ class CsvSeeder extends Seeder
     {
         $this->seedUsers();
         $this->seedCalendars();
+        $this->seedPropertyStatuses();
         $this->seedProperties();
         $this->seedGalleries();
+    }
+
+    private function seedPropertyStatuses()
+    {
+        $statuses = ['pending', 'approved', 'rejected', 'sold', 'rented'];
+        foreach ($statuses as $name) {
+            DB::table('property_statuses')->updateOrInsert(
+                ['name' => $name],
+                ['name' => $name, 'created_at' => now(), 'updated_at' => now()]
+            );
+        }
     }
 
     private function seedUsers()
@@ -53,6 +65,14 @@ class CsvSeeder extends Seeder
         $file = database_path('data/properties.csv');
         $data = $this->parseCsv($file);
         foreach ($data as $row) {
+            $statusId = DB::table('property_statuses')->where('name', $row['status'])->value('id');
+            if (!$statusId) {
+                $statusId = DB::table('property_statuses')->insertGetId([
+                    'name' => $row['status'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
             DB::table('properties')->insert([
                 'title' => $row['title'],
                 'type' => $row['type'],
@@ -66,7 +86,7 @@ class CsvSeeder extends Seeder
                 'bathrooms' => $row['bathrooms'] ?? null,
                 'description' => $row['description'] ?? null,
                 'features' => $row['features'] ?? null,
-                'status' => $row['status'],
+                'status_id' => $statusId,
                 'agent_id' => $row['agent_id'],
                 'created_at' => now(),
                 'updated_at' => now(),

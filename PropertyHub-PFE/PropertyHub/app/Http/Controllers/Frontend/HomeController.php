@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         $featuredProperties = Property::with('images')
-            ->where('status', 'approved')
+            ->whereHas('statusRelation', fn($q) => $q->where('name', 'approved'))
             ->orderBy('created_at', 'desc')
             ->take(6)
             ->get();

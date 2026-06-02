@@ -36,7 +36,7 @@ class AppointmentController extends Controller
         $dateTime = $request->date . ' ' . $request->time_slot;
 
         try {
-            $this->appointmentService->bookAppointment(Auth::id(), $agentId, $dateTime);
+            $this->appointmentService->bookAppointment(Auth::id(), $agentId, $property->id, $dateTime);
 
             return redirect()->back()->with('success', 'Appointment scheduled successfully!');
         } catch (\Exception $e) {

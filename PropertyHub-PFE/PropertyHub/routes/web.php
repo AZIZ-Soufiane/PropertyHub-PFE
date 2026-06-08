@@ -60,6 +60,11 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('home');
     })->name('dashboard');
 
+    // Notifications
+    Route::post('/notifications/mark-all', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::post('/notifications/{notification}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+
     // ======================
     // AGENT ROUTES
     // ======================

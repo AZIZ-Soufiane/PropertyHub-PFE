@@ -16,38 +16,52 @@ class MessageService
      | Read paths
      | ----------------------------------------------------------------- */
 
-    /**
-     * Inbox-style list of most recent conversations filtered by role.
-     *
-     * - admin : only conversations with agents
-     * - agent : only conversations with buyers (clients on their properties)
-     * - buyer : only conversations with agents
-     */
-    public function getRecentConversations(int $userId, string $role, int $limit = 10): array
+    public function getAllowedContacts(int $userId, string $role): array
     {
-        $query = Message::with('sender', 'receiver')
-            ->where(function ($q) use ($userId) {
-                $q->where('sender_id', $userId)
-                  ->orWhere('receiver_id', $userId);
-            });
-
-        $query = $this->applyRoleFilter($query, $userId, $role);
-
-        $messages = $query->orderBy('created_at', 'desc')->get();
+        $contacts = collect();
+        if ($role === 'admin') {
+            $contacts = User::where('role', 'agent')->get();
+        } elseif ($role === 'agent') {
+            // Agent can message Admin and Buyers who have appointments for their properties
+            $adminContacts = User::where('role', 'admin')->get();
+            
+            $buyerIds = \App\Models\Appointment::whereHas('property', function ($query) use ($userId) {
+                $query->where('agent_id', $userId);
+            })->pluck('buyer_id')->unique();
+            
+            $buyerContacts = User::whereIn('id', $buyerIds)->get();
+            $contacts = $adminContacts->concat($buyerContacts)->unique('id');
+        } elseif ($role === 'buyer') {
+            // Buyer can message Agents of properties they made appointments for
+            $agentIds = \App\Models\Appointment::where('buyer_id', $userId)
+                ->with('property')
+                ->get()
+                ->pluck('property.agent_id')
+                ->unique()
+                ->filter(); // remove nulls
+                
+            $contacts = User::whereIn('id', $agentIds)->get();
+        }
 
         $conversations = [];
-        $seen = [];
+        foreach ($contacts as $contact) {
+            $latestMessage = Message::where(function($q) use ($userId, $contact) {
+                $q->where('sender_id', $userId)->where('receiver_id', $contact->id);
+            })->orWhere(function($q) use ($userId, $contact) {
+                $q->where('sender_id', $contact->id)->where('receiver_id', $userId);
+            })->orderBy('created_at', 'desc')->first();
 
-        foreach ($messages as $message) {
-            $contactId = $message->sender_id === $userId ? $message->receiver_id : $message->sender_id;
-            if (!in_array($contactId, $seen, true)) {
-                $conversations[] = $message;
-                $seen[] = $contactId;
-                if (count($conversations) >= $limit) {
-                    break;
-                }
-            }
+            $conversations[] = (object) [
+                'contact' => $contact,
+                'latest_message' => $latestMessage,
+                'updated_at' => $latestMessage ? $latestMessage->created_at : $contact->created_at,
+            ];
         }
+
+        usort($conversations, function ($a, $b) {
+            return $b->updated_at <=> $a->updated_at;
+        });
+
         return $conversations;
     }
 

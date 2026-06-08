@@ -22,19 +22,24 @@
         <div class="overflow-y-auto flex-1">
             <?php $__empty_1 = true; $__currentLoopData = $conversations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $conv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <?php
-                    $other = $conv->sender_id === auth()->id() ? $conv->receiver : $conv->sender;
+                    $other = $conv->contact;
+                    $msg = $conv->latest_message;
                 ?>
                 <a href="<?php echo e(route('agent.messages.show', $other)); ?>"
-                    class="flex items-center gap-x-4 p-4 hover:bg-gray-50 transition-all <?php echo e(request()->route('agent.messages.show', $other) ? 'bg-white border-r-4 border-primary-500' : ''); ?>">
-                    <div class="size-10 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold flex-shrink-0">
+                    class="flex items-center gap-4 p-4 hover:bg-white transition-all border-l-4 border-transparent hover:border-primary-500">
+                    <div class="size-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold text-sm flex-shrink-0">
                         <?php echo e(strtoupper(substr($other->name ?? '?', 0, 1))); ?>
 
                     </div>
                     <div class="grow min-w-0">
-                        <h3 class="font-bold text-sm text-gray-800 truncate"><?php echo e($other->name ?? 'Unknown'); ?></h3>
-                        <p class="text-xs text-gray-500 truncate font-medium"><?php echo e($conv->content); ?></p>
+                        <div class="flex items-center justify-between mb-1">
+                            <h3 class="font-bold text-sm text-gray-800 truncate"><?php echo e($other->name ?? 'Unknown'); ?></h3>
+                            <?php if($msg): ?>
+                                <span class="text-[10px] text-gray-400 font-bold whitespace-nowrap"><?php echo e($msg->created_at->diffForHumans(null, true)); ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <p class="text-xs text-gray-500 truncate font-medium"><?php echo e($msg ? $msg->content : 'Start a conversation'); ?></p>
                     </div>
-                    <span class="text-[10px] text-gray-400 font-bold whitespace-nowrap"><?php echo e($conv->created_at->diffForHumans(null, true)); ?></span>
                 </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                 <div class="p-8 text-center text-sm text-gray-500">No conversations yet.</div>

@@ -25,27 +25,37 @@ class LogController extends Controller
         ];
 
         if (File::exists($logFile)) {
-            $raw = File::get($logFile);
-
-            if (preg_match_all(
-                '/^\[(?P<date>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]\s+(?P<env>[^.]+)\.(?P<level>[^\s:]+):\s*(?P<message>(?:.*\n?)*?)(?=\n\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]|\Z)/ms',
-                $raw,
-                $matches,
-                PREG_SET_ORDER
-            )) {
-                $tail = array_slice($matches, -150);
-                foreach ($tail as $m) {
-                    $level = strtolower($m['level']);
-                    if (array_key_exists($level, $levelStats)) {
-                        $levelStats[$level]++;
+            $handle = fopen($logFile, 'r');
+            if ($handle) {
+                $currentLog = null;
+                while (($line = fgets($handle)) !== false) {
+                    if (preg_match('/^\[(?P<date>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]\s+(?P<env>[^.]+)\.(?P<level>[^\s:]+):\s*(?P<message>.*)/', $line, $m)) {
+                        if ($currentLog) {
+                            $logs[] = $currentLog;
+                        }
+                        $level = strtolower($m['level']);
+                        if (array_key_exists($level, $levelStats)) {
+                            $levelStats[$level]++;
+                        }
+                        $currentLog = [
+                            'date'    => $m['date'],
+                            'env'     => $m['env'],
+                            'level'   => strtoupper($m['level']),
+                            'message' => trim($m['message']) . "\n",
+                        ];
+                    } else {
+                        if ($currentLog) {
+                            $currentLog['message'] .= $line;
+                        }
                     }
-                    $logs[] = [
-                        'date'    => $m['date'],
-                        'env'     => $m['env'],
-                        'level'   => strtoupper($m['level']),
-                        'message' => trim($m['message']),
-                    ];
                 }
+                if ($currentLog) {
+                    $logs[] = $currentLog;
+                }
+                fclose($handle);
+
+                // Keep only the last 150 logs
+                $logs = array_slice($logs, -150);
                 $logs = array_reverse($logs);
             }
         }

@@ -14,18 +14,17 @@ class MessageController extends Controller
 
     public function index()
     {
-        $conversations = $this->messageService->getRecentConversations(Auth::id(), 'agent');
+        $conversations = $this->messageService->getAllowedContacts(Auth::id(), 'agent');
         return view('agent.messages.index', compact('conversations'));
     }
 
     public function show(User $user)
     {
-        abort_unless($this->messageService->canConversate(Auth::id(), 'agent', $user->id), 403);
-
         $this->messageService->markConversationAsRead(Auth::id(), $user->id);
         $messages = $this->messageService->getConversation(Auth::id(), $user->id);
+        $conversations = $this->messageService->getAllowedContacts(Auth::id(), 'agent');
 
-        return view('agent.messages.show', compact('user', 'messages'));
+        return view('agent.messages.show', compact('user', 'messages', 'conversations'));
     }
 
     public function store(Request $request)

@@ -98,39 +98,52 @@
                         </button>
                     </div>
                     <div class="flex items-center gap-x-4 ms-auto">
-                        <button type="button" class="p-2 text-gray-400 hover:bg-gray-100 rounded-full">
-                            <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                        </button>
-                        <div class="hs-dropdown relative inline-flex">
-                            <button id="agent-avatar-dropdown" type="button"
-                                class="hs-dropdown-toggle flex items-center gap-2 focus:outline-none">
-                                <span class="size-9 rounded-full ring-2 ring-gray-200 bg-primary-500 flex items-center justify-center text-white font-black text-sm">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
-                                <svg class="size-3.5 text-gray-400 hs-dropdown-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+                        {{-- Preline Dropdown — Notifications --}}
+                        <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
+                            <button id="dropdown-notifications" type="button"
+                                class="hs-dropdown-toggle relative p-2.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-all">
+                                <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                    <span class="absolute top-1.5 right-1.5 size-2 rounded-full" style="background:#3b65ad;"></span>
+                                @endif
                             </button>
-                            <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-56 bg-white shadow-xl rounded-2xl border border-gray-100 mt-2 z-50 overflow-hidden"
-                                 aria-labelledby="agent-avatar-dropdown">
-                                <div class="px-4 py-3 border-b border-gray-100">
-                                    <p class="text-sm font-black text-gray-800">{{ $user->name }}</p>
-                                    <p class="text-xs text-gray-400 mt-0.5">{{ $user->email }}</p>
+                            <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-80 bg-white shadow-xl rounded-2xl border border-gray-100 mt-2 z-50 overflow-hidden"
+                                 aria-labelledby="dropdown-notifications">
+                                <div class="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                                    <p class="text-sm font-black text-gray-800">Notifications</p>
+                                    @if(auth()->user()->unreadNotifications->count() > 0)
+                                        <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[10px] font-bold text-white bg-primary-500">{{ auth()->user()->unreadNotifications->count() }} New</span>
+                                    @endif
                                 </div>
-                                <div class="p-1">
-                                    <a href="{{ route('home') }}" class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-100 font-medium transition-colors">
-                                        <svg class="size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                        View site
-                                    </a>
-                                    <a href="{{ route('agent.dashboard') }}" class="flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-100 font-medium transition-colors">
-                                        <svg class="size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                                        Dashboard
-                                    </a>
-                                    <div class="my-1 border-t border-gray-100"></div>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-xl text-sm text-rose-500 hover:bg-rose-50 font-medium transition-colors">
-                                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-                                            Sign out
-                                        </button>
-                                    </form>
+                                <div class="divide-y divide-gray-50 max-h-72 overflow-y-auto">
+                                    @forelse(auth()->user()->notifications()->take(5)->get() as $notification)
+                                        <div class="flex items-start gap-3 px-4 py-3 {{ $notification->read_at ? 'opacity-60' : 'hover:bg-gray-50 transition-colors' }}">
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-semibold text-gray-800">{{ $notification->data['title'] ?? 'Notification' }}</p>
+                                                <p class="text-xs text-gray-400 mt-0.5">{{ $notification->data['message'] ?? '' }}</p>
+                                                <p class="text-[10px] text-gray-300 font-semibold mt-1">{{ $notification->created_at->diffForHumans() }}</p>
+                                            </div>
+                                            @if(!$notification->read_at)
+                                                <form action="{{ route('notifications.markAsRead', $notification->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="mt-1 size-2 rounded-full flex-shrink-0 bg-primary-500 hover:bg-primary-600 transition-colors" title="Mark as read"></button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    @empty
+                                        <div class="px-4 py-6 text-center">
+                                            <p class="text-sm text-gray-500 font-medium">No notifications available</p>
+                                        </div>
+                                    @endforelse
                                 </div>
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                    <div class="px-4 py-3 border-t border-gray-100">
+                                        <form action="{{ route('notifications.markAllAsRead') }}" method="POST" class="block text-center">
+                                            @csrf
+                                            <button type="submit" class="text-xs font-bold text-primary-500 hover:text-primary-600 transition-colors">Mark all as read</button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

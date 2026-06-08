@@ -14,7 +14,7 @@ class MessageController extends Controller
 
     public function index()
     {
-        $conversations = $this->messageService->getRecentConversations(Auth::id(), 'buyer');
+        $conversations = $this->messageService->getAllowedContacts(Auth::id(), 'buyer');
         return view('buyer.messages.index', compact('conversations'));
     }
 
@@ -24,8 +24,9 @@ class MessageController extends Controller
 
         $this->messageService->markConversationAsRead(Auth::id(), $user->id);
         $messages = $this->messageService->getConversation(Auth::id(), $user->id);
+        $conversations = $this->messageService->getAllowedContacts(Auth::id(), 'buyer');
 
-        return view('buyer.messages.show', compact('user', 'messages'));
+        return view('buyer.messages.show', compact('user', 'messages', 'conversations'));
     }
 
     public function store(Request $request)

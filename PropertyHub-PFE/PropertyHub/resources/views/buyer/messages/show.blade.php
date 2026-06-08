@@ -19,16 +19,30 @@
             </div>
         </div>
         <div class="overflow-y-auto flex-1">
-            <a href="{{ route('buyer.messages.show', $user) }}"
-                class="flex items-center gap-x-4 p-4 bg-white border-r-4 border-primary-500 hover:bg-gray-50 transition-all">
-                <div class="size-10 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold flex-shrink-0">
-                    {{ strtoupper(substr($user->name, 0, 1)) }}
-                </div>
-                <div class="grow min-w-0">
-                    <h3 class="font-bold text-sm text-gray-800 truncate">{{ $user->name }}</h3>
-                    <p class="text-xs text-gray-500 truncate font-medium">{{ $user->email }}</p>
-                </div>
-            </a>
+            @forelse($conversations as $conv)
+                @php
+                    $otherConv = $conv->contact;
+                    $msg = $conv->latest_message;
+                    $isActive = $otherConv->id === $user->id;
+                @endphp
+                <a href="{{ route('buyer.messages.show', $otherConv) }}"
+                    class="flex items-center gap-x-4 p-4 hover:bg-gray-50 transition-all border-l-4 {{ $isActive ? 'border-primary-500 bg-white' : 'border-transparent' }}">
+                    <div class="size-10 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold flex-shrink-0">
+                        {{ strtoupper(substr($otherConv->name ?? '?', 0, 1)) }}
+                    </div>
+                    <div class="grow min-w-0">
+                        <div class="flex items-center justify-between mb-1">
+                            <h3 class="font-bold text-sm text-gray-800 truncate">{{ $otherConv->name ?? 'Unknown' }}</h3>
+                            @if($msg)
+                                <span class="text-[10px] text-gray-400 font-bold whitespace-nowrap">{{ $msg->created_at->diffForHumans(null, true) }}</span>
+                            @endif
+                        </div>
+                        <p class="text-xs text-gray-500 truncate font-medium {{ $isActive ? 'text-primary-600' : '' }}">{{ $msg ? $msg->content : 'Start a conversation' }}</p>
+                    </div>
+                </a>
+            @empty
+                <p class="p-6 text-sm text-gray-500">No conversations found.</p>
+            @endforelse
         </div>
     </div>
 

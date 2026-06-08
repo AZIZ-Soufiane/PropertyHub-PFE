@@ -1,11 +1,9 @@
-@extends('layouts.admin')
+<?php $__env->startSection('title', 'Messages'); ?>
 
-@section('title', 'Messages')
+<?php $__env->startSection('page-title', 'Messages'); ?>
+<?php $__env->startSection('page-subtitle', 'Conversations with agents'); ?>
 
-@section('page-title', 'Messages')
-@section('page-subtitle', 'Conversations with agents')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="flex flex-col lg:flex-row h-[calc(100vh-200px)] gap-0 bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
     <div class="w-full lg:w-1/3 border-r border-slate-100 flex flex-col bg-slate-50/30">
         <div class="p-6 border-b border-slate-100">
@@ -25,27 +23,28 @@
             </div>
         </div>
         <div class="overflow-y-auto flex-1">
-            @forelse($conversations as $conv)
-                @php
+            <?php $__empty_1 = true; $__currentLoopData = $conversations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $conv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                <?php
                     $other = $conv->contact;
                     $msg = $conv->latest_message;
-                @endphp
-                <a href="{{ route('admin.messages.show', $other) }}"
+                ?>
+                <a href="<?php echo e(route('admin.messages.show', $other)); ?>"
                     class="flex items-center gap-x-4 p-4 hover:bg-white transition-all border-l-4 border-transparent hover:border-primary-500">
                     <div class="size-10 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold flex-shrink-0">
-                        {{ strtoupper(substr($other->name ?? '?', 0, 1)) }}
+                        <?php echo e(strtoupper(substr($other->name ?? '?', 0, 1))); ?>
+
                     </div>
                     <div class="grow min-w-0">
-                        <h3 class="font-bold text-sm text-slate-800 truncate">{{ $other->name ?? 'Unknown' }}</h3>
-                        <p class="text-xs text-slate-500 truncate font-medium">{{ $msg ? $msg->content : 'Start a conversation' }}</p>
+                        <h3 class="font-bold text-sm text-slate-800 truncate"><?php echo e($other->name ?? 'Unknown'); ?></h3>
+                        <p class="text-xs text-slate-500 truncate font-medium"><?php echo e($msg ? $msg->content : 'Start a conversation'); ?></p>
                     </div>
-                    @if($msg)
-                        <span class="text-[10px] text-slate-400 font-bold whitespace-nowrap">{{ $msg->created_at->diffForHumans(null, true) }}</span>
-                    @endif
+                    <?php if($msg): ?>
+                        <span class="text-[10px] text-slate-400 font-bold whitespace-nowrap"><?php echo e($msg->created_at->diffForHumans(null, true)); ?></span>
+                    <?php endif; ?>
                 </a>
-            @empty
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                 <div class="p-8 text-center text-sm text-slate-500">No conversations yet.</div>
-            @endforelse
+            <?php endif; ?>
         </div>
     </div>
 
@@ -61,4 +60,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\GitHub\PropertyHub-PFE\PropertyHub-PFE\PropertyHub\resources\views/admin/messages/index.blade.php ENDPATH**/ ?>

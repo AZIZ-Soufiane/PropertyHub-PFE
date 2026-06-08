@@ -48,6 +48,13 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.appointments.index') }}"
+                       class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all {{ request()->routeIs('admin.appointments.*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100' }}">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                        Appointments
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('admin.logs.index') }}"
                        class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all {{ request()->routeIs('admin.logs*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100' }}">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>

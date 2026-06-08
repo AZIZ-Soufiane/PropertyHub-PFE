@@ -12,6 +12,7 @@ use App\Http\Controllers\Agent\MessageController as AgentMessageController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\LogController as AdminLogController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
 use App\Http\Controllers\Buyer\DashboardController as BuyerDashboardController;
 use App\Http\Controllers\Buyer\AppointmentController as BuyerAppointmentController;
 use App\Http\Controllers\Buyer\MessageController as BuyerMessageController;
@@ -127,6 +128,12 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/properties/{property}', [AdminPropertyController::class, 'destroy'])->name('properties.destroy');
 
         Route::get('/logs', [AdminLogController::class, 'index'])->name('logs.index');
+
+        Route::get('/appointments', [AdminAppointmentController::class, 'index'])->name('appointments.index');
+        Route::get('/appointments/{appointment}', [AdminAppointmentController::class, 'show'])->name('appointments.show');
+        Route::post('/appointments/{appointment}/confirm', [AdminAppointmentController::class, 'confirm'])->name('appointments.confirm');
+        Route::post('/appointments/{appointment}/cancel', [AdminAppointmentController::class, 'cancel'])->name('appointments.cancel');
+        Route::post('/appointments/{appointment}/complete', [AdminAppointmentController::class, 'complete'])->name('appointments.complete');
 
         Route::get('/messages', [AdminMessageController::class, 'index'])->name('messages.index');
         Route::get('/messages/{user}', [AdminMessageController::class, 'show'])->name('messages.show');

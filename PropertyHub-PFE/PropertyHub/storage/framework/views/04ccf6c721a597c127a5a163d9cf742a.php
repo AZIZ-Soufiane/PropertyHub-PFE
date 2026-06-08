@@ -96,55 +96,6 @@
             </div>
             <div class="flex items-center gap-4">
                 <?php echo $__env->yieldContent('header-actions'); ?>
-
-                
-                <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
-                    <button id="dropdown-notifications" type="button"
-                        class="hs-dropdown-toggle relative p-2.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all">
-                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                        <?php if(auth()->user()->unreadNotifications->count() > 0): ?>
-                            <span class="absolute top-1.5 right-1.5 size-2 rounded-full" style="background:#3b65ad;"></span>
-                        <?php endif; ?>
-                    </button>
-                    <div class="hs-dropdown-menu transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden w-80 bg-white shadow-xl rounded-2xl border border-slate-100 mt-2 z-50 overflow-hidden"
-                         aria-labelledby="dropdown-notifications">
-                        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-                            <p class="text-sm font-black text-slate-800">Notifications</p>
-                            <?php if(auth()->user()->unreadNotifications->count() > 0): ?>
-                                <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[10px] font-bold text-white bg-primary-500"><?php echo e(auth()->user()->unreadNotifications->count()); ?> New</span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="divide-y divide-slate-50 max-h-72 overflow-y-auto">
-                            <?php $__empty_1 = true; $__currentLoopData = auth()->user()->notifications()->take(5)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <div class="flex items-start gap-3 px-4 py-3 <?php echo e($notification->read_at ? 'opacity-60' : 'hover:bg-slate-50 transition-colors'); ?>">
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-semibold text-slate-800"><?php echo e($notification->data['title'] ?? 'Notification'); ?></p>
-                                        <p class="text-xs text-slate-400 mt-0.5"><?php echo e($notification->data['message'] ?? ''); ?></p>
-                                        <p class="text-[10px] text-slate-300 font-semibold mt-1"><?php echo e($notification->created_at->diffForHumans()); ?></p>
-                                    </div>
-                                    <?php if(!$notification->read_at): ?>
-                                        <form action="<?php echo e(route('notifications.markAsRead', $notification->id)); ?>" method="POST">
-                                            <?php echo csrf_field(); ?>
-                                            <button type="submit" class="mt-1 size-2 rounded-full flex-shrink-0 bg-primary-500 hover:bg-primary-600 transition-colors" title="Mark as read"></button>
-                                        </form>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                <div class="px-4 py-6 text-center">
-                                    <p class="text-sm text-slate-500 font-medium">No notifications available</p>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <?php if(auth()->user()->unreadNotifications->count() > 0): ?>
-                            <div class="px-4 py-3 border-t border-slate-100">
-                                <form action="<?php echo e(route('notifications.markAllAsRead')); ?>" method="POST" class="block text-center">
-                                    <?php echo csrf_field(); ?>
-                                    <button type="submit" class="text-xs font-bold text-primary-500 hover:text-primary-600 transition-colors">Mark all as read</button>
-                                </form>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
             </div>
         </header>
 

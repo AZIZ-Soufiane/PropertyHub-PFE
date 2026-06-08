@@ -42,4 +42,23 @@ class AppointmentController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function availableSlots(Request $request)
+    {
+        $request->validate([
+            'property_id' => 'required|exists:properties,id',
+            'date'        => 'required|date|after_or_equal:today',
+        ]);
+
+        try {
+            $property = $this->propertyService->getPropertyById((int) $request->input('property_id'));
+            if (!$property->agent_id) {
+                return response()->json(['slots' => []]);
+            }
+            $slots = $this->appointmentService->getAvailableSlots($property->agent_id, $request->input('date'));
+            return response()->json(['slots' => $slots]);
+        } catch (\Exception $e) {
+            return response()->json(['slots' => [], 'error' => $e->getMessage()], 422);
+        }
+    }
 }

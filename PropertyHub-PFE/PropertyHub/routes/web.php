@@ -41,6 +41,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Public property appointment booking
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+Route::get('/appointments/available-slots', [AppointmentController::class, 'availableSlots'])->name('appointments.available-slots');
 
 // ======================
 // PROTECTED ROUTES

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Property;
 use App\Services\AppointmentService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,37 @@ class AppointmentController extends Controller
             'today'     => Appointment::whereIn('property_id', $propertyIds)->whereDate('date_time', today())->count(),
         ];
 
-        return view('admin.appointments.index', compact('appointments', 'stats', 'status'));
+        // ── Calendar data ──
+        $calMonth = (int) $request->get('month', now()->month);
+        $calYear  = (int) $request->get('year', now()->year);
+        $calStart = Carbon::create($calYear, $calMonth, 1)->startOfMonth();
+        $calEnd   = Carbon::create($calYear, $calMonth, 1)->endOfMonth();
+
+        $appointmentsInMonth = Appointment::with(['client', 'property', 'agent'])
+            ->whereIn('property_id', $propertyIds)
+            ->whereBetween('date_time', [$calStart, $calEnd])
+            ->get()
+            ->groupBy(fn($a) => $a->date_time->format('Y-m-d'));
+
+        $calendar = [
+            'year'        => $calYear,
+            'month'       => $calMonth,
+            'monthName'   => $calStart->format('F'),
+            'daysInMonth' => $calStart->daysInMonth,
+            'startDow'    => $calStart->dayOfWeek, // 0=Sun, 6=Sat
+            'prevMonth'   => Carbon::create($calYear, $calMonth, 1)->subMonth(),
+            'nextMonth'   => Carbon::create($calYear, $calMonth, 1)->addMonth(),
+            'appointments' => $appointmentsInMonth,
+        ];
+
+        // ── Selected date details ──
+        $calDate = $request->get('cal_date');
+        $selectedDateAppts = collect();
+        if ($calDate && isset($appointmentsInMonth[$calDate])) {
+            $selectedDateAppts = $appointmentsInMonth[$calDate];
+        }
+
+        return view('admin.appointments.index', compact('appointments', 'stats', 'status', 'calendar', 'calDate', 'selectedDateAppts'));
     }
 
     public function show(Appointment $appointment)

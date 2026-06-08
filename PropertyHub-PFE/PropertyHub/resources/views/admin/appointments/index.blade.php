@@ -137,4 +137,105 @@
         </div>
     @endif
 </div>
+
+{{-- Calendar --}}
+@php
+    $calQuery = array_filter(request()->query(), fn($k) => !in_array($k, ['cal_date']), ARRAY_FILTER_USE_KEY);
+@endphp
+<div class="mt-8 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden">
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-sm font-black text-slate-700 uppercase tracking-widest">Calendar</h3>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('admin.appointments.index', array_merge($calQuery, ['year' => $calendar['prevMonth']->year, 'month' => $calendar['prevMonth']->month])) }}"
+               class="size-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 transition-colors">
+                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </a>
+            <span class="text-sm font-bold text-slate-700 min-w-[140px] text-center">{{ $calendar['monthName'] }} {{ $calendar['year'] }}</span>
+            <a href="{{ route('admin.appointments.index', array_merge($calQuery, ['year' => $calendar['nextMonth']->year, 'month' => $calendar['nextMonth']->month])) }}"
+               class="size-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 transition-colors">
+                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="p-6">
+        <div class="grid grid-cols-7 mb-2">
+            @foreach(['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] as $d)
+                <div class="text-center text-[10px] font-black text-slate-400 uppercase tracking-widest py-1">{{ $d }}</div>
+            @endforeach
+        </div>
+        <div class="grid grid-cols-7">
+            @php
+                $totalCells = $calendar['startDow'] + $calendar['daysInMonth'];
+                $totalCells = ceil($totalCells / 7) * 7;
+            @endphp
+            @for($i = 0; $i < $totalCells; $i++)
+                @php
+                    $cellDay = $i - $calendar['startDow'] + 1;
+                    $isValid = $cellDay >= 1 && $cellDay <= $calendar['daysInMonth'];
+                    $dateKey = $isValid ? sprintf('%04d-%02d-%02d', $calendar['year'], $calendar['month'], $cellDay) : null;
+                    $hasAppts = $dateKey && isset($calendar['appointments'][$dateKey]);
+                    $apptCount = $hasAppts ? $calendar['appointments'][$dateKey]->count() : 0;
+                    $isToday = $isValid && $dateKey === now()->format('Y-m-d');
+                    $isSelected = $isValid && $dateKey === $calDate;
+                @endphp
+                <div class="aspect-square p-1">
+                    @if($isValid)
+                        <a href="{{ route('admin.appointments.index', array_merge($calQuery, ['year' => $calendar['year'], 'month' => $calendar['month'], 'cal_date' => $dateKey])) }}"
+                           class="size-full rounded-xl flex flex-col items-center justify-center text-sm transition-all
+                                  {{ $isSelected ? 'ring-2 ring-primary-500 bg-primary-100 text-primary-800 font-bold' : '' }}
+                                  {{ !$isSelected && $isToday ? 'ring-2 ring-primary-300' : '' }}
+                                  {{ $hasAppts ? 'bg-primary-50 text-primary-700 font-bold hover:bg-primary-100' : 'text-slate-500 hover:bg-slate-50' }}">
+                            <span>{{ $cellDay }}</span>
+                            @if($apptCount > 0)
+                                <span class="text-[9px] font-bold text-primary-500 -mt-0.5">{{ $apptCount }}</span>
+                            @endif
+                        </a>
+                    @else
+                        <div class="size-full"></div>
+                    @endif
+                </div>
+            @endfor
+        </div>
+
+        {{-- Appointments for selected date --}}
+        @if($calDate)
+            <div class="mt-6 border-t border-slate-100 pt-4">
+                <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Appointments for {{ $calDate }}</h4>
+                @forelse($selectedDateAppts as $appt)
+                    <div class="flex items-center justify-between py-3 px-4 rounded-xl hover:bg-slate-50 transition-colors border border-slate-100 mb-2">
+                        <div class="flex items-start gap-4">
+                            <div class="text-center min-w-[60px]">
+                                <p class="text-sm font-black text-slate-700">{{ $appt->date_time->format('h:i A') }}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-slate-800">{{ optional($appt->client)->name ?? 'N/A' }}</p>
+                                <p class="text-xs text-slate-400">{{ optional($appt->client)->email ?? '' }}</p>
+                                <p class="text-xs text-slate-500 mt-1">
+                                    {{ optional($appt->property)->title ?? 'Deleted' }}
+                                    @if(optional($appt->property)->city) — {{ $appt->property->city }} @endif
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end gap-2">
+                            <span class="py-0.5 px-2 rounded-full text-[9px] font-bold uppercase whitespace-nowrap
+                                {{ match($appt->status) {
+                                    'pending' => 'bg-amber-100 text-amber-700',
+                                    'scheduled' => 'bg-blue-100 text-blue-700',
+                                    'confirmed' => 'bg-emerald-100 text-emerald-700',
+                                    'completed' => 'bg-teal-100 text-teal-700',
+                                    'cancelled' => 'bg-red-100 text-red-700',
+                                    default => 'bg-slate-100 text-slate-700',
+                                } }}">{{ $appt->status }}</span>
+                            <a href="{{ route('admin.appointments.show', $appt) }}"
+                               class="text-xs font-bold text-primary-500 hover:text-primary-600 transition-colors whitespace-nowrap">View Details</a>
+                        </div>
+                    </div>
+                @empty
+                    <p class="text-sm text-slate-400 py-2">No appointments this day.</p>
+                @endforelse
+            </div>
+        @endif
+    </div>
+</div>
 @endsection

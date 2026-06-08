@@ -40,7 +40,7 @@ class UserController extends Controller
             'name'           => 'required|string|max:255',
             'email'          => 'required|email|unique:users,email',
             'password'       => 'required|min:8|confirmed',
-            'role'           => 'required|in:admin,agent,buyer',
+            'role'           => 'required|in:admin,agent',
             'license_number' => 'nullable|string|max:100',
         ]);
 
@@ -69,7 +69,7 @@ class UserController extends Controller
             'name'           => 'required|string|max:255',
             'email'          => 'required|email|unique:users,email,' . $user->id,
             'password'       => 'nullable|min:8|confirmed',
-            'role'           => 'required|in:admin,agent,buyer',
+            'role'           => 'required|in:admin,agent',
             'license_number' => 'nullable|string|max:100',
         ]);
 

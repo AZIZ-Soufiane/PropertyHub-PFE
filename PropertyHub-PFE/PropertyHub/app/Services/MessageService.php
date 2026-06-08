@@ -161,6 +161,11 @@ class MessageService
             ->count();
     }
 
+    public function getRecentConversations(int $userId, string $role, int $limit = 5): array
+    {
+        return array_slice($this->getAllowedContacts($userId, $role), 0, $limit);
+    }
+
     /* -----------------------------------------------------------------
      | Write paths
      | ----------------------------------------------------------------- */

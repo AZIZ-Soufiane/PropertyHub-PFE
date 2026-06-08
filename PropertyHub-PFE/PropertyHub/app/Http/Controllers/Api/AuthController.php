@@ -20,7 +20,6 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:buyer,agent,admin',
         ]);
 
         try {
@@ -28,7 +27,7 @@ class AuthController extends Controller
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
-                'role' => $request->get('role'),
+                'role' => 'buyer',
             ]);
 
             $token = $user->createToken('api-token')->plainTextToken;

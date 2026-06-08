@@ -31,4 +31,5 @@ class AdminDashboardService
             'total_revenue'             => 0,
         ];
     }
+
 }

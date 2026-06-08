@@ -42,6 +42,9 @@ class AuthController extends Controller
             if ($user->role === 'agent') {
                 return redirect()->route('agent.dashboard');
             }
+            if ($user->role === 'buyer') {
+                return redirect()->route('buyer.dashboard');
+            }
             return redirect()->route('home');
         }
 
@@ -65,7 +68,7 @@ class AuthController extends Controller
         }
 
         Auth::login($user);
-        return redirect()->route('home');
+        return redirect()->route('buyer.dashboard');
     }
 
     public function logout(Request $request)

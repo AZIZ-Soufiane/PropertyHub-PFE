@@ -3,7 +3,7 @@
 @section('title', 'Messages')
 
 @section('page-title', 'Messages')
-@section('page-subtitle', 'Conversations with agents and clients')
+@section('page-subtitle', 'Conversations with agents')
 
 @section('content')
 <div class="flex flex-col lg:flex-row h-[calc(100vh-200px)] gap-0 bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">

@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Appointment;
 use App\Models\Message;
+use App\Models\Property;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,15 +17,23 @@ class MessageService
      | ----------------------------------------------------------------- */
 
     /**
-     * Inbox-style list of most recent messages grouped by conversation partner.
+     * Inbox-style list of most recent conversations filtered by role.
+     *
+     * - admin : only conversations with agents
+     * - agent : only conversations with buyers (clients on their properties)
+     * - buyer : only conversations with agents
      */
-    public function getRecentConversations(int $userId, int $limit = 10): array
+    public function getRecentConversations(int $userId, string $role, int $limit = 10): array
     {
-        $messages = Message::with('sender', 'receiver')
-            ->where('sender_id', $userId)
-            ->orWhere('receiver_id', $userId)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = Message::with('sender', 'receiver')
+            ->where(function ($q) use ($userId) {
+                $q->where('sender_id', $userId)
+                  ->orWhere('receiver_id', $userId);
+            });
+
+        $query = $this->applyRoleFilter($query, $userId, $role);
+
+        $messages = $query->orderBy('created_at', 'desc')->get();
 
         $conversations = [];
         $seen = [];
@@ -39,6 +49,66 @@ class MessageService
             }
         }
         return $conversations;
+    }
+
+    /**
+     * Apply role-based filtering to a message query.
+     *
+     * - admin : only conversations where the other party is an agent
+     * - agent : only conversations where the other party is a buyer or admin
+     * - buyer : only conversations where the other party is an agent
+     */
+    private function applyRoleFilter($query, int $userId, string $role)
+    {
+        if ($role === 'admin') {
+            $query->where(function ($q) {
+                $q->whereHas('sender', fn($q) => $q->where('role', 'agent'))
+                  ->orWhereHas('receiver', fn($q) => $q->where('role', 'agent'));
+            });
+        } elseif ($role === 'agent') {
+            $query->where(function ($q) {
+                $q->where(function ($sub) {
+                    $sub->whereHas('sender', fn($q) => $q->where('role', 'buyer'))
+                        ->orWhereHas('receiver', fn($q) => $q->where('role', 'buyer'));
+                });
+                $q->orWhere(function ($sub) {
+                    $sub->whereHas('sender', fn($q) => $q->where('role', 'admin'))
+                        ->orWhereHas('receiver', fn($q) => $q->where('role', 'admin'));
+                });
+            });
+        } elseif ($role === 'buyer') {
+            $query->where(function ($q) {
+                $q->whereHas('sender', fn($q) => $q->where('role', 'agent'))
+                  ->orWhereHas('receiver', fn($q) => $q->where('role', 'agent'));
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * Check whether the authenticated user is allowed to conversation-partner with $otherUserId.
+     */
+    public function canConversate(int $authId, string $authRole, int $otherUserId): bool
+    {
+        $other = User::find($otherUserId);
+        if (!$other) {
+            return false;
+        }
+
+        if ($authRole === 'admin') {
+            return $other->role === 'agent';
+        }
+
+        if ($authRole === 'buyer') {
+            return $other->role === 'agent';
+        }
+
+        if ($authRole === 'agent') {
+            return in_array($other->role, ['admin', 'buyer'], true);
+        }
+
+        return false;
     }
 
     public function getConversation(int $userId1, int $userId2, int $perPage = 20): LengthAwarePaginator

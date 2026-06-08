@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Agent;
+namespace App\Http\Controllers\Buyer;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -14,18 +14,18 @@ class MessageController extends Controller
 
     public function index()
     {
-        $conversations = $this->messageService->getRecentConversations(Auth::id(), 'agent');
-        return view('agent.messages.index', compact('conversations'));
+        $conversations = $this->messageService->getRecentConversations(Auth::id(), 'buyer');
+        return view('buyer.messages.index', compact('conversations'));
     }
 
     public function show(User $user)
     {
-        abort_unless($this->messageService->canConversate(Auth::id(), 'agent', $user->id), 403);
+        abort_unless($this->messageService->canConversate(Auth::id(), 'buyer', $user->id), 403);
 
         $this->messageService->markConversationAsRead(Auth::id(), $user->id);
         $messages = $this->messageService->getConversation(Auth::id(), $user->id);
 
-        return view('agent.messages.show', compact('user', 'messages'));
+        return view('buyer.messages.show', compact('user', 'messages'));
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class MessageController extends Controller
             'content'     => 'required|string',
         ]);
 
-        abort_unless($this->messageService->canConversate(Auth::id(), 'agent', (int) $validated['receiver_id']), 403);
+        abort_unless($this->messageService->canConversate(Auth::id(), 'buyer', (int) $validated['receiver_id']), 403);
 
         $this->messageService->sendMessage(Auth::id(), (int) $validated['receiver_id'], $validated['content']);
 

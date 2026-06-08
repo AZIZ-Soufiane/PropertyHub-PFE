@@ -14,12 +14,14 @@ class MessageController extends Controller
 
     public function index()
     {
-        $conversations = $this->messageService->getRecentConversations(Auth::id());
+        $conversations = $this->messageService->getRecentConversations(Auth::id(), 'admin');
         return view('admin.messages.index', compact('conversations'));
     }
 
     public function show(User $user)
     {
+        abort_unless($this->messageService->canConversate(Auth::id(), 'admin', $user->id), 403);
+
         $this->messageService->markConversationAsRead(Auth::id(), $user->id);
         $messages = $this->messageService->getConversation(Auth::id(), $user->id);
 
@@ -32,6 +34,8 @@ class MessageController extends Controller
             'receiver_id' => 'required|exists:users,id',
             'content'     => 'required|string',
         ]);
+
+        abort_unless($this->messageService->canConversate(Auth::id(), 'admin', (int) $validated['receiver_id']), 403);
 
         $this->messageService->sendMessage(Auth::id(), (int) $validated['receiver_id'], $validated['content']);
 

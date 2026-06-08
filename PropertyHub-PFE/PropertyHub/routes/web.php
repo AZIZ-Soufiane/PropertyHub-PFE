@@ -12,6 +12,10 @@ use App\Http\Controllers\Agent\MessageController as AgentMessageController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\LogController as AdminLogController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Buyer\DashboardController as BuyerDashboardController;
+use App\Http\Controllers\Buyer\AppointmentController as BuyerAppointmentController;
+use App\Http\Controllers\Buyer\MessageController as BuyerMessageController;
+use App\Http\Controllers\Buyer\FavoriteController as BuyerFavoriteController;
 
 // ======================
 // PUBLIC ROUTES
@@ -50,13 +54,16 @@ Route::middleware(['auth'])->group(function () {
         if ($user->role === 'agent') {
             return redirect()->route('agent.dashboard');
         }
+        if ($user->role === 'buyer') {
+            return redirect()->route('buyer.dashboard');
+        }
         return redirect()->route('home');
     })->name('dashboard');
 
     // ======================
     // AGENT ROUTES
     // ======================
-    Route::prefix('agent')->name('agent.')->group(function () {
+    Route::prefix('agent')->name('agent.')->middleware('role:agent')->group(function () {
         Route::get('/dashboard', [AgentPropertyController::class, 'dashboard'])->name('dashboard');
         
         Route::get('/properties', [AgentPropertyController::class, 'index'])->name('properties.index');
@@ -77,9 +84,25 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // ======================
+    // BUYER ROUTES
+    // ======================
+    Route::prefix('buyer')->name('buyer.')->middleware('role:buyer')->group(function () {
+        Route::get('/dashboard', [BuyerDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/appointments', [BuyerAppointmentController::class, 'index'])->name('appointments.index');
+
+        Route::get('/messages', [BuyerMessageController::class, 'index'])->name('messages.index');
+        Route::get('/messages/{user}', [BuyerMessageController::class, 'show'])->name('messages.show');
+        Route::post('/messages', [BuyerMessageController::class, 'store'])->name('messages.store');
+
+        Route::get('/favorites', [BuyerFavoriteController::class, 'index'])->name('favorites.index');
+        Route::post('/favorites/{property}', [BuyerFavoriteController::class, 'toggle'])->name('favorites.toggle');
+    });
+
+    // ======================
     // ADMIN ROUTES
     // ======================
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
         Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
         
         Route::get('/users', [UserController::class, 'index'])->name('users.index');

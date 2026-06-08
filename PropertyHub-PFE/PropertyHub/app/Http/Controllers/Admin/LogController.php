@@ -28,7 +28,7 @@ class LogController extends Controller
             $raw = File::get($logFile);
 
             if (preg_match_all(
-                '/^\[(?P<date>[^\]]+)\]\s+(?P<env>[^.]+)\.(?P<level>[^:]+):\s*(?P<message>.*?)(?=\n\[|\Z)/ms',
+                '/^\[(?P<date>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]\s+(?P<env>[^.]+)\.(?P<level>[^\s:]+):\s*(?P<message>(?:.*\n?)*?)(?=\n\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]|\Z)/ms',
                 $raw,
                 $matches,
                 PREG_SET_ORDER

@@ -25,6 +25,15 @@ class AppointmentService
             ->paginate($perPage);
     }
 
+    public function getAppointmentsForBuyer(int $buyerId, int $perPage = 15): LengthAwarePaginator
+    {
+        return Appointment::with(['property', 'agent'])
+            ->where('buyer_id', $buyerId)
+            ->orderBy('date_time', 'desc')
+            ->paginate($perPage);
+    }
+
+
     public function getAgentAppointmentsOnDate(int $agentId, Carbon $date): Collection
     {
         return Appointment::with('property', 'client')

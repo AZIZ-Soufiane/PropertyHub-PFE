@@ -19,7 +19,7 @@
     {{-- ═══════════════════════════════════════════
          SIDEBAR
     ════════════════════════════════════════════════ --}}
-    <aside class="hidden lg:flex w-full sm:w-64 lg:w-64 flex-shrink-0 bg-white border-r border-slate-200 flex-col pt-6 sm:pt-7 pb-8 sm:pb-10 min-h-screen">
+    <aside class="hidden lg:flex w-full sm:w-64 lg:w-64 flex-shrink-0 bg-white border-r border-slate-200 flex-col pt-6 sm:pt-7 pb-8 sm:pb-10 min-h-screen relative z-[60]">
         <div class="px-4 sm:px-6 mb-6 sm:mb-8">
             <a class="text-xl sm:text-2xl font-black tracking-tighter" href="{{ route('home') }}" aria-label="PropertyHub" style="color:#3b65ad;">PropertyHub</a>
             <p class="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1 sm:mt-2">Admin Portal</p>

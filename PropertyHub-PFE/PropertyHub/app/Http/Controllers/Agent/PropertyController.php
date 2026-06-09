@@ -27,10 +27,7 @@ class PropertyController extends Controller
         return view('agent.properties.index', compact('properties'));
     }
 
-    public function create()
-    {
-        return view('agent.properties.create');
-    }
+
 
     public function store(Request $request)
     {
@@ -57,11 +54,7 @@ class PropertyController extends Controller
         return redirect()->route('agent.properties.index')->with('success', 'Property created successfully');
     }
 
-    public function edit(int $propertyId)
-    {
-        $property = $this->propertyService->getAgentProperty($propertyId, Auth::id());
-        return view('agent.properties.create', compact('property'));
-    }
+
 
     public function update(Request $request, int $propertyId)
     {

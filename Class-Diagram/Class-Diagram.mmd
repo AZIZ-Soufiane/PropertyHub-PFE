@@ -5,34 +5,12 @@ classDiagram
 %% ==================================================
 
 class User {
-    <<abstract>>
     +String userId
     +String email
     +String password
     +login()
     +logout()
     +receivePushNotification()
-}
-
-class Visitor {
-    +searchProperties()
-}
-
-class Buyer {
-    +List~Property~ favorites
-    +manageFavorites()
-    +scheduleAppointment()
-}
-
-class Agent {
-    +String licenseNumber
-    +manageListings()
-    +viewClientHistory()
-}
-
-class Admin {
-    +manageRoles()
-    +generateReports()
 }
 
 class Role {
@@ -104,16 +82,7 @@ class Report {
 }
 
 %% ==================================================
-%% INHERITANCE
-%% ==================================================
-
-User <|-- Visitor
-User <|-- Buyer
-User <|-- Agent
-Agent <|-- Admin
-
-%% ==================================================
-%% PROPERTY RELATIONSHIPS
+%% RELATIONSHIPS
 %% ==================================================
 
 Agent "1" --> "*" Property : manages
@@ -121,32 +90,30 @@ Property "1" *-- "1" Gallery : contains
 Buyer "*" --> "*" Property : favorites
 Property "*" --> "1" PropertyStatus : has
 
-%% ==================================================
-%% APPOINTMENT SYSTEM
-%% ==================================================
-
 Buyer "1" --> "*" Appointment : requests
 Agent "1" --> "*" Appointment : conducts
 Agent "1" --> "1" Calendar : owns
 Calendar "1" --> "*" Appointment : stores
 
-%% ==================================================
-%% COMMUNICATION
-%% ==================================================
-
 Buyer "1" --> "*" Message : sends
 Agent "1" --> "*" Message : sends
-
-%% ==================================================
-%% ADMINISTRATION
-%% ==================================================
 
 Admin "1" --> "*" Report : views
 
 %% ==================================================
-%% AUTHORIZATION (SPATIE)
+%% AUTHORIZATION (SPATIE RBAC)
 %% ==================================================
 
 User "*" --> "*" Role : has
 Role "*" --> "*" Permission : contains
 User "*" --> "*" Permission : has direct
+
+%% ==================================================
+%% NOTES ON ROLES
+%% ==================================================
+%% Roles are stored in database:
+%% - Visitor: read-only property access
+%% - Buyer: search, favorite, request appointments
+%% - Agent: manage listings, view clients, schedule
+%% - Admin: manage roles, generate reports
+%% ==================================================

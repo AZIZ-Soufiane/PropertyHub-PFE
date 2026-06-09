@@ -8,13 +8,6 @@
         <h1 class="text-2xl font-extrabold text-gray-800">Welcome back, {{ auth()->user()->name }}</h1>
         <p class="text-sm text-gray-500 mt-1">Here's what's happening today.</p>
     </div>
-    <a href="{{ route('agent.properties.create') }}"
-        class="py-2.5 px-4 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl bg-primary-600 text-white hover:bg-primary-700 shadow-sm transition-all">
-        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-        </svg>
-        Add Property
-    </a>
 </div>
 
 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -205,7 +198,7 @@
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">
-                            No properties yet. <a href="{{ route('agent.properties.create') }}" class="text-primary-600 font-semibold">Create your first listing</a>.
+                            No properties yet. <a href="{{ route('agent.properties.index') }}" class="text-primary-600 font-semibold">Manage your properties</a>.
                         </td>
                     </tr>
                 @endforelse

@@ -49,14 +49,7 @@ class PropertyController extends Controller
         return redirect()->route('admin.properties.index')->with('success', 'Property created successfully.');
     }
 
-    public function edit(Property $property)
-    {
-        $property = $this->propertyService->getPropertyById($property->id);
-        $agents   = $this->propertyService->getAssignableAgents();
-        $statuses = $this->propertyService->getAllStatuses();
 
-        return view('admin.properties.edit', compact('property', 'agents', 'statuses'));
-    }
 
     public function update(Request $request, Property $property)
     {

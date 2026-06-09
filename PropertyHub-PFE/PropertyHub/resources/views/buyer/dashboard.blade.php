@@ -95,7 +95,10 @@
         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden">
             <div class="divide-y divide-gray-100">
                 @forelse($recentMessages as $msg)
-                    @php $contact = $msg->sender_id === auth()->id() ? $msg->receiver : $msg->sender; @endphp
+                    @php 
+                        $contact = $msg->contact;
+                        $latest = $msg->latest_message;
+                    @endphp
                     <a href="{{ route('buyer.messages.show', $contact) }}"
                         class="flex items-center gap-x-4 p-4 hover:bg-gray-50 transition-colors group">
                         <div class="size-11 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold flex-shrink-0 group-hover:ring-2 ring-primary-500/50 transition-all">
@@ -104,9 +107,9 @@
                         <div class="grow min-w-0">
                             <div class="flex justify-between items-center mb-0.5">
                                 <h4 class="text-sm font-bold text-gray-800 truncate">{{ $contact->name ?? 'Unknown' }}</h4>
-                                <span class="text-[10px] font-medium text-gray-400 uppercase flex-shrink-0">{{ $msg->created_at->diffForHumans(null, true) }}</span>
+                                <span class="text-[10px] font-medium text-gray-400 uppercase flex-shrink-0">{{ $latest ? $latest->created_at->diffForHumans(null, true) : '' }}</span>
                             </div>
-                            <p class="text-xs text-gray-500 truncate">{{ $msg->content }}</p>
+                            <p class="text-xs text-gray-500 truncate">{{ $latest->content ?? 'No messages yet.' }}</p>
                         </div>
                     </a>
                 @empty

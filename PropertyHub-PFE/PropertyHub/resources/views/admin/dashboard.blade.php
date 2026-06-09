@@ -5,10 +5,6 @@
 @section('page-subtitle', 'Welcome back, ' . Auth::user()->name)
 
 @section('header-actions')
-    <a href="{{ route('admin.users.create') }}" class="hidden sm:inline-flex items-center gap-x-2 py-2 px-4 text-sm font-bold rounded-xl bg-primary-500 text-white hover:bg-primary-600 transition-all shadow-md shadow-primary-500/20">
-        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M12 4v16m8-8H4"/></svg>
-        Add Member
-    </a>
 @endsection
 
 @section('content')
@@ -85,7 +81,7 @@
         </div>
         <div class="divide-y divide-slate-100">
             @forelse($users as $u)
-                <a href="{{ route('admin.users.show', $u) }}" class="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 transition-colors">
+                <a href="{{ route('admin.users.index') }}" class="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 transition-colors">
                     <div class="size-11 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 text-white flex items-center justify-center font-black text-sm shadow-sm">
                         {{ strtoupper(substr($u->name, 0, 1)) }}
                     </div>
@@ -127,16 +123,6 @@
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-bold text-slate-800 group-hover:text-primary-600">Manage properties</p>
                         <p class="text-xs text-slate-400">Approve, reject, edit</p>
-                    </div>
-                    <svg class="size-4 text-slate-300 group-hover:text-primary-500 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-                </a>
-                <a href="{{ route('admin.users.create') }}" class="flex items-center gap-3 px-3 py-3 rounded-2xl hover:bg-slate-50 group transition-all">
-                    <span class="size-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
-                    </span>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-bold text-slate-800 group-hover:text-primary-600">Invite a user</p>
-                        <p class="text-xs text-slate-400">Create a new account</p>
                     </div>
                     <svg class="size-4 text-slate-300 group-hover:text-primary-500 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
                 </a>

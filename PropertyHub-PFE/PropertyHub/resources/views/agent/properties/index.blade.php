@@ -3,7 +3,7 @@
 @section('title', 'My Properties')
 
 @section('content')
-<div x-data="{ showCreateModal: {{ !old('_method') && $errors->any() ? 'true' : 'false' }} }" class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-3xl overflow-hidden">
+<div x-data="propertyManager({{ !old('_method') && $errors->any() ? 'true' : 'false' }})" class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-3xl overflow-hidden">
     <div class="px-6 py-5 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="flex-1 flex items-center gap-3 w-full">
             <div class="relative flex-1 max-w-sm">
@@ -55,13 +55,18 @@
                         ];
                         $pill = $pillMap[$statusName] ?? 'bg-gray-100 text-gray-700';
                     @endphp
-                    <tr x-data="{ showEditModal: {{ old('property_id') == $property->id && $errors->any() ? 'true' : 'false' }} }" class="hover:bg-gray-50 transition-colors">
+                    <tr x-data="propertyEditor({{ old('property_id') == $property->id && $errors->any() ? 'true' : 'false' }})" class="hover:bg-gray-50 transition-colors">
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center gap-3">
                                 <img class="size-10 rounded-xl object-cover" src="{{ $property->image_url }}" alt="">
                                 <div>
                                     <p class="text-sm font-bold text-gray-800">{{ $property->title }}</p>
                                     <p class="text-xs text-gray-400 font-medium">{{ $property->city }}, {{ $property->country }}</p>
+                                    @if($property->admin_note)
+                                        <p class="text-[10px] text-rose-600 font-extrabold uppercase mt-1 tracking-wide" title="{{ $property->admin_note }}">
+                                            Note: {{ Str::limit($property->admin_note, 45) }}
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
                         </td>
@@ -98,94 +103,126 @@
                                     </button>
                                 </form>
                             </div>
+                            <!-- Edit Property Modal -->
+                            <div x-show="showEditModal" class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+                                <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showEditModal = false" x-show="showEditModal" x-transition.opacity></div>
+                                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 lg:ps-64">
+                                    <div x-show="showEditModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all w-full sm:my-8 sm:max-w-4xl font-sans">
+                                        <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-white">
+                                            <div>
+                                                <h2 class="text-2xl font-black text-gray-800">Edit Listing</h2>
+                                            </div>
+                                            <button type="button" @click="showEditModal = false" class="size-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors">
+                                                <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                            </button>
+                                        </div>
+                                        <form action="{{ route('agent.properties.update', $property) }}" method="POST" enctype="multipart/form-data" class="bg-white">
+                                            @csrf @method('PUT')
+                                            <input type="hidden" name="property_id" value="{{ $property->id }}">
+                                            <div class="p-8 space-y-6 overflow-y-auto max-h-[70vh]">
+                                                @if($property->admin_note)
+                                                    <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-sm font-medium">
+                                                        <p class="font-extrabold text-[10px] uppercase tracking-wider text-amber-600 mb-1">Feedback from Admin</p>
+                                                        {{ $property->admin_note }}
+                                                    </div>
+                                                @endif
+                                                @if(old('property_id') == $property->id && $errors->any())
+                                                    <div class="mb-4 p-4 rounded-xl bg-rose-50 text-rose-700 text-sm font-semibold">
+                                                        <ul class="list-disc list-inside">@foreach($errors->all() as $err) <li>{{ $err }}</li> @endforeach</ul>
+                                                    </div>
+                                                @endif
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                                    <div class="sm:col-span-2">
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Property Title</label>
+                                                        <input type="text" name="title" value="{{ old('title', $property->title) }}" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Price ($)</label>
+                                                        <input type="number" name="price" value="{{ old('price', $property->price) }}" required min="0" step="0.01" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Property Type</label>
+                                                        <select name="type" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                            @foreach(['villa','apartment','house','penthouse','land'] as $t)
+                                                                <option value="{{ $t }}" @selected(old('type', $property->type) === $t)>{{ ucfirst($t) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Bedrooms</label>
+                                                        <input type="number" name="bedrooms" value="{{ old('bedrooms', $property->bedrooms) }}" required min="0" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Bathrooms</label>
+                                                        <input type="number" name="bathrooms" value="{{ old('bathrooms', $property->bathrooms) }}" required min="0" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Total Area (sq ft)</label>
+                                                        <input type="number" name="area" value="{{ old('area', $property->area) }}" required min="0" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Country</label>
+                                                        <input type="text" name="country" value="{{ old('country', $property->country) }}" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">City</label>
+                                                        <input type="text" name="city" value="{{ old('city', $property->city) }}" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Address</label>
+                                                        <input type="text" name="address" value="{{ old('address', $property->address) }}" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div class="sm:col-span-2">
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Description</label>
+                                                        <textarea name="description" rows="4" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">{{ old('description', $property->description) }}</textarea>
+                                                    </div>
+                                                    <div class="sm:col-span-2">
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Features (comma-separated)</label>
+                                                        <input type="text" name="features" value="{{ old('features', is_array($property->features) ? implode(', ', $property->features) : $property->features) }}" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    </div>
+                                                    <div class="sm:col-span-2">
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Current Images</label>
+                                                        <div class="flex flex-wrap gap-3">
+                                                            @php $hasImages = false; @endphp
+                                                            @foreach($property->images as $gallery)
+                                                                @if(is_array($gallery->image_urls))
+                                                                    @foreach($gallery->image_urls as $url)
+                                                                        @php $hasImages = true; @endphp
+                                                                        <div class="relative group size-20 rounded-xl overflow-hidden bg-slate-100 border border-slate-200" x-show="!deletedImages.includes('{{ $url }}')">
+                                                                            <img src="{{ $url }}" class="size-full object-cover">
+                                                                            <button type="button" @click="deletedImages.push('{{ $url }}')" class="absolute inset-0 bg-rose-600/80 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity" title="Delete image">
+                                                                                <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                                                            </button>
+                                                                        </div>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endforeach
+                                                            @if(!$hasImages)
+                                                                <p class="text-xs text-slate-400 font-medium italic">No uploaded images yet.</p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:col-span-2">
+                                                        <label class="block mb-2 text-sm font-bold text-gray-700">Upload New Photos</label>
+                                                        <input type="file" name="images[]" multiple accept="image/*" class="block w-full text-sm text-slate-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-500 hover:file:bg-primary-100">
+                                                    </div>
+                                                    <div class="hidden">
+                                                        <template x-for="img in deletedImages" :key="img">
+                                                            <input type="hidden" name="delete_images[]" :value="img">
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pt-6 pb-6 px-8 flex justify-end gap-x-3 border-t border-gray-100">
+                                                <button type="button" @click="showEditModal = false" class="py-3 px-6 text-sm font-bold rounded-xl border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-all">Cancel</button>
+                                                <button type="submit" class="py-3 px-6 text-sm font-bold rounded-xl bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all">Update Listing</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
-                    
-                    <!-- Edit Property Modal -->
-                    <div x-show="showEditModal" class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
-                        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showEditModal = false" x-show="showEditModal" x-transition.opacity></div>
-                        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 lg:ps-64">
-                            <div x-show="showEditModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all w-full sm:my-8 sm:max-w-4xl font-sans">
-                                <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-white">
-                                    <div>
-                                        <h2 class="text-2xl font-black text-gray-800">Edit Listing</h2>
-                                    </div>
-                                    <button type="button" @click="showEditModal = false" class="size-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors">
-                                        <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                    </button>
-                                </div>
-                                <form action="{{ route('agent.properties.update', $property) }}" method="POST" enctype="multipart/form-data" class="bg-white">
-                                    @csrf @method('PUT')
-                                    <input type="hidden" name="property_id" value="{{ $property->id }}">
-                                    <div class="p-8 space-y-6 overflow-y-auto max-h-[70vh]">
-                                        @if(old('property_id') == $property->id && $errors->any())
-                                            <div class="mb-4 p-4 rounded-xl bg-rose-50 text-rose-700 text-sm font-semibold">
-                                                <ul class="list-disc list-inside">@foreach($errors->all() as $err) <li>{{ $err }}</li> @endforeach</ul>
-                                            </div>
-                                        @endif
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                            <div class="sm:col-span-2">
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Property Title</label>
-                                                <input type="text" name="title" value="{{ old('title', $property->title) }}" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Price ($)</label>
-                                                <input type="number" name="price" value="{{ old('price', $property->price) }}" required min="0" step="0.01" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Property Type</label>
-                                                <select name="type" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                                    @foreach(['villa','apartment','house','penthouse','land'] as $t)
-                                                        <option value="{{ $t }}" @selected(old('type', $property->type) === $t)>{{ ucfirst($t) }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Bedrooms</label>
-                                                <input type="number" name="bedrooms" value="{{ old('bedrooms', $property->bedrooms) }}" required min="0" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Bathrooms</label>
-                                                <input type="number" name="bathrooms" value="{{ old('bathrooms', $property->bathrooms) }}" required min="0" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Total Area (sq ft)</label>
-                                                <input type="number" name="area" value="{{ old('area', $property->area) }}" required min="0" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Country</label>
-                                                <input type="text" name="country" value="{{ old('country', $property->country) }}" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">City</label>
-                                                <input type="text" name="city" value="{{ old('city', $property->city) }}" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div>
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Address</label>
-                                                <input type="text" name="address" value="{{ old('address', $property->address) }}" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div class="sm:col-span-2">
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Description</label>
-                                                <textarea name="description" rows="4" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">{{ old('description', $property->description) }}</textarea>
-                                            </div>
-                                            <div class="sm:col-span-2">
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Features (comma-separated)</label>
-                                                <input type="text" name="features" value="{{ old('features', is_array($property->features) ? implode(', ', $property->features) : $property->features) }}" class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                            </div>
-                                            <div class="sm:col-span-2">
-                                                <label class="block mb-2 text-sm font-bold text-gray-700">Upload Photos</label>
-                                                <input type="file" name="images[]" multiple accept="image/*" class="block w-full text-sm text-slate-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-500 hover:file:bg-primary-100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pt-6 pb-6 px-8 flex justify-end gap-x-3 border-t border-gray-100">
-                                        <button type="button" @click="showEditModal = false" class="py-3 px-6 text-sm font-bold rounded-xl border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-all">Cancel</button>
-                                        <button type="submit" class="py-3 px-6 text-sm font-bold rounded-xl bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-600/20 transition-all">Update Listing</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">

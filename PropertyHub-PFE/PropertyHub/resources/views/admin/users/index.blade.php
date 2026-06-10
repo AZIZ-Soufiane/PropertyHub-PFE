@@ -16,13 +16,7 @@
         'license_number' => old('license_number', ''),
     ] : null;
 @endphp
-<div x-data="{
-    showCreateModal: {{ $errors->any() && !old('user_id') ? 'true' : 'false' }},
-    showViewModal: false,
-    viewUser: null,
-    showEditModal: {{ $editErrorData ? 'true' : 'false' }},
-    editUser: {{ $editErrorData ? json_encode($editErrorData) : 'null' }}
-}" @open-create-user.window="showCreateModal = true">
+<div x-data="userManager({{ $errors->any() && !old('user_id') ? 'true' : 'false' }}, {{ $editErrorData ? 'true' : 'false' }}, {{ $editErrorData ? json_encode($editErrorData) : 'null' }})" @open-create-user.window="showCreateModal = true">
 
 {{-- Stats --}}
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -62,7 +56,7 @@
             @foreach(['admin', 'agent', 'buyer'] as $r)
                 <a href="{{ route('admin.users.index', array_merge(request()->all(), ['role' => $r])) }}"
                    class="px-3 py-1.5 rounded-full text-xs font-bold transition-all {{ request('role') === $r ? 'bg-primary-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
-                    {{ ucfirst($r) }}{{ $r }}s
+                    {{ ucfirst($r) }}s
                 </a>
             @endforeach
         </div>

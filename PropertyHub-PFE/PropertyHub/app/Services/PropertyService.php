@@ -178,10 +178,20 @@ class PropertyService
 
             $property = new Property();
             $property->fill($data);
+            if (empty($property->location)) {
+                $property->location = trim(($data['city'] ?? '') . ', ' . ($data['country'] ?? ''), ', ');
+            }
             if (!empty($data['status'])) {
                 $property->status = $data['status'];
             }
             $property->save();
+
+            if ($property->status === 'pending') {
+                $admins = User::where('role', 'admin')->get();
+                foreach ($admins as $admin) {
+                    $admin->notify(new \App\Notifications\PropertySubmitted($property));
+                }
+            }
 
             return $property;
         });
@@ -200,10 +210,20 @@ class PropertyService
             }
 
             $property->fill($data);
+            if (empty($property->location)) {
+                $property->location = trim(($data['city'] ?? $property->city ?? '') . ', ' . ($data['country'] ?? $property->country ?? ''), ', ');
+            }
             if (!empty($data['status'])) {
                 $property->status = $data['status'];
             }
             $property->save();
+
+            if ($property->status === 'pending') {
+                $admins = User::where('role', 'admin')->get();
+                foreach ($admins as $admin) {
+                    $admin->notify(new \App\Notifications\PropertySubmitted($property));
+                }
+            }
 
             return $property;
         });
@@ -217,22 +237,34 @@ class PropertyService
         });
     }
 
-    public function approveProperty(int $propertyId): Property
+    public function approveProperty(int $propertyId, ?string $note = null): Property
     {
-        return DB::transaction(function () use ($propertyId) {
+        return DB::transaction(function () use ($propertyId, $note) {
             $property = Property::findOrFail($propertyId);
             $property->status = 'approved';
+            $property->admin_note = $note;
             $property->save();
+
+            if ($property->agent) {
+                $property->agent->notify(new \App\Notifications\PropertyStatusChanged($property, 'approved', $note));
+            }
+
             return $property;
         });
     }
 
-    public function rejectProperty(int $propertyId): Property
+    public function rejectProperty(int $propertyId, ?string $note = null): Property
     {
-        return DB::transaction(function () use ($propertyId) {
+        return DB::transaction(function () use ($propertyId, $note) {
             $property = Property::findOrFail($propertyId);
             $property->status = 'rejected';
+            $property->admin_note = $note;
             $property->save();
+
+            if ($property->agent) {
+                $property->agent->notify(new \App\Notifications\PropertyStatusChanged($property, 'rejected', $note));
+            }
+
             return $property;
         });
     }
@@ -251,10 +283,36 @@ class PropertyService
         }
         $urls = [];
         foreach ($files as $file) {
-            $path = $file->store('properties', 'public');
-            $urls[] = '/storage/' . $path;
+            if ($file instanceof \Illuminate\Http\UploadedFile && $file->isValid()) {
+                $path = $file->store('properties', 'public');
+                $urls[] = '/storage/' . $path;
+            }
         }
-        $property->images()->create(['image_urls' => $urls]);
+        if (!empty($urls)) {
+            $property->images()->create(['image_urls' => $urls]);
+        }
+    }
+
+    public function deleteImages(Property $property, array $urlsToDelete): void
+    {
+        if (empty($urlsToDelete)) {
+            return;
+        }
+
+        foreach ($property->images as $gallery) {
+            $currentUrls = $gallery->image_urls;
+            if (is_array($currentUrls)) {
+                $newUrls = array_values(array_filter($currentUrls, function ($url) use ($urlsToDelete) {
+                    return !in_array($url, $urlsToDelete);
+                }));
+
+                if (empty($newUrls)) {
+                    $gallery->delete();
+                } else {
+                    $gallery->update(['image_urls' => $newUrls]);
+                }
+            }
+        }
     }
 
     /* -----------------------------------------------------------------

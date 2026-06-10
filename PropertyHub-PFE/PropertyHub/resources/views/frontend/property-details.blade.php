@@ -23,14 +23,7 @@
 <main class="pt-20">
     <!-- Image Slider -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div x-data="{
-            images: @js($property->all_image_urls),
-            current: 0,
-            get total() { return this.images.length },
-            next() { this.current = (this.current + 1) % this.total },
-            prev() { this.current = (this.current - 1 + this.total) % this.total },
-            goTo(i) { this.current = i }
-        }" x-init="setInterval(() => next(), 6000)" @keydown.arrow-right.window="next()" @keydown.arrow-left.window="prev()" class="mb-8">
+        <div x-data="propertySlider(@js($property->all_image_urls))" @keydown.arrow-right.window="next()" @keydown.arrow-left.window="prev()" class="mb-8">
             <!-- Main Image -->
             <div class="relative h-96 lg:h-[540px] rounded-3xl overflow-hidden bg-gray-100 group">
                 <template x-for="(img, index) in images" :key="index">
@@ -174,23 +167,7 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-6">Schedule a Visit</h3>
                     
                     <form action="{{ route('appointments.store') }}" method="POST" class="space-y-4"
-                          x-data="{
-                            date: '',
-                            slots: [],
-                            loading: false,
-                            availableSlotsUrl: '{{ route('appointments.available-slots') }}',
-                            propertyId: {{ $property->id }},
-                            async fetchSlots() {
-                                if (!this.date) { this.slots = []; return; }
-                                this.loading = true;
-                                try {
-                                    const res = await fetch(`${this.availableSlotsUrl}?property_id=${this.propertyId}&date=${this.date}`);
-                                    const data = await res.json();
-                                    this.slots = data.slots ?? [];
-                                } catch { this.slots = []; }
-                                this.loading = false;
-                            }
-                          }">
+                          x-data="visitScheduler({{ $property->id }}, '{{ route('appointments.available-slots') }}')">
                         @csrf
                         <input type="hidden" name="property_id" value="{{ $property->id }}">
                         

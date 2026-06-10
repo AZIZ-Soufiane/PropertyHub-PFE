@@ -164,7 +164,7 @@
                 <div class="text-center text-[10px] font-black text-slate-400 uppercase tracking-widest py-1">{{ $d }}</div>
             @endforeach
         </div>
-        <div class="grid grid-cols-7">
+        <div class="grid grid-cols-7 gap-2">
             @php
                 $totalCells = $calendar['startDow'] + $calendar['daysInMonth'];
                 $totalCells = ceil($totalCells / 7) * 7;
@@ -179,20 +179,44 @@
                     $isToday = $isValid && $dateKey === now()->format('Y-m-d');
                     $isSelected = $isValid && $dateKey === $calDate;
                 @endphp
-                <div class="aspect-square p-1">
+                <div class="p-0.5 min-h-[145px]">
                     @if($isValid)
-                        <a href="{{ route('admin.appointments.index', array_merge($calQuery, ['year' => $calendar['year'], 'month' => $calendar['month'], 'cal_date' => $dateKey])) }}"
-                           class="size-full rounded-xl flex flex-col items-center justify-center text-sm transition-all
-                                  {{ $isSelected ? 'ring-2 ring-primary-500 bg-primary-100 text-primary-800 font-bold' : '' }}
-                                  {{ !$isSelected && $isToday ? 'ring-2 ring-primary-300' : '' }}
-                                  {{ $hasAppts ? 'bg-primary-50 text-primary-700 font-bold hover:bg-primary-100' : 'text-slate-500 hover:bg-slate-50' }}">
-                            <span>{{ $cellDay }}</span>
-                            @if($apptCount > 0)
-                                <span class="text-[9px] font-bold text-primary-500 -mt-0.5">{{ $apptCount }}</span>
-                            @endif
-                        </a>
+                        <div class="size-full p-2.5 bg-slate-50/50 border border-slate-200 rounded-2xl flex flex-col justify-between transition-all {{ $isToday ? 'ring-2 ring-primary-500 bg-white' : '' }} {{ $isSelected ? 'ring-2 ring-primary-600 bg-white shadow-md' : '' }}">
+                            <div class="flex justify-between items-center mb-2">
+                                <a href="{{ route('admin.appointments.index', array_merge($calQuery, ['year' => $calendar['year'], 'month' => $calendar['month'], 'cal_date' => $dateKey])) }}"
+                                   class="text-xs font-black py-0.5 px-2 rounded-lg transition-all {{ $isToday ? 'bg-primary-500 text-white' : 'text-slate-500 hover:bg-slate-100' }}">
+                                    {{ $cellDay }}
+                                </a>
+                                @if($apptCount > 0)
+                                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-tight">{{ $apptCount }} {{ Str::plural('Meet', $apptCount) }}</span>
+                                @endif
+                            </div>
+                            <div class="flex-1 space-y-1.5 overflow-y-auto max-h-[105px] pr-0.5">
+                                @if($hasAppts)
+                                    @foreach($calendar['appointments'][$dateKey] as $appt)
+                                        @php
+                                            $c = match($appt->status) {
+                                                'pending' => 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100/80',
+                                                'scheduled' => 'bg-blue-50 text-blue-800 border-blue-200 hover:bg-blue-100/80',
+                                                'confirmed' => 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100/80',
+                                                'completed' => 'bg-teal-50 text-teal-800 border-teal-200 hover:bg-teal-100/80',
+                                                'cancelled' => 'bg-rose-50 text-rose-800 border-rose-200 hover:bg-rose-100/80',
+                                                default => 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-slate-100/80',
+                                            };
+                                        @endphp
+                                        <a href="{{ route('admin.appointments.show', $appt) }}"
+                                           class="block p-1.5 rounded-xl border text-[9px] font-bold leading-tight transition-all truncate {{ $c }}"
+                                           title="{{ $appt->date_time->format('h:i A') }} - {{ optional($appt->client)->name }} with {{ optional($appt->agent)->name }}: {{ optional($appt->property)->title }}">
+                                            <span class="block font-black opacity-80">{{ $appt->date_time->format('h:i A') }}</span>
+                                            <span class="block truncate">{{ optional($appt->client)->name }}</span>
+                                            <span class="block truncate opacity-75 font-semibold text-[8px]">Agent: {{ optional($appt->agent)->name }}</span>
+                                        </a>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     @else
-                        <div class="size-full"></div>
+                        <div class="size-full bg-slate-50/10 border border-transparent rounded-2xl"></div>
                     @endif
                 </div>
             @endfor

@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div class="p-6 overflow-y-auto flex-1 space-y-6 bg-gray-50/50" id="messages-container">
+        <div class="p-6 overflow-y-auto flex-1 space-y-6 bg-gray-50/50" id="messages-container" x-init="$nextTick(() => $el.scrollTop = $el.scrollHeight)">
             @forelse($messages as $msg)
                 @php $mine = $msg->sender_id === auth()->id(); @endphp
                 @if($mine)
@@ -108,10 +108,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    const container = document.getElementById('messages-container');
-    if (container) container.scrollTop = container.scrollHeight;
-</script>
-@endpush

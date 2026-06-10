@@ -72,7 +72,15 @@ class PropertyController extends Controller
             'features'    => 'nullable|string',
         ]);
 
+        $validated['status'] = 'pending';
+        $validated['admin_note'] = null;
+
         $this->propertyService->updateProperty($propertyId, $validated);
+
+        if ($request->has('delete_images')) {
+            $fresh = $this->propertyService->getAgentProperty($propertyId, Auth::id());
+            $this->propertyService->deleteImages($fresh, $request->input('delete_images'));
+        }
 
         if ($request->hasFile('images')) {
             $fresh = $this->propertyService->getAgentProperty($propertyId, Auth::id());

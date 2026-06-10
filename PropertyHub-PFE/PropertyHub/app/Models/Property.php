@@ -26,6 +26,7 @@ class Property extends Model
         'features',
         'status_id',
         'agent_id',
+        'admin_note',
     ];
 
     public function statusRelation()

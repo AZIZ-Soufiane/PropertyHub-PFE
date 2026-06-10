@@ -5,7 +5,7 @@
 
 
 <?php $__env->startSection('content'); ?>
-<div x-data="{ showCreateModal: <?php echo e(!old('_method') && $errors->any() ? 'true' : 'false'); ?> }">
+<div x-data="propertyManager(<?php echo e(!old('_method') && $errors->any() ? 'true' : 'false'); ?>)">
 
     
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -119,7 +119,7 @@
                 </thead>
                 <tbody class="divide-y divide-slate-50">
                     <?php $__empty_1 = true; $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <tr x-data="{ showEditModal: <?php echo e(old('property_id') == $property->id && $errors->any() ? 'true' : 'false'); ?> }" class="hover:bg-slate-50 transition-colors">
+                        <tr x-data="propertyEditor(<?php echo e(old('property_id') == $property->id && $errors->any() ? 'true' : 'false'); ?>)" class="hover:bg-slate-50 transition-colors">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center gap-3">
                                     <div class="size-10 bg-slate-200 rounded-lg overflow-hidden flex-shrink-0">
@@ -128,6 +128,12 @@
                                     <div class="min-w-0">
                                         <p class="text-sm font-bold text-slate-800 truncate"><?php echo e($property->title); ?></p>
                                         <p class="text-xs text-slate-400 font-medium">$<?php echo e(number_format($property->price)); ?> · <?php echo e($property->city ?: $property->location); ?></p>
+                                        <?php if($property->admin_note): ?>
+                                            <p class="text-[10px] text-slate-500 font-bold uppercase mt-1 tracking-wide" title="<?php echo e($property->admin_note); ?>">
+                                                Note: <?php echo e(Str::limit($property->admin_note, 35)); ?>
+
+                                            </p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </td>
@@ -155,26 +161,22 @@
                             <td class="px-6 py-4 whitespace-nowrap text-right">
                                 <div class="flex justify-end items-center gap-2">
                                     <?php if($property->status === 'pending'): ?>
-                                        <form action="<?php echo e(route('admin.properties.approve', $property)); ?>" method="POST" class="inline">
-                                            <?php echo csrf_field(); ?>
-                                            <button type="submit"
-                                                    class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-all"
-                                                    title="Approve">
-                                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                                    <polyline points="20 6 9 17 4 12" />
-                                                </svg>
-                                            </button>
-                                        </form>
-                                        <form action="<?php echo e(route('admin.properties.reject', $property)); ?>" method="POST" class="inline">
-                                            <?php echo csrf_field(); ?>
-                                            <button type="submit"
-                                                    class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-all"
-                                                    title="Reject">
-                                                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                                    <path d="M18 6 6 18M6 6l12 12" />
-                                                </svg>
-                                            </button>
-                                        </form>
+                                        <button type="button"
+                                                @click="reviewProperty = { id: <?php echo e($property->id); ?>, title: '<?php echo e(addslashes($property->title)); ?>' }; reviewAction = 'approve'; reviewNote = ''; showReviewModal = true"
+                                                class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 rounded-lg transition-all"
+                                                title="Approve">
+                                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                <polyline points="20 6 9 17 4 12" />
+                                            </svg>
+                                        </button>
+                                        <button type="button"
+                                                @click="reviewProperty = { id: <?php echo e($property->id); ?>, title: '<?php echo e(addslashes($property->title)); ?>' }; reviewAction = 'reject'; reviewNote = ''; showReviewModal = true"
+                                                class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-all"
+                                                title="Reject">
+                                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                <path d="M18 6 6 18M6 6l12 12" />
+                                            </svg>
+                                        </button>
                                     <?php endif; ?>
                                     <a href="<?php echo e(route('properties.show', $property)); ?>"
                                        class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-all"
@@ -204,108 +206,135 @@
                                         </button>
                                     </form>
                                 </div>
+                                <!-- Edit Property Modal -->
+                                <div x-show="showEditModal" class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+                                    <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showEditModal = false" x-show="showEditModal" x-transition.opacity></div>
+                                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 lg:ps-64">
+                                        <div x-show="showEditModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all w-full sm:my-8 sm:max-w-4xl font-sans">
+                                            <div class="flex justify-between items-center py-4 px-6 border-b border-slate-100 bg-white">
+                                                <h3 class="font-black text-slate-800 text-xl">Edit Property</h3>
+                                                <button type="button" @click="showEditModal = false" class="size-10 inline-flex justify-center items-center rounded-xl text-slate-400 hover:bg-slate-100 transition-all">
+                                                    <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                                                </button>
+                                            </div>
+                                            <form action="<?php echo e(route('admin.properties.update', $property)); ?>" method="POST" enctype="multipart/form-data">
+                                                <?php echo csrf_field(); ?> <?php echo method_field('PUT'); ?>
+                                                <input type="hidden" name="property_id" value="<?php echo e($property->id); ?>">
+                                                <div class="p-8 overflow-y-auto max-h-[70vh] bg-white">
+                                                    <?php if(old('property_id') == $property->id && $errors->any()): ?>
+                                                        <div class="mb-4 p-4 rounded-xl bg-rose-50 text-rose-700 text-sm font-semibold">
+                                                            <ul class="list-disc list-inside"><?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $err): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <li><?php echo e($err); ?></li> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></ul>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                                        <div class="sm:col-span-2">
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Property Title</label>
+                                                            <input type="text" name="title" required value="<?php echo e(old('title', $property->title)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Price ($)</label>
+                                                            <input type="number" name="price" required step="0.01" value="<?php echo e(old('price', $property->price)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Type</label>
+                                                            <select name="type" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                                <?php $__currentLoopData = ['villa','apartment','house','penthouse','land']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                    <option value="<?php echo e($t); ?>" <?php if(old('type', $property->type) === $t): echo 'selected'; endif; ?>><?php echo e(ucfirst($t)); ?></option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Bedrooms</label>
+                                                            <input type="number" name="bedrooms" min="0" value="<?php echo e(old('bedrooms', $property->bedrooms)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Bathrooms</label>
+                                                            <input type="number" name="bathrooms" min="0" value="<?php echo e(old('bathrooms', $property->bathrooms)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Area (sq ft)</label>
+                                                            <input type="number" name="area" min="0" step="0.01" value="<?php echo e(old('area', $property->area)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">City</label>
+                                                            <input type="text" name="city" value="<?php echo e(old('city', $property->city)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Country</label>
+                                                            <input type="text" name="country" value="<?php echo e(old('country', $property->country)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div class="sm:col-span-2">
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Address</label>
+                                                            <input type="text" name="address" value="<?php echo e(old('address', $property->address)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Assigned Agent</label>
+                                                            <select name="agent_id" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                                <option value="">— Select agent —</option>
+                                                                <?php $__currentLoopData = $agents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                    <option value="<?php echo e($agent->id); ?>" <?php if(old('agent_id', $property->agent_id) == $agent->id): echo 'selected'; endif; ?>><?php echo e($agent->name); ?> (<?php echo e($agent->email); ?>)</option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Status</label>
+                                                            <select name="status" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                                <?php $__currentLoopData = ['pending','approved','rejected','sold','rented']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                    <option value="<?php echo e($s); ?>" <?php if(old('status', $property->status) === $s): echo 'selected'; endif; ?>><?php echo e(ucfirst($s)); ?></option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="sm:col-span-2">
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Description</label>
+                                                            <textarea name="description" rows="3" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all"><?php echo e(old('description', $property->description)); ?></textarea>
+                                                        </div>
+                                                        <div class="sm:col-span-2">
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Features (comma separated)</label>
+                                                            <input type="text" name="features" value="<?php echo e(old('features', is_array($property->features) ? implode(', ', $property->features) : $property->features)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
+                                                        </div>
+                                                        <div class="sm:col-span-2">
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Current Images</label>
+                                                            <div class="flex flex-wrap gap-3">
+                                                                <?php $hasImages = false; ?>
+                                                                <?php $__currentLoopData = $property->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                    <?php if(is_array($gallery->image_urls)): ?>
+                                                                        <?php $__currentLoopData = $gallery->image_urls; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $url): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                            <?php $hasImages = true; ?>
+                                                                            <div class="relative group size-20 rounded-xl overflow-hidden bg-slate-100 border border-slate-200" x-show="!deletedImages.includes('<?php echo e($url); ?>')">
+                                                                                <img src="<?php echo e($url); ?>" class="size-full object-cover">
+                                                                                <button type="button" @click="deletedImages.push('<?php echo e($url); ?>')" class="absolute inset-0 bg-rose-600/80 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity" title="Delete image">
+                                                                                    <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                                                                </button>
+                                                                            </div>
+                                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                                    <?php endif; ?>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                                <?php if(!$hasImages): ?>
+                                                                    <p class="text-xs text-slate-400 font-medium italic">No uploaded images yet.</p>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sm:col-span-2">
+                                                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Upload New Photos</label>
+                                                            <input type="file" name="images[]" multiple accept="image/*" class="block w-full text-sm text-slate-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-500 hover:file:bg-primary-100">
+                                                        </div>
+                                                        <div class="hidden">
+                                                            <template x-for="img in deletedImages" :key="img">
+                                                                <input type="hidden" name="delete_images[]" :value="img">
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="bg-slate-50/50 flex justify-end items-center gap-x-3 py-5 px-8 border-t border-slate-100">
+                                                    <button type="button" @click="showEditModal = false" class="py-3 px-6 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl border border-slate-200 bg-white text-slate-800 hover:bg-slate-50 transition-all">Cancel</button>
+                                                    <button type="submit" class="py-3 px-6 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl bg-primary-500 text-white hover:bg-primary-600 transition-all shadow-xl shadow-primary-500/20">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
-                        <!-- Edit Property Modal -->
-                        <div x-show="showEditModal" class="fixed inset-0 lg:left-64 z-50 overflow-y-auto" x-cloak>
-                            <div class="fixed inset-0 lg:left-64 bg-slate-900/50 backdrop-blur-sm" @click="showEditModal = false" x-show="showEditModal" x-transition.opacity></div>
-                            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                                <div x-show="showEditModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl">
-                                    <div class="flex justify-between items-center py-4 px-6 border-b border-slate-100 bg-white">
-                                        <h3 class="font-black text-slate-800 text-xl">Edit Property</h3>
-                                        <button type="button" @click="showEditModal = false" class="size-10 inline-flex justify-center items-center rounded-xl text-slate-400 hover:bg-slate-100 transition-all">
-                                            <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
-                                        </button>
-                                    </div>
-                                    <form action="<?php echo e(route('admin.properties.update', $property)); ?>" method="POST" enctype="multipart/form-data">
-                                        <?php echo csrf_field(); ?> <?php echo method_field('PUT'); ?>
-                                        <input type="hidden" name="property_id" value="<?php echo e($property->id); ?>">
-                                        <div class="p-8 overflow-y-auto max-h-[70vh] bg-white">
-                                            <?php if(old('property_id') == $property->id && $errors->any()): ?>
-                                                <div class="mb-4 p-4 rounded-xl bg-rose-50 text-rose-700 text-sm font-semibold">
-                                                    <ul class="list-disc list-inside"><?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $err): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <li><?php echo e($err); ?></li> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></ul>
-                                                </div>
-                                            <?php endif; ?>
-                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                                <div class="sm:col-span-2">
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Property Title</label>
-                                                    <input type="text" name="title" required value="<?php echo e(old('title', $property->title)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Price ($)</label>
-                                                    <input type="number" name="price" required step="0.01" value="<?php echo e(old('price', $property->price)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Type</label>
-                                                    <select name="type" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                        <?php $__currentLoopData = ['villa','apartment','house','penthouse','land']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($t); ?>" <?php if(old('type', $property->type) === $t): echo 'selected'; endif; ?>><?php echo e(ucfirst($t)); ?></option>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Bedrooms</label>
-                                                    <input type="number" name="bedrooms" min="0" value="<?php echo e(old('bedrooms', $property->bedrooms)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Bathrooms</label>
-                                                    <input type="number" name="bathrooms" min="0" value="<?php echo e(old('bathrooms', $property->bathrooms)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Area (sq ft)</label>
-                                                    <input type="number" name="area" min="0" step="0.01" value="<?php echo e(old('area', $property->area)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">City</label>
-                                                    <input type="text" name="city" value="<?php echo e(old('city', $property->city)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Country</label>
-                                                    <input type="text" name="country" value="<?php echo e(old('country', $property->country)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div class="sm:col-span-2">
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Address</label>
-                                                    <input type="text" name="address" value="<?php echo e(old('address', $property->address)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Assigned Agent</label>
-                                                    <select name="agent_id" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                        <option value="">— Select agent —</option>
-                                                        <?php $__currentLoopData = $agents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($agent->id); ?>" <?php if(old('agent_id', $property->agent_id) == $agent->id): echo 'selected'; endif; ?>><?php echo e($agent->name); ?> (<?php echo e($agent->email); ?>)</option>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Status</label>
-                                                    <select name="status" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                        <?php $__currentLoopData = ['pending','approved','rejected','sold','rented']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($s); ?>" <?php if(old('status', $property->status) === $s): echo 'selected'; endif; ?>><?php echo e(ucfirst($s)); ?></option>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    </select>
-                                                </div>
-                                                <div class="sm:col-span-2">
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Description</label>
-                                                    <textarea name="description" rows="3" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all"><?php echo e(old('description', $property->description)); ?></textarea>
-                                                </div>
-                                                <div class="sm:col-span-2">
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Features (comma separated)</label>
-                                                    <input type="text" name="features" value="<?php echo e(old('features', is_array($property->features) ? implode(', ', $property->features) : $property->features)); ?>" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                </div>
-                                                <div class="sm:col-span-2">
-                                                    <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Images (Upload to add new ones)</label>
-                                                    <input type="file" name="images[]" multiple accept="image/*" class="block w-full text-sm text-slate-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-500 hover:file:bg-primary-100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="bg-slate-50/50 flex justify-end items-center gap-x-3 py-5 px-8 border-t border-slate-100">
-                                            <button type="button" @click="showEditModal = false" class="py-3 px-6 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl border border-slate-200 bg-white text-slate-800 hover:bg-slate-50 transition-all">Cancel</button>
-                                            <button type="submit" class="py-3 px-6 inline-flex items-center gap-x-2 text-sm font-bold rounded-xl bg-primary-500 text-white hover:bg-primary-600 transition-all shadow-xl shadow-primary-500/20">Save Changes</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="4" class="px-6 py-12 text-center text-sm text-slate-500">
@@ -330,11 +359,11 @@
     </div>
 
     
-    <div x-show="showCreateModal" class="fixed inset-0 lg:left-64 z-50 overflow-y-auto" x-cloak>
-        <div class="fixed inset-0 lg:left-64 bg-slate-900/50 backdrop-blur-sm" @click="showCreateModal = false"
+    <div x-show="showCreateModal" class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showCreateModal = false"
              x-show="showCreateModal" x-transition.opacity></div>
 
-        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 lg:ps-64">
             <div x-show="showCreateModal"
                  x-transition:enter="ease-out duration-300"
                  x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -342,7 +371,7 @@
                  x-transition:leave="ease-in duration-200"
                  x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                  x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                 class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl">
+                 class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all w-full sm:my-8 sm:max-w-4xl font-sans">
 
                 <div class="flex justify-between items-center py-4 px-6 border-b border-slate-100 bg-white">
                     <h3 class="font-black text-slate-800 text-xl">Add New Property</h3>
@@ -475,6 +504,52 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div x-show="showReviewModal" class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showReviewModal = false" x-show="showReviewModal" x-transition.opacity></div>
+
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div x-show="showReviewModal"
+                 x-transition:enter="ease-out duration-300"
+                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave="ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                 class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all w-full sm:my-8 sm:max-w-lg font-sans border border-slate-100">
+
+                <div class="bg-white p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-black text-slate-800" x-text="reviewAction === 'approve' ? 'Approve Property' : 'Reject Property'"></h3>
+                        <button type="button" @click="showReviewModal = false" class="size-10 inline-flex justify-center items-center rounded-xl text-slate-400 hover:bg-slate-100 transition-all">
+                            <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+
+                    <p class="text-sm text-slate-500 mb-4">
+                        Are you sure you want to <span class="font-bold text-slate-700" x-text="reviewAction"></span> listing <span class="font-bold text-slate-700" x-text="reviewProperty?.title"></span>?
+                    </p>
+
+                    <form :action="'/admin/properties/' + (reviewProperty?.id ?? '') + '/' + reviewAction" method="POST">
+                        <?php echo csrf_field(); ?>
+                        <div class="mb-5">
+                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Review Note (Optional for Approval, Recommended for Rejection)</label>
+                            <textarea name="note" x-model="reviewNote" rows="3" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all" placeholder="Enter review feedback for the agent..."></textarea>
+                        </div>
+
+                        <div class="flex justify-end gap-x-3">
+                            <button type="button" @click="showReviewModal = false" class="py-2.5 px-5 text-sm font-bold rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Cancel</button>
+                            <button type="submit"
+                                    :class="reviewAction === 'approve' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' : 'bg-rose-600 hover:bg-rose-700 shadow-rose-500/20'"
+                                    class="py-2.5 px-5 text-sm font-bold rounded-xl text-white transition-all shadow-lg"
+                                    x-text="reviewAction === 'approve' ? 'Confirm Approval' : 'Confirm Rejection'"></button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

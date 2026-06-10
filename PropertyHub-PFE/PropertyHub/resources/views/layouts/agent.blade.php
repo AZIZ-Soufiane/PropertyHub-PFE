@@ -98,6 +98,45 @@
                         </button>
                     </div>
                     <div class="flex items-center gap-x-4 ms-auto">
+                        {{-- Notification Bell --}}
+                        <div x-data="{ open: false }" class="relative inline-flex">
+                            <button @click="open = !open" type="button" class="relative size-10 inline-flex items-center justify-center text-gray-500 hover:text-gray-700 bg-white hover:bg-gray-50 rounded-xl border border-gray-200 transition-all focus:outline-none">
+                                <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
+                                </svg>
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                    <span class="absolute top-0 right-0 size-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
+                                @endif
+                            </button>
+
+                            <div x-show="open" @click.outside="open = false" x-cloak class="absolute right-0 mt-12 w-80 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 overflow-hidden text-left" x-transition>
+                                <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                                    <span class="text-xs font-black text-gray-800 uppercase tracking-wider">Notifications</span>
+                                    @if(auth()->user()->unreadNotifications->count() > 0)
+                                        <form action="{{ route('notifications.markAllAsRead') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="text-[10px] font-bold text-primary-500 hover:text-primary-600 uppercase">Mark all as read</button>
+                                        </form>
+                                    @endif
+                                </div>
+                                <div class="max-h-60 overflow-y-auto divide-y divide-gray-50">
+                                    @forelse(auth()->user()->unreadNotifications as $notification)
+                                        <div class="p-4 hover:bg-gray-50 transition-colors flex flex-col gap-1">
+                                            <p class="text-xs text-gray-600 font-medium text-left">{{ $notification->data['message'] }}</p>
+                                            <div class="flex items-center justify-between mt-1">
+                                                <span class="text-[9px] text-gray-400 font-bold">{{ $notification->created_at->diffForHumans() }}</span>
+                                                <form action="{{ route('notifications.markAsRead', $notification) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="text-[9px] font-bold text-gray-400 hover:text-primary-500">Dismiss</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="p-6 text-center text-xs text-gray-400 italic">No new notifications</div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </header>

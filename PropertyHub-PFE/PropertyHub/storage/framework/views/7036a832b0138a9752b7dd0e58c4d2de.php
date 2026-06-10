@@ -14,14 +14,7 @@
         'license_number' => old('license_number', ''),
     ] : null;
 ?>
-<div x-data="{
-    showCreateModal: <?php echo e($errors->any() && !old('user_id') ? 'true' : 'false'); ?>,
-    showViewModal: false,
-    viewUser: null,
-    showEditModal: <?php echo e($editErrorData ? 'true' : 'false'); ?>,
-    editUser: <?php echo e($editErrorData ? json_encode($editErrorData) : 'null'); ?>
-
-}" @open-create-user.window="showCreateModal = true">
+<div x-data="userManager(<?php echo e($errors->any() && !old('user_id') ? 'true' : 'false'); ?>, <?php echo e($editErrorData ? 'true' : 'false'); ?>, <?php echo e($editErrorData ? json_encode($editErrorData) : 'null'); ?>)" @open-create-user.window="showCreateModal = true">
 
 
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -61,7 +54,7 @@
             <?php $__currentLoopData = ['admin', 'agent', 'buyer']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $r): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <a href="<?php echo e(route('admin.users.index', array_merge(request()->all(), ['role' => $r]))); ?>"
                    class="px-3 py-1.5 rounded-full text-xs font-bold transition-all <?php echo e(request('role') === $r ? 'bg-primary-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'); ?>">
-                    <?php echo e(ucfirst($r)); ?><?php echo e($r); ?>s
+                    <?php echo e(ucfirst($r)); ?>s
                 </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>

@@ -41,8 +41,6 @@ class PropertyController extends Controller
             'images.*'    => 'nullable|image|max:5120',
         ]);
 
-        $validated['location'] = $validated['location'] ?? trim(($validated['city'] ?? '') . ', ' . ($validated['country'] ?? ''), ', ');
-
         $property = $this->propertyService->createProperty($validated);
         $this->propertyService->storeImages($property, $request->file('images', []));
 
@@ -73,6 +71,11 @@ class PropertyController extends Controller
 
         $this->propertyService->updateProperty($property->id, $validated);
 
+        if ($request->has('delete_images')) {
+            $fresh = $this->propertyService->getPropertyById($property->id);
+            $this->propertyService->deleteImages($fresh, $request->input('delete_images'));
+        }
+
         if ($request->hasFile('images')) {
             $fresh = $this->propertyService->getPropertyById($property->id);
             $this->propertyService->storeImages($fresh, $request->file('images'));
@@ -81,15 +84,15 @@ class PropertyController extends Controller
         return redirect()->route('admin.properties.index')->with('success', 'Property updated successfully.');
     }
 
-    public function approve(Property $property)
+    public function approve(Request $request, Property $property)
     {
-        $p = $this->propertyService->approveProperty($property->id);
+        $p = $this->propertyService->approveProperty($property->id, $request->input('note'));
         return back()->with('success', "Property \"{$p->title}\" approved.");
     }
 
-    public function reject(Property $property)
+    public function reject(Request $request, Property $property)
     {
-        $p = $this->propertyService->rejectProperty($property->id);
+        $p = $this->propertyService->rejectProperty($property->id, $request->input('note'));
         return back()->with('success', "Property \"{$p->title}\" rejected.");
     }
 

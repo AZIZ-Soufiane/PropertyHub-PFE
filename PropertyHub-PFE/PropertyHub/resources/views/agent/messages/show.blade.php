@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="p-6 overflow-y-auto flex-1 space-y-6 bg-gray-50/50">
+        <div class="p-6 overflow-y-auto flex-1 space-y-6 bg-gray-50/50" x-init="$nextTick(() => $el.scrollTop = $el.scrollHeight)">
             @forelse($messages as $msg)
                 @php $mine = $msg->sender_id === auth()->id(); @endphp
                 @if($mine)

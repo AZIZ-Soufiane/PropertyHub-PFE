@@ -208,10 +208,10 @@
                             </td>
                         </tr>
                         <!-- Edit Property Modal -->
-                        <div x-show="showEditModal" class="fixed inset-0 lg:left-64 z-50 overflow-y-auto" x-cloak>
-                            <div class="fixed inset-0 lg:left-64 bg-slate-900/50 backdrop-blur-sm" @click="showEditModal = false" x-show="showEditModal" x-transition.opacity></div>
-                            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                                <div x-show="showEditModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl">
+                        <div x-show="showEditModal" class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+                            <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showEditModal = false" x-show="showEditModal" x-transition.opacity></div>
+                            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 lg:ps-64">
+                                <div x-show="showEditModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all w-full sm:my-8 sm:max-w-4xl font-sans">
                                     <div class="flex justify-between items-center py-4 px-6 border-b border-slate-100 bg-white">
                                         <h3 class="font-black text-slate-800 text-xl">Edit Property</h3>
                                         <button type="button" @click="showEditModal = false" class="size-10 inline-flex justify-center items-center rounded-xl text-slate-400 hover:bg-slate-100 transition-all">
@@ -330,11 +330,11 @@
     </div>
 
     {{-- ── CREATE PROPERTY MODAL (AlpineJS) ── --}}
-    <div x-show="showCreateModal" class="fixed inset-0 lg:left-64 z-50 overflow-y-auto" x-cloak>
-        <div class="fixed inset-0 lg:left-64 bg-slate-900/50 backdrop-blur-sm" @click="showCreateModal = false"
+    <div x-show="showCreateModal" class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showCreateModal = false"
              x-show="showCreateModal" x-transition.opacity></div>
 
-        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 lg:ps-64">
             <div x-show="showCreateModal"
                  x-transition:enter="ease-out duration-300"
                  x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -342,7 +342,7 @@
                  x-transition:leave="ease-in duration-200"
                  x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                  x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                 class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl">
+                 class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all w-full sm:my-8 sm:max-w-4xl font-sans">
 
                 <div class="flex justify-between items-center py-4 px-6 border-b border-slate-100 bg-white">
                     <h3 class="font-black text-slate-800 text-xl">Add New Property</h3>

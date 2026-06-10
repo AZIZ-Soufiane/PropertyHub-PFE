@@ -31,11 +31,13 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
+            $user = Auth::user();
+            \App\Models\ActivityLog::log('login', "User {$user->name} (" . ucfirst($user->role) . ") logged in.", $user);
+
             if ($redirect = $request->query('redirect')) {
                 return redirect($redirect);
             }
 
-            $user = Auth::user();
             if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard');
             }
@@ -63,6 +65,7 @@ class AuthController extends Controller
 
         try {
             $user = $this->userService->createUser($validated);
+            \App\Models\ActivityLog::log('signup', "New user {$user->name} registered as buyer.", $user);
         } catch (\Exception $e) {
             return back()->withErrors(['email' => $e->getMessage()])->withInput();
         }
@@ -73,6 +76,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        if ($user) {
+            \App\Models\ActivityLog::log('logout', "User {$user->name} logged out.", $user);
+        }
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

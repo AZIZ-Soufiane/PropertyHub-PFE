@@ -74,13 +74,16 @@ class UserService
                 throw new \Exception("Email already exists.");
             }
 
-            return User::create([
+            $user = User::create([
                 'name'           => $data['name'],
                 'email'          => $data['email'],
                 'password'       => Hash::make($data['password']),
                 'role'           => $data['role'] ?? 'buyer',
                 'license_number' => $data['license_number'] ?? null,
             ]);
+
+            \App\Models\ActivityLog::log('create_user', "User account for {$user->name} (" . ucfirst($user->role) . ") was created.", $user);
+            return $user;
         });
     }
 
@@ -102,6 +105,7 @@ class UserService
             }
 
             $user->update($data);
+            \App\Models\ActivityLog::log('update_user', "User account for {$user->name} was updated.");
             return $user;
         });
     }
@@ -110,6 +114,7 @@ class UserService
     {
         $user = User::findOrFail($userId);
         $user->update(['role' => $role]);
+        \App\Models\ActivityLog::log('assign_role', "Assigned role '" . ucfirst($role) . "' to user {$user->name}.");
         return $user;
     }
 
@@ -126,6 +131,7 @@ class UserService
                 throw new \Exception("Cannot delete agent with active properties.");
             }
 
+            \App\Models\ActivityLog::log('delete_user', "User account for {$user->name} (" . ucfirst($user->role) . ") was deleted.");
             $user->delete();
         });
     }

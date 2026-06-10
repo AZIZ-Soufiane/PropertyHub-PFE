@@ -186,6 +186,8 @@ class PropertyService
             }
             $property->save();
 
+            \App\Models\ActivityLog::log('create_property', "Property listing '{$property->title}' was created by agent " . ($property->agent?->name ?? 'Unknown') . ".", $property->agent);
+
             if ($property->status === 'pending') {
                 $admins = User::where('role', 'admin')->get();
                 foreach ($admins as $admin) {
@@ -245,6 +247,8 @@ class PropertyService
             $property->admin_note = $note;
             $property->save();
 
+            \App\Models\ActivityLog::log('approve_property', "Property listing '{$property->title}' was approved by Admin" . ($note ? " with note: '{$note}'" : "") . ".");
+
             if ($property->agent) {
                 $property->agent->notify(new \App\Notifications\PropertyStatusChanged($property, 'approved', $note));
             }
@@ -260,6 +264,8 @@ class PropertyService
             $property->status = 'rejected';
             $property->admin_note = $note;
             $property->save();
+
+            \App\Models\ActivityLog::log('reject_property', "Property listing '{$property->title}' was rejected by Admin" . ($note ? " with note: '{$note}'" : "") . ".");
 
             if ($property->agent) {
                 $property->agent->notify(new \App\Notifications\PropertyStatusChanged($property, 'rejected', $note));

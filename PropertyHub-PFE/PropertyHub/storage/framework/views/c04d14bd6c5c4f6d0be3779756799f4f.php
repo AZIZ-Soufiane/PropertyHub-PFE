@@ -238,8 +238,8 @@
                                                         <div>
                                                             <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Type</label>
                                                             <select name="type" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                                <?php $__currentLoopData = ['villa','apartment','house','penthouse','land']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                    <option value="<?php echo e($t); ?>" <?php if(old('type', $property->type) === $t): echo 'selected'; endif; ?>><?php echo e(ucfirst($t)); ?></option>
+                                                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                    <option value="<?php echo e($category->slug); ?>" <?php if(old('type', $property->type) === $category->slug): echo 'selected'; endif; ?>><?php echo e($category->name); ?></option>
                                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                             </select>
                                                         </div>
@@ -405,8 +405,8 @@
                                 <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Type</label>
                                 <select name="type" required
                                         class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                    <?php $__currentLoopData = ['villa','apartment','house','penthouse','land']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($t); ?>" <?php if(old('type') === $t): echo 'selected'; endif; ?>><?php echo e(ucfirst($t)); ?></option>
+                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($category->slug); ?>" <?php if(old('type') === $category->slug): echo 'selected'; endif; ?>><?php echo e($category->name); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>

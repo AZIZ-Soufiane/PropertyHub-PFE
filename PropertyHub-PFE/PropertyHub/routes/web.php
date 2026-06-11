@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
 use App\Http\Controllers\Admin\LogController as AdminLogController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Buyer\DashboardController as BuyerDashboardController;
 use App\Http\Controllers\Buyer\AppointmentController as BuyerAppointmentController;
 use App\Http\Controllers\Buyer\MessageController as BuyerMessageController;
@@ -139,5 +140,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/messages', [AdminMessageController::class, 'index'])->name('messages.index');
         Route::get('/messages/{user}', [AdminMessageController::class, 'show'])->name('messages.show');
         Route::post('/messages', [AdminMessageController::class, 'store'])->name('messages.store');
+
+        Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+        Route::post('/categories', [AdminCategoryController::class, 'store'])->name('categories.store');
+        Route::put('/categories/{category}', [AdminCategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/categories/{category}', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
     });
 });

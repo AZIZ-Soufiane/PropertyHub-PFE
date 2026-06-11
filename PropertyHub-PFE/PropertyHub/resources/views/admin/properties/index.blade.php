@@ -238,8 +238,8 @@
                                                         <div>
                                                             <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Type</label>
                                                             <select name="type" required class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                                                @foreach(['villa','apartment','house','penthouse','land'] as $t)
-                                                                    <option value="{{ $t }}" @selected(old('type', $property->type) === $t)>{{ ucfirst($t) }}</option>
+                                                                @foreach($categories as $category)
+                                                                    <option value="{{ $category->slug }}" @selected(old('type', $property->type) === $category->slug)>{{ $category->name }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -404,8 +404,8 @@
                                 <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Type</label>
                                 <select name="type" required
                                         class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all">
-                                    @foreach(['villa','apartment','house','penthouse','land'] as $t)
-                                        <option value="{{ $t }}" @selected(old('type') === $t)>{{ ucfirst($t) }}</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->slug }}" @selected(old('type') === $category->slug)>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

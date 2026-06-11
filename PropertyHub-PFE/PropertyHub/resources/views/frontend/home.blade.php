@@ -54,10 +54,9 @@
                         <label class="block text-[10px] font-black text-white/50 uppercase tracking-widest mb-1">Property Type</label>
                         <select name="type" class="bg-transparent text-white font-semibold text-sm outline-none border-none p-0 focus:ring-0 w-full">
                             <option value="" class="text-gray-800">All Types</option>
-                            <option value="villa" class="text-gray-800">Villa</option>
-                            <option value="penthouse" class="text-gray-800">Penthouse</option>
-                            <option value="apartment" class="text-gray-800">Apartment</option>
-                            <option value="house" class="text-gray-800">House</option>
+                            @foreach($categories ?? [] as $category)
+                                <option value="{{ $category->slug }}" class="text-gray-800">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="flex-1 px-6 py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">

@@ -52,10 +52,9 @@
                         <label class="block text-[10px] font-black text-white/50 uppercase tracking-widest mb-1">Property Type</label>
                         <select name="type" class="bg-transparent text-white font-semibold text-sm outline-none border-none p-0 focus:ring-0 w-full">
                             <option value="" class="text-gray-800">All Types</option>
-                            <option value="villa" class="text-gray-800">Villa</option>
-                            <option value="penthouse" class="text-gray-800">Penthouse</option>
-                            <option value="apartment" class="text-gray-800">Apartment</option>
-                            <option value="house" class="text-gray-800">House</option>
+                            <?php $__currentLoopData = $categories ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($category->slug); ?>" class="text-gray-800"><?php echo e($category->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
                     <div class="flex-1 px-6 py-4 text-left border-b sm:border-b-0 sm:border-r border-white/10">

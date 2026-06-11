@@ -60,6 +60,13 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo e(route('admin.categories.index')); ?>"
+                       class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all <?php echo e(request()->routeIs('admin.categories.*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100'); ?>">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+                        Categories
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo e(route('admin.messages.index')); ?>"
                        class="flex items-center gap-x-3.5 py-2.5 px-3 text-sm rounded-xl transition-all <?php echo e(request()->routeIs('admin.messages.*') ? 'bg-primary-50 text-primary-500 font-bold' : 'text-slate-600 font-medium hover:bg-slate-100'); ?>">
                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>

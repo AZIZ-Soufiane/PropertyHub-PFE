@@ -38,10 +38,9 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
                         <select name="type" class="w-full py-3 px-4 border border-gray-200 rounded-xl text-sm focus:border-blue-600">
                             <option value="">All Types</option>
-                            <option value="villa" {{ request('type') == 'villa' ? 'selected' : '' }}>Villa</option>
-                            <option value="penthouse" {{ request('type') == 'penthouse' ? 'selected' : '' }}>Penthouse</option>
-                            <option value="apartment" {{ request('type') == 'apartment' ? 'selected' : '' }}>Apartment</option>
-                            <option value="house" {{ request('type') == 'house' ? 'selected' : '' }}>House</option>
+                            @foreach($categories ?? [] as $category)
+                                <option value="{{ $category->slug }}" {{ request('type') == $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 

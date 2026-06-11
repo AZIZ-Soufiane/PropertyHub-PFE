@@ -4,18 +4,23 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use App\Services\CategoryService;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-    public function __construct(private PropertyService $propertyService) {}
+    public function __construct(
+        private PropertyService $propertyService,
+        private CategoryService $categoryService,
+    ) {}
 
     public function index(Request $request)
     {
         $properties = $this->propertyService->getPublicProperties($request->all(), 12);
+        $categories = $this->categoryService->getActive();
 
-        return view('frontend.properties', compact('properties'));
+        return view('frontend.properties', compact('properties', 'categories'));
     }
 
     public function show(Property $property)

@@ -14,6 +14,7 @@ class CsvSeeder extends Seeder
         $this->seedUsers();
         $this->seedCalendars();
         $this->seedPropertyStatuses();
+        $this->seedCategories();
         $this->seedProperties();
         $this->seedGalleries();
     }
@@ -25,6 +26,23 @@ class CsvSeeder extends Seeder
             DB::table('property_statuses')->updateOrInsert(
                 ['name' => $name],
                 ['name' => $name, 'created_at' => now(), 'updated_at' => now()]
+            );
+        }
+    }
+
+    private function seedCategories()
+    {
+        $categories = [
+            ['name' => 'Villa',     'slug' => 'villa',     'is_active' => true],
+            ['name' => 'Apartment', 'slug' => 'apartment', 'is_active' => true],
+            ['name' => 'House',     'slug' => 'house',     'is_active' => true],
+            ['name' => 'Penthouse', 'slug' => 'penthouse', 'is_active' => true],
+            ['name' => 'Land',      'slug' => 'land',      'is_active' => true],
+        ];
+        foreach ($categories as $cat) {
+            DB::table('categories')->updateOrInsert(
+                ['slug' => $cat['slug']],
+                $cat + ['created_at' => now(), 'updated_at' => now()]
             );
         }
     }

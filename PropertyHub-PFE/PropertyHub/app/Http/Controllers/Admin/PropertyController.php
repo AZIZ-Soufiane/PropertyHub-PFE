@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use App\Services\CategoryService;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-    public function __construct(private PropertyService $propertyService) {}
+    public function __construct(
+        private PropertyService $propertyService,
+        private CategoryService $categoryService,
+    ) {}
 
     public function index(Request $request)
     {
@@ -17,8 +21,9 @@ class PropertyController extends Controller
         $stats      = $this->propertyService->getPropertyStatistics();
         $agents     = $this->propertyService->getAssignableAgents();
         $statuses   = $this->propertyService->getAllStatuses();
+        $categories = $this->categoryService->getActive();
 
-        return view('admin.properties.index', compact('properties', 'stats', 'agents', 'statuses'));
+        return view('admin.properties.index', compact('properties', 'stats', 'agents', 'statuses', 'categories'));
     }
 
     public function store(Request $request)

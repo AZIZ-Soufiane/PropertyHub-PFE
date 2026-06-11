@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use App\Services\AgentDashboardService;
+use App\Services\CategoryService;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ class PropertyController extends Controller
     public function __construct(
         private PropertyService $propertyService,
         private AgentDashboardService $dashboardService,
+        private CategoryService $categoryService,
     ) {}
 
     public function dashboard()
@@ -24,7 +26,8 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = $this->propertyService->getAgentProperties(Auth::id());
-        return view('agent.properties.index', compact('properties'));
+        $categories = $this->categoryService->getActive();
+        return view('agent.properties.index', compact('properties', 'categories'));
     }
 
 
@@ -33,7 +36,7 @@ class PropertyController extends Controller
     {
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
-            'type'        => 'required|in:villa,apartment,house,penthouse,land',
+            'type'        => 'required|string|max:255',
             'price'       => 'required|numeric|min:0',
             'area'        => 'required|numeric|min:0',
             'bedrooms'    => 'required|integer|min:0',
@@ -60,7 +63,7 @@ class PropertyController extends Controller
     {
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
-            'type'        => 'required|in:villa,apartment,house,penthouse,land',
+            'type'        => 'required|string|max:255',
             'price'       => 'required|numeric|min:0',
             'area'        => 'required|numeric|min:0',
             'bedrooms'    => 'required|integer|min:0',

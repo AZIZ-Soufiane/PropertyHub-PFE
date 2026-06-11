@@ -101,6 +101,18 @@ class PropertyController extends Controller
         return back()->with('success', "Property \"{$p->title}\" rejected.");
     }
 
+    public function sold(Request $request, Property $property)
+    {
+        $p = $this->propertyService->markAsSold($property->id, $request->input('note'));
+        return back()->with('success', "Property \"{$p->title}\" marked as sold. \${$p->price} added to revenue.");
+    }
+
+    public function rented(Request $request, Property $property)
+    {
+        $p = $this->propertyService->markAsRented($property->id, $request->input('note'));
+        return back()->with('success', "Property \"{$p->title}\" marked as rented. \${$p->price} added to revenue.");
+    }
+
     public function destroy(Property $property)
     {
         $this->propertyService->deleteProperty($property->id);

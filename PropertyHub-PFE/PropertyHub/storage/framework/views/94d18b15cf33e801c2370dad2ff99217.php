@@ -36,10 +36,9 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
                         <select name="type" class="w-full py-3 px-4 border border-gray-200 rounded-xl text-sm focus:border-blue-600">
                             <option value="">All Types</option>
-                            <option value="villa" <?php echo e(request('type') == 'villa' ? 'selected' : ''); ?>>Villa</option>
-                            <option value="penthouse" <?php echo e(request('type') == 'penthouse' ? 'selected' : ''); ?>>Penthouse</option>
-                            <option value="apartment" <?php echo e(request('type') == 'apartment' ? 'selected' : ''); ?>>Apartment</option>
-                            <option value="house" <?php echo e(request('type') == 'house' ? 'selected' : ''); ?>>House</option>
+                            <?php $__currentLoopData = $categories ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($category->slug); ?>" <?php echo e(request('type') == $category->slug ? 'selected' : ''); ?>><?php echo e($category->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
 

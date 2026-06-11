@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Property;
+use App\Models\Revenue;
 
 class AdminDashboardService
 {
@@ -28,7 +29,7 @@ class AdminDashboardService
             'new_properties_this_month' => Property::where('created_at', '>=', now()->startOfMonth())->count(),
             'total_appointments'        => $appts['total'],
             'pending_appointments'      => $appts['pending'],
-            'total_revenue'             => 0,
+            'total_revenue'             => (float) Revenue::sum('amount'),
         ];
     }
 

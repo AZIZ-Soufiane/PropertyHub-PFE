@@ -98,9 +98,10 @@
                 @csrf
                 <button class="py-2.5 px-5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 transition-colors">Accept Appointment</button>
             </form>
-            <form action="{{ route('agent.appointments.cancel', $appointment) }}" method="POST" onsubmit="return confirm('Cancel this appointment?')">
+            <form action="{{ route('agent.appointments.cancel', $appointment) }}" method="POST">
                 @csrf
-                <button class="py-2.5 px-5 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 transition-colors">Decline</button>
+                <button type="button" @click="$store.confirm.ask('Cancel this appointment?', $el.closest('form'))"
+                        class="py-2.5 px-5 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-50 transition-colors">Decline</button>
             </form>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Property;
 use App\Models\PropertyStatus;
+use App\Models\Revenue;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -269,6 +270,56 @@ class PropertyService
 
             if ($property->agent) {
                 $property->agent->notify(new \App\Notifications\PropertyStatusChanged($property, 'rejected', $note));
+            }
+
+            return $property;
+        });
+    }
+
+    public function markAsSold(int $propertyId, ?string $note = null): Property
+    {
+        return DB::transaction(function () use ($propertyId, $note) {
+            $property = Property::findOrFail($propertyId);
+            $property->status = 'sold';
+            $property->admin_note = $note;
+            $property->save();
+
+            Revenue::create([
+                'property_id' => $property->id,
+                'amount'      => $property->price,
+                'type'        => 'sold',
+                'agent_id'    => $property->agent_id,
+            ]);
+
+            \App\Models\ActivityLog::log('sell_property', "Property listing '{$property->title}' was marked as sold by Admin" . ($note ? " with note: '{$note}'" : "") . ". Revenue: \${$property->price}");
+
+            if ($property->agent) {
+                $property->agent->notify(new \App\Notifications\PropertyStatusChanged($property, 'sold', $note));
+            }
+
+            return $property;
+        });
+    }
+
+    public function markAsRented(int $propertyId, ?string $note = null): Property
+    {
+        return DB::transaction(function () use ($propertyId, $note) {
+            $property = Property::findOrFail($propertyId);
+            $property->status = 'rented';
+            $property->admin_note = $note;
+            $property->save();
+
+            Revenue::create([
+                'property_id' => $property->id,
+                'amount'      => $property->price,
+                'type'        => 'rented',
+                'agent_id'    => $property->agent_id,
+            ]);
+
+            \App\Models\ActivityLog::log('rent_property', "Property listing '{$property->title}' was marked as rented by Admin" . ($note ? " with note: '{$note}'" : "") . ". Revenue: \${$property->price}");
+
+            if ($property->agent) {
+                $property->agent->notify(new \App\Notifications\PropertyStatusChanged($property, 'rented', $note));
             }
 
             return $property;

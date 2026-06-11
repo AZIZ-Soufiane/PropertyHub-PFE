@@ -105,10 +105,10 @@
                 </form>
             @endif
             @if($appointment->status !== 'cancelled')
-                <form action="{{ route('admin.appointments.cancel', $appointment) }}" method="POST"
-                      onsubmit="return confirm('Cancel this appointment?')">
+                <form action="{{ route('admin.appointments.cancel', $appointment) }}" method="POST">
                     @csrf
-                    <button class="w-full py-2 px-4 bg-red-100 text-red-700 rounded-xl text-sm font-bold hover:bg-red-200 transition-all">
+                    <button type="button" @click="$store.confirm.ask('Cancel this appointment?', $el.closest('form'))"
+                            class="w-full py-2 px-4 bg-red-100 text-red-700 rounded-xl text-sm font-bold hover:bg-red-200 transition-all">
                         Cancel Appointment
                     </button>
                 </form>

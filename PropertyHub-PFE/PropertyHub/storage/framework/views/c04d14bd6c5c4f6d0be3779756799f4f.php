@@ -177,6 +177,23 @@
                                                 <path d="M18 6 6 18M6 6l12 12" />
                                             </svg>
                                         </button>
+                                    <?php elseif($property->status === 'approved'): ?>
+                                        <button type="button"
+                                                @click="reviewProperty = { id: <?php echo e($property->id); ?>, title: '<?php echo e(addslashes($property->title)); ?>' }; reviewAction = 'sold'; reviewNote = ''; showReviewModal = true"
+                                                class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 rounded-lg transition-all"
+                                                title="Mark as Sold">
+                                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                            </svg>
+                                        </button>
+                                        <button type="button"
+                                                @click="reviewProperty = { id: <?php echo e($property->id); ?>, title: '<?php echo e(addslashes($property->title)); ?>' }; reviewAction = 'rented'; reviewNote = ''; showReviewModal = true"
+                                                class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-purple-500 hover:bg-purple-50 rounded-lg transition-all"
+                                                title="Mark as Rented">
+                                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                <path d="M3 12h18M3 6h18M3 18h18"/>
+                                            </svg>
+                                        </button>
                                     <?php endif; ?>
                                     <a href="<?php echo e(route('properties.show', $property)); ?>"
                                        class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-all"
@@ -197,7 +214,7 @@
                                     <form action="<?php echo e(route('admin.properties.destroy', $property)); ?>" method="POST" class="inline">
                                         <?php echo csrf_field(); ?>
                                         <?php echo method_field('DELETE'); ?>
-                                        <button type="submit" onclick="return confirm('Delete this property?')"
+                                        <button type="button" @click="$store.confirm.ask('Delete property &quot;<?php echo e($property->title); ?>&quot;? This action cannot be undone.', $el.closest('form'))"
                                                 class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-all"
                                                 title="Delete">
                                             <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -524,7 +541,12 @@
 
                 <div class="bg-white p-6">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-black text-slate-800" x-text="reviewAction === 'approve' ? 'Approve Property' : 'Reject Property'"></h3>
+                        <h3 class="text-lg font-black text-slate-800" x-text="{
+                            'approve': 'Approve Property',
+                            'reject': 'Reject Property',
+                            'sold': 'Mark as Sold',
+                            'rented': 'Mark as Rented',
+                        }[reviewAction] || 'Confirm Action'"></h3>
                         <button type="button" @click="showReviewModal = false" class="size-10 inline-flex justify-center items-center rounded-xl text-slate-400 hover:bg-slate-100 transition-all">
                             <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
                         </button>
@@ -532,21 +554,34 @@
 
                     <p class="text-sm text-slate-500 mb-4">
                         Are you sure you want to <span class="font-bold text-slate-700" x-text="reviewAction"></span> listing <span class="font-bold text-slate-700" x-text="reviewProperty?.title"></span>?
+                        <template x-if="reviewAction === 'sold' || reviewAction === 'rented'">
+                            <span class="block mt-2 text-emerald-600 font-semibold">The property price will be added to total revenue.</span>
+                        </template>
                     </p>
 
                     <form :action="'/admin/properties/' + (reviewProperty?.id ?? '') + '/' + reviewAction" method="POST">
                         <?php echo csrf_field(); ?>
                         <div class="mb-5">
-                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Review Note (Optional for Approval, Recommended for Rejection)</label>
-                            <textarea name="note" x-model="reviewNote" rows="3" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all" placeholder="Enter review feedback for the agent..."></textarea>
+                            <label class="block mb-2 text-xs font-bold text-slate-800 uppercase tracking-wide">Note (Optional)</label>
+                            <textarea name="note" x-model="reviewNote" rows="3" class="py-3 px-4 block w-full border border-slate-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500 outline-none transition-all" placeholder="Enter feedback for the agent..."></textarea>
                         </div>
 
                         <div class="flex justify-end gap-x-3">
                             <button type="button" @click="showReviewModal = false" class="py-2.5 px-5 text-sm font-bold rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all">Cancel</button>
                             <button type="submit"
-                                    :class="reviewAction === 'approve' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20' : 'bg-rose-600 hover:bg-rose-700 shadow-rose-500/20'"
+                                    :class="{
+                                        'approve': 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20',
+                                        'reject': 'bg-rose-600 hover:bg-rose-700 shadow-rose-500/20',
+                                        'sold': 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/20',
+                                        'rented': 'bg-purple-600 hover:bg-purple-700 shadow-purple-500/20',
+                                    }[reviewAction] || 'bg-slate-600 hover:bg-slate-700'"
                                     class="py-2.5 px-5 text-sm font-bold rounded-xl text-white transition-all shadow-lg"
-                                    x-text="reviewAction === 'approve' ? 'Confirm Approval' : 'Confirm Rejection'"></button>
+                                    x-text="{
+                                        'approve': 'Confirm Approval',
+                                        'reject': 'Confirm Rejection',
+                                        'sold': 'Confirm Sale',
+                                        'rented': 'Confirm Rental',
+                                    }[reviewAction] || 'Confirm'"></button>
                         </div>
                     </form>
                 </div>

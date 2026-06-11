@@ -174,6 +174,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    @include('partials.confirm-modal')
     @stack('scripts')
 </body>
 </html>

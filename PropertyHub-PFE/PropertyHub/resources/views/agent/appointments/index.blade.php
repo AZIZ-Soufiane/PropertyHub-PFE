@@ -72,9 +72,10 @@
                                     </form>
                                 @endif
                                 @if($appt->status !== 'cancelled')
-                                    <form action="{{ route('agent.appointments.cancel', $appt) }}" method="POST" class="inline" onsubmit="return confirm('Cancel this appointment?')">
+                                    <form action="{{ route('agent.appointments.cancel', $appt) }}" method="POST" class="inline">
                                         @csrf
-                                        <button class="py-1.5 px-3 bg-red-100 text-red-700 rounded-lg text-xs font-bold hover:bg-red-200">Decline</button>
+                                        <button type="button" @click="$store.confirm.ask('Cancel this appointment?', $el.closest('form'))"
+                                                class="py-1.5 px-3 bg-red-100 text-red-700 rounded-lg text-xs font-bold hover:bg-red-200">Decline</button>
                                     </form>
                                 @endif
                             </div>

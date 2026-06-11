@@ -93,9 +93,10 @@
                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                     </svg>
                                 </button>
-                                <form action="<?php echo e(route('agent.properties.destroy', $property)); ?>" method="POST" onsubmit="return confirm('Delete this property?')" class="inline">
+                                <form action="<?php echo e(route('agent.properties.destroy', $property)); ?>" method="POST" class="inline">
                                     <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
-                                    <button type="submit"
+                                    <button type="button"
+                                        @click="$store.confirm.ask('Delete property &quot;<?php echo e($property->title); ?>&quot;? This action cannot be undone.', $el.closest('form'))"
                                         class="size-8 inline-flex justify-center items-center text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete">
                                         <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                             <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -144,8 +145,8 @@
                                                     <div>
                                                         <label class="block mb-2 text-sm font-bold text-gray-700">Property Type</label>
                                                         <select name="type" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                                            <?php $__currentLoopData = ['villa','apartment','house','penthouse','land']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                <option value="<?php echo e($t); ?>" <?php if(old('type', $property->type) === $t): echo 'selected'; endif; ?>><?php echo e(ucfirst($t)); ?></option>
+                                                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <option value="<?php echo e($category->slug); ?>" <?php if(old('type', $property->type) === $category->slug): echo 'selected'; endif; ?>><?php echo e($category->name); ?></option>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
                                                     </div>
@@ -273,8 +274,8 @@
                             <div>
                                 <label class="block mb-2 text-sm font-bold text-gray-700">Property Type</label>
                                 <select name="type" required class="py-3 px-4 block w-full border border-gray-200 rounded-xl text-sm focus:border-primary-500 focus:ring-primary-500">
-                                    <?php $__currentLoopData = ['villa','apartment','house','penthouse','land']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($t); ?>" <?php if(old('type') === $t): echo 'selected'; endif; ?>><?php echo e(ucfirst($t)); ?></option>
+                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($category->slug); ?>" <?php if(old('type') === $category->slug): echo 'selected'; endif; ?>><?php echo e($category->name); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>

@@ -65,10 +65,10 @@
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                                         </svg>
                                     </button>
-                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline"
-                                          onsubmit="return confirm('Delete category &quot;{{ $category->name }}&quot;? Properties using it will keep their current type.')">
+                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline">
                                         @csrf @method('DELETE')
-                                        <button type="submit"
+                                        <button type="button"
+                                                @click="$store.confirm.ask('Delete category &quot;{{ $category->name }}&quot;? Properties using it will keep their current type.', $el.closest('form'))"
                                                 class="size-8 inline-flex justify-center items-center text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-all"
                                                 title="Delete">
                                             <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">

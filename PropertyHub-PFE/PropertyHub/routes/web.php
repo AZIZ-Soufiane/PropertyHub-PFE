@@ -127,6 +127,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/properties/{property}', [AdminPropertyController::class, 'update'])->name('properties.update');
         Route::post('/properties/{property}/approve', [AdminPropertyController::class, 'approve'])->name('properties.approve');
         Route::post('/properties/{property}/reject', [AdminPropertyController::class, 'reject'])->name('properties.reject');
+        Route::post('/properties/{property}/sold', [AdminPropertyController::class, 'sold'])->name('properties.sold');
+        Route::post('/properties/{property}/rented', [AdminPropertyController::class, 'rented'])->name('properties.rented');
         Route::delete('/properties/{property}', [AdminPropertyController::class, 'destroy'])->name('properties.destroy');
 
         Route::get('/logs', [AdminLogController::class, 'index'])->name('logs.index');

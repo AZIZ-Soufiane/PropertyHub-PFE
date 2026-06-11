@@ -161,6 +161,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/preline/dist/preline.js"></script>
+    <?php echo $__env->make('partials.confirm-modal', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>

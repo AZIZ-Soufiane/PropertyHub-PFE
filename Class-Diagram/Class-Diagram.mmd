@@ -1,7 +1,7 @@
 classDiagram
 
 %% ==================================================
-%% USER MANAGEMENT
+%% BASE USER CLASS
 %% ==================================================
 
 class User {
@@ -12,6 +12,43 @@ class User {
     +logout()
     +receivePushNotification()
 }
+
+%% ==================================================
+%% USER ROLES (SUBCLASSES)
+%% ==================================================
+
+class Admin {
+    +String adminId
+    +createUser()
+    +editUser()
+    +deleteUser()
+    +createProperty()
+    +editProperty()
+    +viewSystemLogs()
+    +sendMessage()
+    +viewNotifications()
+}
+
+class Agent {
+    +String agentId
+    +createProperty()
+    +editProperty()
+    +conductAppointment()
+    +sendMessage()
+    +viewNotifications()
+}
+
+class Buyer {
+    +String buyerId
+    +searchProperty()
+    +addToFavorites()
+    +requestAppointment()
+    +sendMessage()
+}
+
+%% ==================================================
+%% AUTHORIZATION (SPATIE RBAC)
+%% ==================================================
 
 class Role {
     +Long id
@@ -30,6 +67,21 @@ class Permission {
 }
 
 %% ==================================================
+%% CATEGORY MANAGEMENT
+%% ==================================================
+
+class Category {
+    +Long id
+    +String name
+    +String description
+    +DateTime created_at
+    +DateTime updated_at
+    +createCategory()
+    +editCategory()
+    +deleteCategory()
+}
+
+%% ==================================================
 %% PROPERTY DOMAIN
 %% ==================================================
 
@@ -38,6 +90,8 @@ class Property {
     +Double price
     +String location
     +Long statusId
+    +Long categoryId
+    +String assignedTo
     +getDetails()
 }
 
@@ -53,12 +107,13 @@ class Gallery {
 }
 
 %% ==================================================
-%% INTERACTION SYSTEM
+%% SCHEDULING & APPOINTMENTS
 %% ==================================================
 
 class Appointment {
     +DateTime dateTime
     +String status
+    +String type
     +confirm()
     +cancel()
 }
@@ -68,37 +123,49 @@ class Calendar {
     +sync()
 }
 
+%% ==================================================
+%% COMMUNICATION
+%% ==================================================
+
 class Message {
     +String messageId
     +String content
     +DateTime timestamp
+    +String senderId
+    +String recipientId
     +send()
 }
 
-class Report {
-    +String reportId
-    +String dataSummary
-    +exportPDF()
+%% ==================================================
+%% NOTIFICATIONS & AUDIT LOGS
+%% ==================================================
+
+class Notification {
+    +String notificationId
+    +String title
+    +String content
+    +DateTime timestamp
+    +Boolean isRead
+    +markAsRead()
+}
+
+class SystemLog {
+    +String logId
+    +String action
+    +String actionBy
+    +String description
+    +DateTime timestamp
+    +String entityType
+    +String entityId
 }
 
 %% ==================================================
-%% RELATIONSHIPS
+%% USER INHERITANCE
 %% ==================================================
 
-Agent "1" --> "*" Property : manages
-Property "1" *-- "1" Gallery : contains
-Buyer "*" --> "*" Property : favorites
-Property "*" --> "1" PropertyStatus : has
-
-Buyer "1" --> "*" Appointment : requests
-Agent "1" --> "*" Appointment : conducts
-Agent "1" --> "1" Calendar : owns
-Calendar "1" --> "*" Appointment : stores
-
-Buyer "1" --> "*" Message : sends
-Agent "1" --> "*" Message : sends
-
-Admin "1" --> "*" Report : views
+User <|-- Admin
+User <|-- Agent
+User <|-- Buyer
 
 %% ==================================================
 %% AUTHORIZATION (SPATIE RBAC)
@@ -109,11 +176,64 @@ Role "*" --> "*" Permission : contains
 User "*" --> "*" Permission : has direct
 
 %% ==================================================
+%% CATEGORY & PROPERTY RELATIONSHIPS
+%% ==================================================
+
+Admin "1" --> "*" Category : manages
+Property "*" --> "1" Category : belongs to
+Property "*" --> "1" PropertyStatus : has
+Property "1" --> "1" Gallery : contains
+
+%% ==================================================
+%% PROPERTY MANAGEMENT
+%% ==================================================
+
+Admin "1" --> "*" Property : creates/manages
+Agent "1" --> "*" Property : manages
+Admin "1" --> "*" Agent : assigns to properties
+
+%% ==================================================
+%% BUYER INTERACTIONS
+%% ==================================================
+
+Buyer "*" --> "*" Property : favorites
+Buyer "1" --> "*" Message : sends
+Buyer "1" --> "*" Appointment : requests
+
+%% ==================================================
+%% AGENT INTERACTIONS
+%% ==================================================
+
+Agent "1" --> "*" Message : sends
+Agent "1" --> "*" Appointment : conducts
+Agent "1" --> "1" Calendar : owns
+Agent "1" --> "*" Notification : receives
+
+%% ==================================================
+%% ADMIN INTERACTIONS
+%% ==================================================
+
+Admin "1" --> "*" Message : sends
+Admin "1" --> "*" Appointment : views/manages
+Admin "1" --> "1" Calendar : owns
+Admin "1" --> "*" Notification : receives
+Admin "1" --> "*" SystemLog : views
+
+%% ==================================================
+%% SCHEDULING
+%% ==================================================
+
+Calendar "1" --> "*" Appointment : stores
+
+%% ==================================================
 %% NOTES ON ROLES
 %% ==================================================
 %% Roles are stored in database:
 %% - Visitor: read-only property access
-%% - Buyer: search, favorite, request appointments
-%% - Agent: manage listings, view clients, schedule
-%% - Admin: manage roles, generate reports
+%% - Buyer: search, favorite, request appointments, send messages
+%% - Agent: manage listings, view clients, schedule, send messages, 
+%%   receive notifications
+%% - Admin: manage users/roles, manage categories/properties, 
+%%   manage appointments, send messages, view system logs, 
+%%   receive notifications, assign agents to properties
 %% ==================================================

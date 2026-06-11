@@ -552,7 +552,7 @@
                     </div>
 
                     <p class="text-sm text-slate-500 mb-4">
-                        Are you sure you want to <span class="font-bold text-slate-700" x-text="reviewAction"></span> listing <span class="font-bold text-slate-700" x-text="reviewProperty?.title"></span>?
+                        Are you sure you want to change the status of <span class="font-bold text-slate-700" x-text="reviewProperty?.title"></span> to <span class="font-bold text-slate-700" x-text="reviewAction"></span>?
                         <template x-if="reviewAction === 'sold' || reviewAction === 'rented'">
                             <span class="block mt-2 text-emerald-600 font-semibold">The property price will be added to total revenue.</span>
                         </template>

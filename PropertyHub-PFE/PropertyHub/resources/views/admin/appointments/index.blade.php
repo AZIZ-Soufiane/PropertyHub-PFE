@@ -229,13 +229,13 @@
                                         @endphp
                                         <a href="{{ route('admin.appointments.show', $appt) }}"
                                            class="block p-2 rounded-xl border text-[8px] font-extrabold leading-tight transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md whitespace-normal break-words {{ $c }}"
-                                           title="{{ $appt->date_time->format('h:i A') }} - {{ optional($appt->client)->name }} with {{ optional($appt->agent)->name }}: {{ optional($appt->property)->title }}">
+                                           title="{{ $appt->date_time->format('h:i A') }} - {{ optional($appt->client)->name }}: {{ optional($appt->property)->title }}">
                                             <div class="flex items-center justify-between gap-1 mb-1">
                                                 <span class="font-black opacity-95 text-[8px]">{{ $appt->date_time->format('h:i A') }}</span>
                                                 <span class="size-1 rounded-full bg-white/90 flex-shrink-0"></span>
                                             </div>
                                             <span class="block font-black opacity-95 text-[8px]">{{ optional($appt->client)->name }}</span>
-                                            <span class="block opacity-80 font-bold text-[7px] mt-0.5">Agent: {{ optional($appt->agent)->name }}</span>
+                                            <span class="block opacity-80 font-bold text-[7px] mt-0.5">{{ optional($appt->property)->title }}</span>
                                         </a>
                                     @endforeach
                                 @endif
@@ -252,7 +252,7 @@
         @if($calDate)
             <div class="mt-8 border-t border-slate-200/60 pt-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                         <span class="size-2 rounded-full bg-primary-500 animate-pulse"></span>
                         Appointments for {{ \Carbon\Carbon::parse($calDate)->format('M d, Y') }}
                     </h4>

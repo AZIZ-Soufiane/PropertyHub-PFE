@@ -237,13 +237,13 @@
                                         ?>
                                         <a href="<?php echo e(route('admin.appointments.show', $appt)); ?>"
                                            class="block p-2 rounded-xl border text-[8px] font-extrabold leading-tight transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-md whitespace-normal break-words <?php echo e($c); ?>"
-                                           title="<?php echo e($appt->date_time->format('h:i A')); ?> - <?php echo e(optional($appt->client)->name); ?> with <?php echo e(optional($appt->agent)->name); ?>: <?php echo e(optional($appt->property)->title); ?>">
+                                           title="<?php echo e($appt->date_time->format('h:i A')); ?> - <?php echo e(optional($appt->client)->name); ?>: <?php echo e(optional($appt->property)->title); ?>">
                                             <div class="flex items-center justify-between gap-1 mb-1">
                                                 <span class="font-black opacity-95 text-[8px]"><?php echo e($appt->date_time->format('h:i A')); ?></span>
                                                 <span class="size-1 rounded-full bg-white/90 flex-shrink-0"></span>
                                             </div>
                                             <span class="block font-black opacity-95 text-[8px]"><?php echo e(optional($appt->client)->name); ?></span>
-                                            <span class="block opacity-80 font-bold text-[7px] mt-0.5">Agent: <?php echo e(optional($appt->agent)->name); ?></span>
+                                            <span class="block opacity-80 font-bold text-[7px] mt-0.5"><?php echo e(optional($appt->property)->title); ?></span>
                                         </a>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php endif; ?>
@@ -260,7 +260,7 @@
         <?php if($calDate): ?>
             <div class="mt-8 border-t border-slate-200/60 pt-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                    <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                         <span class="size-2 rounded-full bg-primary-500 animate-pulse"></span>
                         Appointments for <?php echo e(\Carbon\Carbon::parse($calDate)->format('M d, Y')); ?>
 

@@ -406,6 +406,17 @@ class PropertyService
 
     private function applyPublicFilters($query, array $filters): void
     {
+        if (!empty($filters['price_range'])) {
+            $range = $filters['price_range'];
+            if (str_contains($range, '+')) {
+                $filters['min_price'] = (int) str_replace('+', '', $range);
+            } elseif (str_contains($range, '-')) {
+                $parts = explode('-', $range, 2);
+                $filters['min_price'] = (int) $parts[0];
+                $filters['max_price'] = (int) $parts[1];
+            }
+        }
+
         if (!empty($filters['location'])) {
             $loc = $filters['location'];
             $query->where(function ($q) use ($loc) {

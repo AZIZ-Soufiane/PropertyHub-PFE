@@ -20,7 +20,15 @@
 
 <main>
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center hero-pattern">
+    <?php
+        $heroBgImage = 'https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=1920&q=80';
+        if ($featuredProperties && $featuredProperties->isNotEmpty()) {
+            $featured = $featuredProperties->first();
+            $heroBgImage = $featured->images->first()?->first_url ?? $heroBgImage;
+        }
+    ?>
+    <section class="relative min-h-screen flex items-center justify-center hero-pattern"
+        style="background-image: linear-gradient(to bottom, rgba(15,23,42,0.4), rgba(15,23,42,0.6)), url('<?php echo e($heroBgImage); ?>');">
         <div class="relative max-w-5xl mx-auto px-4 text-center z-10">
             <span class="inline-block py-2 px-4 bg-blue-600/10 text-white text-[10px] font-black uppercase tracking-widest rounded-full mb-6 border border-white/10 backdrop-blur-md">
                 Premium Real Estate

@@ -43,12 +43,26 @@
                         </select>
                     </div>
 
+                    <?php
+                        $minPrice = request('min_price');
+                        $maxPrice = request('max_price');
+                        if (!$minPrice && !$maxPrice && request('price_range')) {
+                            $range = request('price_range');
+                            if (str_contains($range, '+')) {
+                                $minPrice = str_replace('+', '', $range);
+                            } elseif (str_contains($range, '-')) {
+                                $parts = explode('-', $range, 2);
+                                $minPrice = $parts[0];
+                                $maxPrice = $parts[1];
+                            }
+                        }
+                    ?>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
                         <div class="grid grid-cols-2 gap-3">
-                            <input type="number" name="min_price" value="<?php echo e(request('min_price')); ?>" placeholder="Min"
+                            <input type="number" name="min_price" value="<?php echo e($minPrice); ?>" placeholder="Min"
                                 class="py-3 px-4 border border-gray-200 rounded-xl text-sm">
-                            <input type="number" name="max_price" value="<?php echo e(request('max_price')); ?>" placeholder="Max"
+                            <input type="number" name="max_price" value="<?php echo e($maxPrice); ?>" placeholder="Max"
                                 class="py-3 px-4 border border-gray-200 rounded-xl text-sm">
                         </div>
                     </div>
